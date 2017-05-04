@@ -6,6 +6,6 @@ app.config(function($routeProvider){
     templateUrl:"partials/registrationPage.html",
     controller:"registrationController"
   }).when("/",{
-    templateUrl:"partials/homePage1.html"
+    templateUrl:"partials/homePage.html"
   }).otherwise("/")
 });
