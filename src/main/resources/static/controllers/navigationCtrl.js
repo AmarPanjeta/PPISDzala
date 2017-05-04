@@ -9,9 +9,9 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
   $rootScope.test="";
   $rootScope.numberOfRequests=0;
 
-  if(localStorage.hasOwnProperty("token")){
-    $rootScope.token=localStorage.getItem("token");
-    $rootScope.userName=localStorage.getItem("userName");
+  if(localStorage.hasOwnProperty("username")){
+    $rootScope.username=localStorage.getItem("username");
+  
   }
 
   var self = this;
@@ -20,16 +20,13 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
 		return $route.current && route === $route.current.controller;
 	};
 
-  $rootScope.logged=function(){
-    return $rootScope.token!==null;
+  $scope.logged=function(){
+    return $rootScope.username!==null;
   };
 
   $scope.logout=function(){
-    $rootScope.userName='';
-    $rootScope.token=null;
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
-    $http.defaults.headers.common.Authorization = '';
+    $rootScope.username=null;
+    localStorage.removeItem("username");
     $location.path("/");
   };
 

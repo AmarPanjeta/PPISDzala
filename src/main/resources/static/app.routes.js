@@ -1,10 +1,10 @@
 app.config(function($routeProvider){
   $routeProvider.when('/login',{
     templateUrl:"partials/loginPage.html",
-    controller:"loginController"
+    controller:"loginCtrl"
   }).when('/registration',{
     templateUrl:"partials/registrationPage.html",
-    controller:"registrationController"
+    controller:"registrationCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

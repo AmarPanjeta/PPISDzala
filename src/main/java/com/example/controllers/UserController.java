@@ -18,7 +18,7 @@ public class UserController {
 	private UserRepository ur;
 	
 	@RequestMapping("/login")
-	public String login(@RequestBody UserData data) throws ServletException{
+	public LoginData login(@RequestBody LoginData data) throws ServletException{
 		
 		if(data.username==null || data.username.isEmpty() || data.password==null || data.password.isEmpty()){ 
 			
@@ -28,7 +28,7 @@ public class UserController {
 		
 		RegisteredUser user=ur.findFirstByUsernameAndPassword(data.username, data.password);
 		if(user !=null){
-			return data.username;
+			return data;
 		}
 		else{
 			throw new ServletException("Pogresna kombinacija username-password");
@@ -65,7 +65,6 @@ public class UserController {
 	@SuppressWarnings("unused")
 	private static class UserData{
 		
-		public long id;
 		public String username;
 		public String password;
 		public String name;
@@ -73,6 +72,14 @@ public class UserController {
 		public String address;
 		public String telephone;
 		public int type;
+		
+	}
+	
+	@SuppressWarnings("unused")
+	private static class LoginData{
+		
+		public String username;
+		public String password;
 		
 	}
 }
