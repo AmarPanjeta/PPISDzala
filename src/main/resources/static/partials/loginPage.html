@@ -2,18 +2,19 @@
 
 
 <form ng-submit="login()" class="custom-form">
-    
-  <label for="">Korisnicko ime:</label>
+
+<div class="form-group">
+  <label for="">Korisnicko ime:</label><br>
   <input type="text" ng-model="user.username" name="" id="" placeholder="username" class="username">
+</div>
 
-  
-    
-  <label for="">Sifra:</label>
-  <input type="password" ng-model="user.password" name="" id="" placeholder="password" class="pass">
+<div class="form-group">
+  <label for="">Sifra:</label><br>
+  <input type="password" ng-model="user.password" name="" id="" placeholder="password" class="pass"><br>
+</div>
 
-  
   <input type="submit"  value="Prijavi se"/>
-    
+
 </form>
 
 </div>

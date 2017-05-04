@@ -1,18 +1,16 @@
 app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,$route){
 
-  $rootScope.greeting = '';
-  $rootScope.token = null;
-  $rootScope.error = null;
-  $rootScope.roleUser = false;
-  $rootScope.roleAdmin = false;
-  $rootScope.roleFoo = false;
-  $rootScope.test="";
-  $rootScope.numberOfRequests=0;
+
 
   if(localStorage.hasOwnProperty("username")){
     $rootScope.username=localStorage.getItem("username");
-  
+
   }
+  else{
+  $rootScope.username=null;
+}
+
+  $log.log("username je "+$rootScope.username);
 
   var self = this;
 
@@ -34,20 +32,6 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
     $location.path("/");
   }
 
-
-  $scope.ucitajZahtjeve=function(){
-      if($rootScope.token!==null){
-        $scope.userName=$rootScope.userName;
-        $http.get("http://localhost:8080/users/search/findByUsername?username="+$scope.userName).then(function(response){
-           $scope.user=response.data;
-
-
-           $http.get("http://localhost:8080/relations/search/getnumberofrequests?id="+$scope.user.id).then(function(response){
-            $rootScope.numberOfRequests=response.data;
-           })
-      })
-    }
-  }
 
 $scope.imaZahtjeva=function(){
 return $rootScope.numberOfRequests!=0;
