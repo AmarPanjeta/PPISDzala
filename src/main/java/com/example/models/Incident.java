@@ -52,6 +52,9 @@ public class Incident {
 	@ManyToOne
 	private Department department;
 	
+	@ManyToOne
+	private RegisteredUser user;	
+	
 	private String title;
 
 	public long getId() {
@@ -166,6 +169,15 @@ public class Incident {
 		this.title = title;
 	}
 	
+	
+	public RegisteredUser getUser() {
+		return user;
+	}
+
+	public void setUser(RegisteredUser user) {
+		this.user = user;
+	}
+
 	public Incident(){
 		
 	}
