@@ -4,7 +4,6 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
 
   if(localStorage.hasOwnProperty("username")){
     $rootScope.username=localStorage.getItem("username");
-
   }
   else{
   $rootScope.username=null;
@@ -15,6 +14,7 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
   var self = this;
 
 	self.tab = function(route) {
+
 		return $route.current && route === $route.current.controller;
 	};
 
@@ -22,15 +22,18 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
     return $rootScope.username!==null;
   };
 
+
+
   $scope.logout=function(){
+
     $rootScope.username=null;
     localStorage.removeItem("username");
     $location.path("/");
   };
 
-  $scope.profile=function(){
-    $location.path("/");
-  }
+ /* $scope.profile=function(){
+    $location.path("/useraccount");
+  }*/
 
 
 $scope.imaZahtjeva=function(){

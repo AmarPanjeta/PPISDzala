@@ -5,7 +5,13 @@ app.config(function($routeProvider){
   }).when('/registration',{
     templateUrl:"partials/registrationPage.html",
     controller:"registrationCtrl"
-  }).when("/",{
+  }).when('/useraccount',{
+      templateUrl:"partials/userAccountPage.html",
+      controller:"userAccountCtrl"
+  })      .when('/services',{
+          templateUrl:"partials/servicesPage.html",
+          controller:"servicesCtrl"
+      }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")
 });

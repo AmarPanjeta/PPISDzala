@@ -1,21 +1,12 @@
 package com.example.controllers;
 
 import java.util.Date;
+import java.util.List;
 
+import com.example.models.*;
+import com.example.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.models.Department;
-import com.example.models.Incident;
-import com.example.models.Service;
-import com.example.models.Status;
-import com.example.repositories.DepartmentRepository;
-import com.example.repositories.IncidentRepository;
-import com.example.repositories.ServiceRepository;
-import com.example.repositories.StatusRepository;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/incidents")
@@ -23,9 +14,15 @@ public class IncidentController {
 	
 	@Autowired
 	private IncidentRepository ir;
-	
+	@Autowired
+	private ServiceRepository sr;
+	@Autowired
+	private UserServiceRepository usr;
+
 	@Autowired 
 	private ServiceRepository servicer;
+	@Autowired
+	private UserRepository userr;
 	
 	@Autowired
 	private StatusRepository statusr;
@@ -34,11 +31,12 @@ public class IncidentController {
 	private DepartmentRepository departmentr;
 	
 	//bolje bi bilo da je u kontroleru za service pa bi bilo "/services/id/addIncident" na konkretnu uslugu
-	@RequestMapping("/service/{id}/addIncident")
-	public void addIncident(@PathVariable("id") long id, @RequestBody IncidentBody inc) throws Exception
+	@RequestMapping("/service/{idservice}/{iduser}/addIncident")
+	public Incident addIncident(@PathVariable("idservice") long idservice, @PathVariable("iduser") long iduser, @RequestBody IncidentBody inc) throws Exception
 	{
-		Service ser=servicer.findById(id);
-		
+		Service ser=servicer.findById(idservice);
+		RegisteredUser user=userr.findById(iduser);
+		Status status=statusr.findByStatus("created");
 		if(ser.getDescription()==null)
 		{
 			throw new Exception("Usluga za koju se prijavljuje incident nije aktivna.");
@@ -52,14 +50,29 @@ public class IncidentController {
 		Incident novi=new Incident();
 		novi.setDescription(inc.description);
 		novi.setService(ser);
+		novi.setUser(user);
+		novi.setStatus(status);
 		novi.setCreated(new Date()); //stavice na sadasnje vrijeme
 		novi.setContactMethod(inc.contactMethod);
 		novi.setReportMethod(inc.reportMethod);
 		if(inc.title!=null) novi.setTitle(inc.title);
 		
-		ir.save(novi);
+		return ir.save(novi);
 	}
-	
+
+	@RequestMapping(value = "/userIncident", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Incident> findIncidentsByUserId(@RequestParam("userid") Long id) {
+		RegisteredUser user=userr.findById(id);
+		return ir.getByUser(user);
+	}
+
+	@RequestMapping(value = "/services", method = RequestMethod.GET)
+	@ResponseBody
+	public Iterable<Service> findServices() {
+
+		return sr.findAll();
+	}
 	@RequestMapping("/{id}/delete")
 	public void deleteIncident(@PathVariable("id") long id) throws Exception
 	{

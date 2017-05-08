@@ -1,0 +1,264 @@
+<style>
+    table {
+
+        border-collapse: separate;
+        border-spacing: 3px;
+        width: 100%
+    }
+
+    table tr {
+        background-color: gainsboro;
+
+    }
+
+    table tr td {
+        background-color: lightgray;
+        border-radius: 10px;
+        padding: 30px 20px;
+
+    }
+
+    h4 {
+        padding-bottom: 5px;
+        border-bottom: 1px solid gray;
+    }
+
+    .scrolling {
+        height: 180px;
+        overflow-y: hidden;
+    }
+
+    .scrolling:hover {
+        overflow-y: scroll;
+    }
+
+    .fl {
+        margin-left: 85%
+    }
+</style>
+
+<table ng-controller="userAccountCtrl" ng-init="onInit()" class="col-12">
+    <tr>
+        <td ng-if="izmijeniPodatke" colspan="2">
+            <h4> Promjena podataka </h4>
+            <form ng-submit="edit()" name="editForm" novalidate class="scrolling">
+                <div class="form-group">
+                    <label>Ime:</label><br>
+                    <input type="text" placeholder="Ime" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                </div>
+                <div class="form-group">
+                    <label>Prezime:</label><br>
+                    <input type="text" placeholder="Prezime" ng-model="user.surname" name="surname" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Adresa:</label><br>
+                    <input type="text" placeholder="Adresa" ng-model="user.address" name="address" class="address"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                </div>
+
+                <div class="form-group">
+                    <label>Korisnicko ime:</label><br>
+                    <input type="text" placeholder="Korisnicko ime" ng-model="user.username" name="username"
+                           class="username" ng-minlength="4" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>Korisnicka sifra:</label><br>
+                    <input type="password" placeholder="Korisnicka sifra" ng-model="user.password" name="password"
+                           class="pass" ng-minlength="4" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>Ponovljena sifra:</label><br>
+                    <input type="password" placeholder="Ponovljena sifra" ng-model="passwordRepeat"
+                           name="passwordRepeat" class="pass" required/>
+                </div>
+
+                <input class="btn btn-info" type="submit" value="Spasi promjene"/>
+            </form>
+
+
+        </td>
+        <td ng-if="!izmijeniPodatke " colspan="2">
+            <h4> Podaci o korisniku
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#podaci">V</button>
+            </h4>
+            <div id="podaci" class="scrolling collapse">
+                <div class="form-group">
+                    <label>Ime:</label><br>
+                    <label>{{user.name}}</label>
+                </div>
+                <div class="form-group">
+                    <label>Prezime:</label><br>
+                    <label>{{user.surname}}</label>
+                </div>
+                <div class="form-group">
+                    <label>Adresa:</label><br>
+                    <label>{{user.address}}</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Korisnicko ime:</label><br>
+                    <label>{{user.username}}</label>
+                </div>
+
+
+                <input class="btn btn-info" type="submit" value="Izmijeni podatke" ng-click="editMode()"/>
+            </div>
+
+        </td>
+    </tr>
+
+    <tr>
+
+        <td ng-if="user.type!=2">
+            <h4> Pregled prijavljenih usluga
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#usluge">V</button>
+            </h4>
+            <div id="usluge" class="collapse">
+                <ul class="list-group scrolling ">
+                    <li ng-repeat="service in services" class="list-group-item" ng-if="service.available">
+                        <div class="form-group">
+                            <label>Naziv Usluge:</label><br>
+                            <label>{{service.name}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Opis Usluge:</label><br>
+                            <label>{{service.description}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Cijena Usluge:</label><br>
+                            <label>{{service.price}}</label>
+                        </div>
+                        <input class="btn btn-info" type="submit" value="Prijavi incident vezan za uslugu"
+                               ng-click="prijaviIncident(service)"/>
+                        <input class="btn btn-info" type="submit" value="Odjavi uslugu"
+                               ng-click="odjaviUslugu(service)">
+                    </li>
+                </ul>
+                <h4></h4>
+                <input class="btn btn-info" type="submit" value="Dodaj zahtjev za uslugom" ng-click="dodajZahtjev()">
+            </div>
+        </td>
+        <td ng-if="problem && user.type!=2">
+            <h4> Prijava incidenta</h4>
+
+            <form ng-submit="prijaviIncidentUnos()" name="incidentForm" novalidate class="scrolling">
+                <div class="form-group">
+                    <label>Prijava incidenta na uslugu</label>
+                    <label>{{trenutniService.name}}</label>
+                </div>
+                <div class="form-group">
+                    <label>Naziv incidenta:</label><br>
+                    <input type="text" placeholder="Adresa" ng-model="incident.title" name="address" class="address"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                </div>
+                <div class="form-group">
+                    <label>Opis:</label><br>
+                    <input type="text" placeholder="Adresa" ng-model="incident.description" name="address"
+                           class="address" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>O saniranju smetnje obavijestiti putem: </label>
+                    <label>Emaila <input type="radio" placeholder="Ime" ng-model="incident.contact_method"
+                                         ng-value="email" required/>
+                    </label> </label>
+                    <label>Telefona <input type="radio" placeholder="Prezime" ng-model="incident.contact_method"
+                                           ng-value="phone" required/>
+                    </label><br>
+
+
+                </div>
+                <input class="btn btn-info" type="submit" value="Prijavi incident"/>
+            </form>
+        </td>
+        <td ng-if="zahtjev && user.type!=2">
+            <h4>Zahtjev za uslugom</h4>
+
+            <form ng-submit="prijaviZahtjevZaUslugom()" name="reqform" novalidate class="scrolling">
+                <div class="form-group">
+                    <label>Naziv zahtjeva:</label><br>
+                    <input type="text" placeholder="Adresa" ng-model="request.title" name="address" class="address"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                </div>
+                $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
+                $scope.incidents = response2.data;
+                <label>Opis:</label><br>
+                <input type="text" placeholder="Adresa" ng-model="request.description" name="address"
+                       class="address" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>O statusu zahtjeva obavijestiti putem: </label>
+                    <label>Emaila <input type="radio" placeholder="Ime" ng-model="request.contact_method"
+                                         ng-value="email" required/>
+                    </label> </label>
+                    <label>Telefona <input type="radio" placeholder="Prezime" ng-model="request.contact_method"
+                                           ng-value="phone" required/>
+                    </label><br>
+
+
+                </div>
+                <input class="btn btn-info" type="submit" value="Dodaj zahtjev"/>
+            </form>
+        </td>
+
+    </tr>
+
+    <tr>
+        <td colspan="2" ng-if="user.type!=2">
+            <h4> Pregled statusa incidenata
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#statusinc">V</button>
+            </h4>
+
+            <ul id="statusinc" class="list-group scrolling collapse">
+                <li ng-repeat="inc in incidents" class="list-group-item">
+                    <div class="form-group">
+                        <label>Naziv incidenta:</label>
+                        <label>{{inc.title}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Usluga za koju se veze incident:</label>
+                        <label>{{inc.service.name}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status incidenta:</label>
+                        <label>{{inc.status.status}}</label>
+                    </div>
+
+
+                    <input class="btn btn-info" ng-if="inc.status.id!=2" type="submit" value="Obrisi incident"
+                           ng-click="obrisi(inc)">
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" ng-if="user.type!=2">
+            <h4> Pregled statusa zahtjeva
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#statuszah">V</button>
+            </h4>
+            <ul id="statuszah" class="list-group scrolling collapse">
+                <li ng-repeat="req in requests" class="list-group-item">
+                    <div class="form-group">
+                        <label>Naziv zahtjeva:</label>
+                        <label>{{req.title}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Status zahtjeva:</label>
+                        <label>{{req.status.status}}</label>
+                    </div>
+                    <input class="btn btn-info" ng-if="inc.status.id!=2" type="submit" value="Obrisi zahtjev"
+                           ng-click="obrisiZahtjev(req)">
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>

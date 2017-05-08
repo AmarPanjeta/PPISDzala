@@ -38,7 +38,8 @@ public class Request {
 	
 	@ManyToOne
 	private Status status;
-	
+	@ManyToOne
+	private RegisteredUser user;
 	@ManyToOne
 	private Department department;
 
@@ -124,5 +125,13 @@ public class Request {
 	
 	public Request(){
 		
+	}
+
+	public RegisteredUser getUser() {
+		return user;
+	}
+
+	public void setUser(RegisteredUser user) {
+		this.user = user;
 	}
 }
