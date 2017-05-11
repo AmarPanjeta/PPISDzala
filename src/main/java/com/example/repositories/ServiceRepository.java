@@ -7,4 +7,5 @@ import com.example.models.Service;
 
 public interface ServiceRepository extends CrudRepository<Service, Long>{
 	Service findById(@Param("id") long id);
+
 }

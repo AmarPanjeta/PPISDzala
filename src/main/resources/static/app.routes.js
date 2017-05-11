@@ -11,6 +11,9 @@ app.config(function($routeProvider){
   }).when('/services/:id',{
     templateUrl:"partials/serviceViewPage.html",
     controller:"serviceViewCtrl"
+  }).when('/useraccount',{
+      templateUrl:"partials/userAccountPage.html",
+      controller:"userAccountCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")
