@@ -12,17 +12,28 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
             $scope.user = {};
             $http.get('/user/find?username=' + $rootScope.username).then(function (response) {
                 $scope.user = response.data;
-                $http.get('/user/userservices?userid=' + $scope.user.id).then(function (response1) {
-                    $scope.services = response1.data;
-                    $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
-                        $scope.incidents = response2.data;
-                        $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
-                            $scope.requests = response3.data;
-                            $log.log($scope.requests);
+                  $http.get('/user/userservices?userid=' + $scope.user.id).then(function (response1) {
+                      $scope.services = response1.data;
+                      if($scope.user.type==1){
+                        $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
+                            $scope.incidents = response2.data;
+                            $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
+                                $scope.requests = response3.data;
+                                $log.log($scope.requests);
+                            });
                         });
-                    });
+                      }
+                      else{
+                        $http.get('requests/all').then(function(response2){
+                          $scope.requests=response2.data;
+                          $http.get('incidents/all').then(function(response3){
+                            $scope.incidents=response3.data;
+                          })
+                        });
+                      }
+
+                  });
                 });
-            });
 
         }
 

@@ -267,4 +267,54 @@
             </ul>
         </td>
     </tr>
+    <tr>
+        <td colspan="2" ng-if="user.type==2">
+            <h4> Pregled incidenata
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#statusinc">V</button>
+            </h4>
+
+            <ul id="statusinc" class="list-group scrolling collapse">
+                <li ng-repeat="inc in incidents" class="list-group-item">
+                    <div class="form-group">
+                        <label>Naziv incidenta:</label>
+                        <label>{{inc.title}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Usluga za koju se veze incident:</label>
+                        <label>{{inc.service.name}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status incidenta:</label>
+                        <label>{{inc.status.status}}</label>
+                    </div>
+
+
+                    <input class="btn btn-info" ng-if="inc.status.id!=2" type="submit" value="Obrisi incident"
+                           ng-click="obrisi(inc)">
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr ng-if="user.type==2">
+        <td colspan="2" ng-if="user.type==2">
+            <h4> Pregled zahtjeva
+                <button type="button" class="btn btn-info fl" data-toggle="collapse" data-target="#statuszah">V</button>
+            </h4>
+            <ul id="statuszah" class="list-group scrolling collapse">
+                <li ng-repeat="req in requests" class="list-group-item">
+                    <div class="form-group">
+                        <label>Naziv zahtjeva:</label>
+                        <label>{{req.title}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Status zahtjeva:</label>
+                        <label>{{req.status.status}}</label>
+                    </div>
+                    <input class="btn btn-info" ng-if="inc.status.id!=2" type="submit" value="Obrisi zahtjev"
+                           ng-click="obrisiZahtjev(req)">
+                </li>
+            </ul>
+        </td>
+    </tr>
 </table>
