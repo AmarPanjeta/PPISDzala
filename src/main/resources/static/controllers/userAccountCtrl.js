@@ -18,6 +18,7 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
                         $scope.incidents = response2.data;
                         $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
                             $scope.requests = response3.data;
+                            $log.log($scope.requests);
                         });
                     });
                 });
@@ -55,14 +56,24 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
             $scope.problem = 1;
             $scope.zahtjev = 0;
         }
+        $scope.odustaniIncident=function(){
+            $scope.problem=0;
+            $scope.incident={};
+            $scope.zahtjev=0;
+        }
 
         $scope.dodajZahtjev = function () {
             $scope.request = {};
             $scope.problem = 0;
             $scope.zahtjev = 1;
         }
+        $scope.odustaniZahtjev=function(){
+          $scope.request={};
+          $scope.zahtjev=0;
+          $scope.problem=0;
+        }
         $scope.prijaviIncidentUnos = function () {
-            $scope.incident.contactMethod = 1;
+            $scope.incident.contactMethod = ($scope.incident.contact_method=="email"? 1:2);
             $scope.incident.reportMethod = 1;
 
             $http({
@@ -77,13 +88,15 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
                 $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
                     $scope.incidents = response2.data;
                 });
+                $scope.incident={};
+                $scope.problem=0;
             })
         }
 
 
         $scope.prijaviZahtjevZaUslugom = function () {
 
-            $scope.request.contactMethod = 1;
+            $scope.request.contactMethod = ($scope.request.contact_method=="email"? 1:2);
             $scope.request.reportMethod = 1;
 
             $http({
@@ -98,6 +111,7 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
                 $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
                     $scope.requests = response3.data;
                 });
+                $scope.request={};
             })
         }
 
@@ -115,7 +129,7 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
 
             })
         }
-
+        /* Ovo bi trebao biti soft delete, kako bi mogli lakse mogli koristiti podatke za analizu */
         $scope.obrisiZahtjev = function (req) {
 
             $http({
