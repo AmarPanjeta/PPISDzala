@@ -23,7 +23,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="brand navbar-brand " href="#/">DZAALA TELEKOM</a>
+        <a class="brand navbar-brand " href="#!/">DZAALA TELEKOM</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,9 +39,9 @@
         </form>
 
         <ul class="nav navbar-nav navbar-right menu-list">
-          <li ng-show="!logged()" ng-class="{active:nav.tab('loginController')}"><a href="#!/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
-          <li ng-show="!logged()" ng-class="{active:nav.tab('registrationController')}"><a href="#!/registration"><span class="glyphicon glyphicon-log-in"></span> Registracija</a></li>
-
+          <li ng-show="!logged()" ng-class="{active:nav.tab('loginCtrl')}"><a href="#!/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+          <li ng-show="!logged()" ng-class="{active:nav.tab('registrationCtrl')}"><a href="#!/registration"><span class="glyphicon glyphicon-log-in"></span> Registracija</a></li>
+          <li ng-class="{active:nav.tab('servicesCtrl')}"><a href="#!/services"> Usluge </a></li>
           <li ng-show="logged()"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 
         </ul>
@@ -78,6 +78,8 @@
     <script src="controllers/navigationCtrl.js" charset="utf-8"></script>
     <script src="controllers/loginCtrl.js" charset="utf-8"></script>
     <script src="controllers/registrationCtrl.js" charset="utf-8"></script>
+    <script src="controllers/servicesCtrl.js" charset="utf-8"></script>
+    <script src="controllers/serviceViewCtrl.js" charset="utf-8"></script>
 
     <!--- End of script files --->
   </body>
