@@ -45,7 +45,7 @@ public class RequestController {
         newreq.setContactMethod(req.contactMethod);
         newreq.setReportMethod(req.reportMethod);
         if(req.title!=null) newreq.setTitle(req.title);
-return  reqr.save(newreq);
+        return  reqr.save(newreq);
     }
 
     @RequestMapping(value = "/userRequest", method = RequestMethod.GET)
@@ -66,6 +66,11 @@ return  reqr.save(newreq);
         }
 
         reqr.delete(i);
+    }
+    
+    @RequestMapping("/all")
+    public List<Request> all(){
+    	return (List<Request>)reqr.findAll();
     }
 
     private static class ReqBody{

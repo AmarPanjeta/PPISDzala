@@ -12,16 +12,28 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
             $scope.user = {};
             $http.get('/user/find?username=' + $rootScope.username).then(function (response) {
                 $scope.user = response.data;
-                $http.get('/user/userservices?userid=' + $scope.user.id).then(function (response1) {
-                    $scope.services = response1.data;
-                    $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
-                        $scope.incidents = response2.data;
-                        $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
-                            $scope.requests = response3.data;
+                  $http.get('/user/userservices?userid=' + $scope.user.id).then(function (response1) {
+                      $scope.services = response1.data;
+                      if($scope.user.type==1){
+                        $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
+                            $scope.incidents = response2.data;
+                            $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
+                                $scope.requests = response3.data;
+                                $log.log($scope.requests);
+                            });
                         });
-                    });
+                      }
+                      else{
+                        $http.get('requests/all').then(function(response2){
+                          $scope.requests=response2.data;
+                          $http.get('incidents/all').then(function(response3){
+                            $scope.incidents=response3.data;
+                          })
+                        });
+                      }
+
+                  });
                 });
-            });
 
         }
 
@@ -55,14 +67,24 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
             $scope.problem = 1;
             $scope.zahtjev = 0;
         }
+        $scope.odustaniIncident=function(){
+            $scope.problem=0;
+            $scope.incident={};
+            $scope.zahtjev=0;
+        }
 
         $scope.dodajZahtjev = function () {
             $scope.request = {};
             $scope.problem = 0;
             $scope.zahtjev = 1;
         }
+        $scope.odustaniZahtjev=function(){
+          $scope.request={};
+          $scope.zahtjev=0;
+          $scope.problem=0;
+        }
         $scope.prijaviIncidentUnos = function () {
-            $scope.incident.contactMethod = 1;
+            $scope.incident.contactMethod = ($scope.incident.contact_method=="email"? 1:2);
             $scope.incident.reportMethod = 1;
 
             $http({
@@ -77,13 +99,15 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
                 $http.get('/incidents/userIncident?userid=' + $scope.user.id).then(function (response2) {
                     $scope.incidents = response2.data;
                 });
+                $scope.incident={};
+                $scope.problem=0;
             })
         }
 
 
         $scope.prijaviZahtjevZaUslugom = function () {
 
-            $scope.request.contactMethod = 1;
+            $scope.request.contactMethod = ($scope.request.contact_method=="email"? 1:2);
             $scope.request.reportMethod = 1;
 
             $http({
@@ -98,6 +122,7 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
                 $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {
                     $scope.requests = response3.data;
                 });
+                $scope.request={};
             })
         }
 
@@ -115,7 +140,7 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
 
             })
         }
-
+        /* Ovo bi trebao biti soft delete, kako bi mogli lakse mogli koristiti podatke za analizu */
         $scope.obrisiZahtjev = function (req) {
 
             $http({

@@ -215,6 +215,11 @@ public class IncidentController {
 		ir.save(novi);	
 	}
 	
+	@RequestMapping("/all")
+	public List<Incident> all(){
+		return (List<Incident>) ir.findAll();
+	}
+	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
 		public String description;
