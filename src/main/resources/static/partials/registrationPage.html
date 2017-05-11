@@ -1,4 +1,4 @@
-   <form ng-submit="register()" name="registrationForm" novalidate>
+   <form ng-submit="register()" name="registrationForm" class="login-form" novalidate>
       <div class="form-group">
         <label>Ime:</label><br>
         <input type="text" placeholder="Ime" ng-model="user.name" name="name" class="username" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required />
@@ -29,5 +29,5 @@
         <input type="password" placeholder="Ponovljena sifra" ng-model="passwordRepeat" name="passwordRepeat" class="pass" required />
       </div>
 
-      <input type="submit" value="Registruj se" />
+      <input type="submit" class="btn btn-info dugme-registracija" value="Registruj se" />
 </form>
