@@ -1,0 +1,107 @@
+<div class="container">
+<div ng-show="loggedIn()">
+<h1 ng-model="user.username" >Dobro došli, <b><i>{{user.username}}!</i></b></h1>
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Informacije o korisniku:</b></h2>
+			<h4 ng-model="user.username"><b>Korisničko ime:</b> {{user.username}}</h4>
+			<h4 ng-model="user.username"><b>Ime:</b> {{user.name}}</h4>
+			<h4 ng-model="user.username"><b>Prezime:</b> {{user.surname}}</h4>
+			<h4 ng-model="user.address"><b>Adresa:</b> {{user.address}}</h4>
+			<h4 ng-model="user.email"><b>Email:</b> {{user.email}}</h4>
+			<h4 ng-model="user.telephone"><b>Kontakt telefon:</b> {{user.telephone}}</h4>
+			<h4 ng-model="user.type"><b>Uloga:</b> {{user.type}}</h4>
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" value="Promijeni podatke"/>
+		</div>
+
+	</div>
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Pregled incidenata:</b></h2>
+		<table class="col-12">
+		<thead>
+			<tr>
+				<th colspan="7">Aktuelni incidenti
+					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">V</button>
+					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="sakrijAktuelne()">A</button>
+				</th>
+			</tr>
+			<tr >
+				<th>#</th>
+				<th>Redoslijed rješavanja</th>
+				<th>Prioritet</th>
+				<th>Odjel</th>
+				<th>Status</th>
+				<th>Datum prijave</th>
+				<th>Opcije</th>
+			</tr>
+		</thead>
+		<tbody ng-show="aktuelniKlik">
+			<tr ng-repeat="inc in incidents">
+				<td>{{inc.id}}</td>
+				<td>{{inc.urgency}}</td>
+				<td>{{inc.priority}}</td>
+				<td>{{inc.department}}</td>
+				<td>{{inc.status}}</td>
+				<td>{{inc.created}}</td>
+				<td><input type="submit" class="btn btn-primary" value="Detaljno ili riješi"/></td>
+			</tr>
+			
+		</tbody>
+			
+		</table>
+
+		<table class="col-12">
+			<tr>
+				<th colspan="7">Zatvoreni incidenti
+					<button type="button" class="btn btn-info fl2" data-toggle="collapse" data-target="#podaci">V</button>
+				</th>
+			</tr>
+			<tr>
+				<td>id</td>
+				<td>redoslijed</td>
+				<td>prioritet</td>
+				<td>odjel</td>
+				<td>status</td>
+				<td>datum prijave</td>
+				<td>opcije</td>
+			</tr>
+			<tr>
+				<td>id</td>
+				<td>redoslijed</td>
+				<td>prioritet</td>
+				<td>odjel</td>
+				<td>status</td>
+				<td>datum prijave</td>
+				<td>opcije</td>
+			</tr>
+		</table>
+
+		<table class="col-12">
+			<tr>
+				<th colspan="7">Statistika
+					<button type="button" class="btn btn-info fl3" data-toggle="collapse" data-target="#podaci">V</button>
+				</th>
+			</tr>
+			
+		</table>
+		
+			
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">			
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" value="Evidentiraj incident"/>
+		</div>
+
+	</div>
+
+
+</div>
+</div>

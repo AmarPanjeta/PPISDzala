@@ -14,6 +14,9 @@ app.config(function($routeProvider){
   }).when('/useraccount',{
       templateUrl:"partials/userAccountPage.html",
       controller:"userAccountCtrl"
+  }).when('/incidentmanager',{
+    templateUrl:"partials/incidentManager.html",
+    controller:"incidentMngCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

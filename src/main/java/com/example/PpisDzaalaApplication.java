@@ -23,7 +23,7 @@ public class PpisDzaalaApplication {
 		SpringApplication.run(PpisDzaalaApplication.class, args);
 
 	}
-
+/*
 	@Bean
 	public CommandLineRunner demo(StatusRepository sr,UserRepository ur, ServiceRepository ssr) {
 		return (args) -> {
@@ -89,5 +89,5 @@ public class PpisDzaalaApplication {
 			service.setPrice(20);
 			ssr.save(service);
 		}
-	};}
+	};}*/
 }
