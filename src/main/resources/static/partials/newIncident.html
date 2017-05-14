@@ -1,0 +1,93 @@
+<div class="container">
+
+
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Prijava incidenta putem telefona:</b></h2>
+			<h4 ng-model="incident.urgency"><b>Redoslijed rješavanja:</b> </h4>
+			<input type="text" placeholder="Redoslijed rješavanja" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.priority"><b>Prioritet:</b></h4>
+<input type="text" placeholder="Prioritet:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.department"><b>Odjel za rješavanje:</b></h4>
+			<input type="text" placeholder="Odjel za rješavanje:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.status"><b>Status incidenta:</b> </h4>
+			<input type="text" placeholder="Status incidenta:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.username"><b>Prijavio:</b></h4>
+			<input type="text" placeholder="Prijavio:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.name"><b>Ime:</b></h4>
+			<input type="text" placeholder="Ime" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.address"><b>Prezime:</b></h4>
+			<input type="text" placeholder="Prezime" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.email"><b>Email:</b> </h4>
+			<input type="text" placeholder="Email" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.telephone"><b>Kontakt telefon:</b></h4>
+			<input type="text" placeholder="Kontakt telefon" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="user.address"><b>Lokacija korisnika:</b> </h4>
+			<input type="text" placeholder="Lokacija korisnika" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.created"><b>Datum prijave:</b> </h4>
+			<input type="text" placeholder="Datum prijave" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.reportMethod"><b>Način prijave:</b> </h4>
+			<input type="text" placeholder="Nacin prijave" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.description"><b>Opis incidenta:</b> </h4>
+			<input type="text" placeholder="Opis incidenta" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.activityDescription"><b>Opis poduzetih aktivnosti:</b> </h4>
+			<input type="text" placeholder="Opis poduzetih aktivnosti" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.incident"><b>Povezani incident:</b> </h4>
+			<input type="text" placeholder="Povezani incidenti" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model=""><b>Broj ponavljanja incidenta:</b> </h4>
+			<input type="text" placeholder="Broj ponavljanja incidenta" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model="incident.contactMethod"><b>Način odgovaranja:</b> </h4>
+			<input type="text" placeholder="Nacin odgovaranja" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4 ng-model=""><b>Evidentirao:</b></h4>
+			<input type="text" placeholder="Evidentirao" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+            <br/>
+
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="prijaviIncident()" value="Prijavi incident"/>
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Odustani"/>
+		</div>
+
+	</div>
+
+
+
+
+
+
+</div>

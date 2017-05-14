@@ -17,6 +17,9 @@ app.config(function($routeProvider){
   }).when('/incidentmanager',{
     templateUrl:"partials/incidentManager.html",
     controller:"incidentMngCtrl"
+  }).when('/newincident',{
+    templateUrl:"partials/newIncident.html",
+    controller:"incidentCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

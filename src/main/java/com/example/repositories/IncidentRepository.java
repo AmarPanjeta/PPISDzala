@@ -5,15 +5,23 @@ import com.example.models.Service;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.models.Incident;
 
 import java.util.List;
 
+@RepositoryRestResource(path="incidents",collectionResourceRel="incidents")
 public interface IncidentRepository extends CrudRepository<Incident, Long>{
 	Incident findById(@Param("id") long id);
 
 	@Query("select i from Incident i where i.user=:userid")
 	List<Incident> getByUser(@Param("userid") RegisteredUser userid);
+	
+	@Query("select i from Incident i where i.status.status<>'closed'")
+	List<Incident> getActiveIncidents();
+	
+	@Query("select i from Incident i where i.status.status='closed'")
+	List<Incident> getClosedIncidents();
 	
 }

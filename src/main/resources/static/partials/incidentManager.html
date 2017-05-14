@@ -26,11 +26,11 @@
 		<thead>
 			<tr>
 				<th colspan="7">Aktuelni incidenti
-					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">V</button>
-					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="sakrijAktuelne()">A</button>
+					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
+					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" style="margin-left: 85.7%;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
 				</th>
 			</tr>
-			<tr >
+			<tr ng-show="aktuelniKlik">
 				<th>#</th>
 				<th>Redoslijed rješavanja</th>
 				<th>Prioritet</th>
@@ -56,35 +56,43 @@
 		</table>
 
 		<table class="col-12">
+		<thead>
 			<tr>
 				<th colspan="7">Zatvoreni incidenti
-					<button type="button" class="btn btn-info fl2" data-toggle="collapse" data-target="#podaci">V</button>
+					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info fl2" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
+					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info fl2" style="margin-left: 84.99%;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
 				</th>
 			</tr>
-			<tr>
-				<td>id</td>
-				<td>redoslijed</td>
-				<td>prioritet</td>
-				<td>odjel</td>
-				<td>status</td>
-				<td>datum prijave</td>
-				<td>opcije</td>
+			<tr ng-show="zatvoreniKlik">
+				<td>#</td>
+				<td>Redoslijed</td>
+				<td>Prioritet</td>
+				<td>Odjel</td>
+				<td>Status</td>
+				<td>Datum prijave</td>
+				<td>Opcije</td>
 			</tr>
-			<tr>
-				<td>id</td>
-				<td>redoslijed</td>
-				<td>prioritet</td>
-				<td>odjel</td>
-				<td>status</td>
-				<td>datum prijave</td>
-				<td>opcije</td>
+		</thead>
+		<tbody ng-show="zatvoreniKlik">
+			<tr ng-repeat="cinc in closedIncidents">
+				<td>{{cinc.id}}</td>
+				<td>{{cinc.urgency}}</td>
+				<td>{{cinc.priority}}</td>
+				<td>{{cinc.department}}</td>
+				<td>{{cinc.status}}</td>
+				<td>{{cinc.created}}</td>
+				<td><input type="submit" class="btn btn-primary" value="Prikaži detaljnije"/></td>
 			</tr>
+
+			
+		</tbody>
 		</table>
 
 		<table class="col-12">
 			<tr>
 				<th colspan="7">Statistika
-					<button type="button" class="btn btn-info fl3" data-toggle="collapse" data-target="#podaci">V</button>
+					<button ng-if="!statistikaKlik" type="button" class="btn btn-info fl3" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
+					<button ng-if="statistikaKlik" type="button"  class="btn btn-info fl3" style="margin-left:90.8%;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
 				</th>
 			</tr>
 			
@@ -97,7 +105,7 @@
 
 	<div class="row">
 		<div class="col-md-12">			
-			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" value="Evidentiraj incident"/>
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajIncident()" value="Evidentiraj incident"/>
 		</div>
 
 	</div>
