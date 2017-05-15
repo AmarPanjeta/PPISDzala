@@ -1,0 +1,46 @@
+<div class="container">
+
+<h1 ng-model="user.username" >Dobro došli, <b><i>{{user.username}}!</i></b></h1>
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Informacije o korisniku:</b></h2>
+
+			<h4><b>Korisničko ime:</b> {{user.username}}</h4>
+			
+			<h4><b>Ime:</b></h4>
+			<input type="text" placeholder="Ime" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+			<h4><b>Prezime:</b></h4>
+			<input type="text" placeholder="Prezime" ng-model="user.surname" name="surname" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+            <h4><b>Kontakt telefon:</b></h4>
+			<input type="text" placeholder="Kontakt telefon" ng-model="user.telephone" name="telephone" class="name"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+            <h4><b>Adresa:</b></h4>
+			<input type="text" placeholder="Adresa" ng-model="user.address" name="address" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+<!--
+			<h4 ng-model="user.email"><b>Email:</b> </h4>
+			<input type="text" placeholder="Email" ng-model="user.email" name="email" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+-->		
+			
+			
+			
+			<h4 ng-model="user.type"><b>Uloga:</b> {{user.type}}</h4>
+
+			<button class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="sacuvaj()">Sacuvaj</button>
+			<button class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()">Odustani</button>
+		</div>
+
+	</div>
+
+
+
+	
+</div>

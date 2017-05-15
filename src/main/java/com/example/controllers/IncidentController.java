@@ -220,6 +220,16 @@ public class IncidentController {
 		return (List<Incident>) ir.findAll();
 	}
 	
+	@RequestMapping("/closed")
+	public List<Incident> getClosedIncidents(){
+		return (List<Incident>) ir.getClosedIncidents();
+	}
+	
+	@RequestMapping("/active")
+	public List<Incident> getActiveIncidents(){
+		return (List<Incident>) ir.getActiveIncidents();
+	}
+	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
 		public String description;

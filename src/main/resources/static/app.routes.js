@@ -20,6 +20,9 @@ app.config(function($routeProvider){
   }).when('/newincident',{
     templateUrl:"partials/newIncident.html",
     controller:"incidentCtrl"
+  }).when('/changeprofileinfo',{
+    templateUrl:"partials/changeProfileInfo.html",
+    controller:"profileCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

@@ -13,7 +13,7 @@
 			<h4 ng-model="user.email"><b>Email:</b> {{user.email}}</h4>
 			<h4 ng-model="user.telephone"><b>Kontakt telefon:</b> {{user.telephone}}</h4>
 			<h4 ng-model="user.type"><b>Uloga:</b> {{user.type}}</h4>
-			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" value="Promijeni podatke"/>
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="promjenaPodataka()" value="Promijeni podatke"/>
 		</div>
 
 	</div>
@@ -45,9 +45,11 @@
 				<td>{{inc.id}}</td>
 				<td>{{inc.urgency}}</td>
 				<td>{{inc.priority}}</td>
-				<td>{{inc.department}}</td>
-				<td>{{inc.status}}</td>
-				<td>{{inc.created}}</td>
+				<td>{{inc.department.name}}</td>
+				<td>{{inc.status.status}}</td>
+				<td>{{inc.datumPrijave.day}}.{{inc.datumPrijave.month}}.{{inc.datumPrijave.year}}.godine <br/>
+				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
+				</td>
 				<td><input type="submit" class="btn btn-primary" value="Detaljno ili riješi"/></td>
 			</tr>
 			
@@ -78,9 +80,11 @@
 				<td>{{cinc.id}}</td>
 				<td>{{cinc.urgency}}</td>
 				<td>{{cinc.priority}}</td>
-				<td>{{cinc.department}}</td>
-				<td>{{cinc.status}}</td>
-				<td>{{cinc.created}}</td>
+				<td>{{cinc.department.name}}</td>
+				<td>{{cinc.status.status}}</td>
+				<td>{{cinc.datumPrijave.day}}.{{cinc.datumPrijave.month}}.{{cinc.datumPrijave.year}}.godine <br/>
+				{{cinc.datumPrijave.hours}}:{{cinc.datumPrijave.minutes}}:{{cinc.datumPrijave.seconds}} sati
+				</td>
 				<td><input type="submit" class="btn btn-primary" value="Prikaži detaljnije"/></td>
 			</tr>
 
