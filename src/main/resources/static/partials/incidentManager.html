@@ -44,9 +44,9 @@
 			<tr ng-repeat="inc in incidents">
 				<td>{{inc.id}}</td>
 				<td>{{inc.urgency}}</td>
-				<td>{{inc.priority}}</td>
-				<td>{{inc.department.name}}</td>
-				<td>{{inc.status.status}}</td>
+				<td class="priority-class" value="{{inc.priority}}">{{inc.priority}}</td>
+				<td class="department-class" value="{{inc.department.name}}">{{inc.department.name}}</td>
+				<td class="status-class" value="{{inc.status.status}}">{{inc.status.status}}</td>
 				<td>{{inc.datumPrijave.day}}.{{inc.datumPrijave.month}}.{{inc.datumPrijave.year}}.godine <br/>
 				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
 				</td>
@@ -79,9 +79,9 @@
 			<tr ng-repeat="cinc in closedIncidents">
 				<td>{{cinc.id}}</td>
 				<td>{{cinc.urgency}}</td>
-				<td>{{cinc.priority}}</td>
-				<td>{{cinc.department.name}}</td>
-				<td>{{cinc.status.status}}</td>
+				<td class="priority-class" value="{{cinc.priority}}">{{cinc.priority}}</td>
+				<td class="department-class" value="{{cinc.department.name}}">{{cinc.department.name}}</td>
+				<td class="status-class" value="{{cinc.status.status}}">{{cinc.status.status}}</td>
 				<td>{{cinc.datumPrijave.day}}.{{cinc.datumPrijave.month}}.{{cinc.datumPrijave.year}}.godine <br/>
 				{{cinc.datumPrijave.hours}}:{{cinc.datumPrijave.minutes}}:{{cinc.datumPrijave.seconds}} sati
 				</td>

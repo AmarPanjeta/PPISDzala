@@ -125,3 +125,66 @@ h4{
     .fl3 {
         margin-left:  90.4%;
     }
+
+
+    .priority-class[value="5"]{
+      background-color: #ff2500;
+    }
+
+    .priority-class[value="4"]{
+      background-color: #f44336;
+    }
+
+    .priority-class[value="3"]{
+      background-color: #ff9800;
+    }
+
+    .priority-class[value="2"]{
+      background-color: #fff400;
+    }
+
+    .priority-class[value="1"]{
+      background-color: white;
+    }
+
+
+    .department-class[value="Incident management"]{
+      background-color: #46b8da;
+    }
+
+    .department-class[value="Problem management"]{
+      background-color: pink;
+    }
+
+    .department-class[value="Request fulfillment"]{
+      background-color: violet;
+    }
+
+
+    .status-class[value="Nerijesen"]{
+      background-color: #f44336;
+    }
+
+    .status-class[value="Zatvoren"]{
+      background-color: green;
+    }
+
+    .status-class[value="Popravljen"]{
+      background-color: #46b8da;
+    }
+
+    .status-class[value="U obradi"]{
+      background-color: orange;
+    }
+   
+    .status-class[value="Odbijen"]{
+      background-color: gray;
+    }
+
+    .status-class[value="Odobren"]{
+      background-color: yellow;
+    }
+    
+    .status-class[value="Otkazan"]{
+      background-color: black;
+    }

@@ -18,10 +18,10 @@ public interface IncidentRepository extends CrudRepository<Incident, Long>{
 	@Query("select i from Incident i where i.user=:userid")
 	List<Incident> getByUser(@Param("userid") RegisteredUser userid);
 	
-	@Query("select i from Incident i where i.status.status<>'closed'")
+	@Query("select i from Incident i where i.status.status<>'Zatvoren'")
 	List<Incident> getActiveIncidents();
 	
-	@Query("select i from Incident i where i.status.status='closed'")
+	@Query("select i from Incident i where i.status.status='Zatvoren'")
 	List<Incident> getClosedIncidents();
 	
 }
