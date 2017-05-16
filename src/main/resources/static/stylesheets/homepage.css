@@ -126,6 +126,28 @@ h4{
         margin-left:  90.4%;
     }
 
+    .priority-class{
+      padding-left: 58px;
+      border-radius: 11px;
+      padding-right: 54px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .department-class{
+      padding-left: 0%;
+      border-radius: 11px;
+      padding-right: 5%;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .status-class{
+      padding-left: 58px;
+      border-radius: 11px;
+      padding-right: 54px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
 
     .priority-class[value="5"]{
       background-color: #ff2500;
@@ -158,6 +180,7 @@ h4{
 
     .department-class[value="Request fulfillment"]{
       background-color: violet;
+      padding-right:20%;
     }
 
 
