@@ -1,10 +1,31 @@
 app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$location){
 	$scope.user={};
 	$scope.incidents={};
+	$scope.activeInc=0;
+	$scope.closedInc=0;
+	$scope.allInc=0;
 	$scope.closedIncidents={};
 	$scope.aktuelniKlik=0;
 	$scope.zatvoreniKlik=0;
 	$scope.statistikaKlik=0;
+
+	 $scope.labels = ["Aktivni incidenti", "Zatvoreni incidenti"];
+ 	 
+ 	 $scope.options={responsive: false,
+					 maintainAspectRatio: false}
+
+ $scope.options2={responsive: false,
+					 maintainAspectRatio: true}
+
+
+
+	 $scope.labelsBAR = ['2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+  $scope.series = ['Rijeseni', 'Nerijeseni'];
+
+  $scope.dataBAR = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
 
 	$scope.loggedIn = function() {
       return $rootScope.username !== null;
@@ -73,12 +94,25 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 
 	$scope.prikaziStatistiku=function(){
 		$scope.statistikaKlik=1;
-		$http.get("http://localhost:8080/incidents").then(function(response){
-			$scope.incidents=response.data;
 
-			
-			
+		niz=[];
+
+		$http.get("http://localhost:8080/incidents/search/countIncidents").then(function(response){
+			$scope.allInc=response.data;			
 		})
+		$http.get("http://localhost:8080/incidents/search/countActiveIncidents").then(function(response1){
+			$scope.activeInc=response1.data;	
+			niz.push(response1.data);	
+			
+			$http.get("http://localhost:8080/incidents/search/countClosedIncidents").then(function(response2){
+				$scope.closedInc=response2.data;	
+				niz.push($scope.closedInc);
+				$scope.data=niz;		
+			})
+		})
+	
+
+
 	}
 
 	$scope.sakrijStatistiku=function(){

@@ -176,6 +176,7 @@ h4{
 
     .department-class[value="Problem management"]{
       background-color: pink;
+      padding-right: 1%;
     }
 
     .department-class[value="Request fulfillment"]{
@@ -211,3 +212,8 @@ h4{
     .status-class[value="Otkazan"]{
       background-color: black;
     }
+
+.chart{
+  width: 250px;
+  height: 250px;
+}

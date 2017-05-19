@@ -230,6 +230,27 @@ public class IncidentController {
 		return (List<Incident>) ir.getActiveIncidents();
 	}
 	
+	@RequestMapping("/dodaj")
+	public void dodaj(@RequestBody Incident i ){
+		Incident inc=new Incident();
+		Status s=statusr.findByStatus("Nerijesen");
+		Department d=departmentr.findByName("Incident management");
+		
+		inc.setUser(i.getUser());
+		inc.setTitle(i.getTitle());
+		inc.setEvidenterUser(i.getEvidenterUser());
+		inc.setRepetition(i.getRepetition());
+		inc.setPriority(i.getPriority());
+		inc.setStatus(s);
+		inc.setDepartment(d);
+		inc.setService(i.getService());
+		inc.setContactMethod(i.getContactMethod());
+		inc.setReportMethod(i.getReportMethod());
+		inc.setDescription(i.getDescription());
+		
+		ir.save(inc);
+	}
+	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
 		public String description;

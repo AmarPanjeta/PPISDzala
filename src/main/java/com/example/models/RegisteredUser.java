@@ -24,7 +24,17 @@ public class RegisteredUser {
 	
 	private String telephone;
 	
+	private String email;
+	
 	private int type;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public long getId() {
 		return id;

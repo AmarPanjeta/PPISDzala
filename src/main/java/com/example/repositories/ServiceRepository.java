@@ -11,7 +11,7 @@ import com.example.models.Service;
 public interface ServiceRepository extends CrudRepository<Service, Long>{
 	Service findById(@Param("id") long id);
 	
-	@Query("select s from Service s,UserService us where us.user.id=:id ")
+	@Query("select distinct(s) from Service s,UserService us where us.user.id=:id and us.service.id=s.id")
 	List<Service> getServicesByUserId(@Param("id") long id);
 
 }

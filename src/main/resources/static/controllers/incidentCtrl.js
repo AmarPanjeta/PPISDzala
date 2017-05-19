@@ -9,7 +9,7 @@ $scope.incidentInfluence="";
 $scope.departments={};
 $scope.incidentId={};
 $scope.services={};
-
+$scope.incident.repetition=0;
 if($rootScope.username!=null){
 		$log.log($rootScope.username);
 		
@@ -31,8 +31,9 @@ if($rootScope.username!=null){
 $scope.ispuni=function(username){
 $http.get("http://localhost:8080/users/search/findByUsername?username="+username).then(function(response){
 	$scope.user=response.data;
-	$http.get("http://localhost:8080/services/getuserservices?id="+$scope.user.id).then(function(response){
-		$scope.services=response.data;
+	$scope.incident.user=response.data;
+	$http.get("http://localhost:8080/services/getuserservices?id="+$scope.user.id).then(function(response1){
+		$scope.services=response1.data;
 	})
 })
 }
@@ -70,11 +71,15 @@ $scope.prijaviIncident=function(){
 		$scope.incident.priority=5;
 	}
 	$log.log("priority:",$scope.incident.priority);
+	$http.get("http://localhost:8080/incidents/search/countIncidentsByPriority?priority="+$scope.incident.priority).then(function(response1){
+		$scope.incident.urgency=response1.data+1;
+		$log.log("redoslijed rjesavanja:",$scope.incident.urgency);
+	})
 	$http.get("http://localhost:8080/statuses/search/findByStatus?status='Nerijesen'").then(function(response){
 		$scope.incident.status=response.data;
 	})
 
-	$http.post("http://localhost:8080/incidents",$scope.incident).then(function(response){
+	$http.post("http://localhost:8080/incidents/dodaj",$scope.incident).then(function(response){
 		$log.log("uspjesno dodan incident");
 	$location.path("/incidentmanager");
 	})

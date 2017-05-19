@@ -34,6 +34,12 @@ public class Incident {
 	
 	private int contactMethod;
 	
+	@Column(nullable=true)
+	private int repetition;
+	
+	@ManyToOne
+	private RegisteredUser evidenterUser;
+	
 	@ManyToOne
 	private Status status;
 	
@@ -56,6 +62,22 @@ public class Incident {
 	private RegisteredUser user;	
 	
 	private String title;
+
+	public RegisteredUser getEvidenterUser() {
+		return evidenterUser;
+	}
+
+	public void setEvidenterUser(RegisteredUser evidenterUser) {
+		this.evidenterUser = evidenterUser;
+	}
+
+	public int getRepetition() {
+		return repetition;
+	}
+
+	public void setRepetition(int repetition) {
+		this.repetition = repetition;
+	}
 
 	public long getId() {
 		return id;

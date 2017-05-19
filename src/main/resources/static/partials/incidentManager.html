@@ -93,12 +93,45 @@
 		</table>
 
 		<table class="col-12">
+		<thead>
 			<tr>
 				<th colspan="7">Statistika
 					<button ng-if="!statistikaKlik" type="button" class="btn btn-info fl3" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
 					<button ng-if="statistikaKlik" type="button"  class="btn btn-info fl3" style="margin-left:90.8%;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
 				</th>
 			</tr>
+
+			<tr ng-show="statistikaKlik">
+				<th>Ukupno incienata</th>
+				<th>Zatvoreni incidenti</th>
+				<th>Aktivni incidenti</th>
+			</tr>
+		</thead>
+
+		<tbody ng-show="statistikaKlik">
+			<tr >
+				<td>{{allInc}}</td>
+				<td>{{closedInc}}</td>
+				<td>{{activeInc}}</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<div height="250px">
+						<canvas id="pie" width="200" height="200" style="margin:auto" class="chart chart-pie"
+						  chart-data="data" chart-labels="labels" chart-options="options">
+						</canvas> 
+					</div>
+				</td>
+				<td colspan="2">
+					<div height="250px">
+						<canvas id="bar" class="chart chart-bar" style="margin:auto"
+						  chart-data="dataBAR" chart-labels="labelsBAR" chart-series="series" chart-options="options2">
+						</canvas>
+					</div>
+				</td>
+			</tr>
+			
+		</tbody>
 			
 		</table>
 		

@@ -5,8 +5,7 @@
 	<div class="row info">
 
 		<div class="col-md-12">
-		<h2 style="text-decoration: underline;"><b>Prijava incidenta putem telefona:</b></h2>
-
+		<h2 style="text-decoration: underline;"><b>Prijava incidenta od strane uposlenika:</b></h2>
 
 			
 
@@ -48,13 +47,13 @@
 -->
 
 
-			<h4 ng-model="incident.reportMethod"><b>Način prijave:</b> </h4>
+			<h4 ><b>Način prijave:</b> </h4>
 			  <label class="radio-inline" for="reportMethod-1">
-			      <input type="radio" ng-model="incident.report_method" name="report_method" id="reportMethod-1" value="1" checked="checked">
+			      <input type="radio" ng-model="incident.reportMethod" name="report_method" id="reportMethod-1" value="1" checked="checked">
 			      Telefon
 			    </label> 
 			    <label class="radio-inline" for="reportMethod-2">
-			      <input type="radio" ng-model="incident.report_method" name="report_method" id="reportMethod-2" value="2">
+			      <input type="radio" ng-model="incident.reportMethod" name="report_method" id="reportMethod-2" value="2">
 			      E-mail
 			</label>
 
@@ -63,8 +62,12 @@
 			</select>
 		
 
-			<h4 ng-model="incident.description"><b>Opis incidenta:</b> </h4>
+			<h4 ng-model="incident.description"><b>Naziv incidenta:</b> </h4>
 			<input type="text" placeholder="Opis incidenta" ng-model="incident.title" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+             <h4><b>Opis incidenta:</b> </h4>
+			<input type="text" placeholder="Opis poduzetih incidenta" ng-model="incident.description" name="name" class="username"
                            ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
 
             <h4><b>Hitnost:</b> </h4>
@@ -76,7 +79,7 @@
 			<select id="incident_influence" class="form-control" ng-model="incidentInfluence" ng-options="x for x in influence">
 			</select>
 		
-
+			<!--
 
 			<h4><b>Odjel za rješavanje:</b></h4>
 			 <div class="ui-select">
@@ -85,29 +88,31 @@
 			              </select>
 			</div>
 
-			<h4><b>Opis poduzetih aktivnosti:</b> </h4>
-			<input type="text" placeholder="Opis poduzetih aktivnosti" ng-model="incident.description" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+			-->
 
-			<h4 ng-model="incident.incident"><b>Povezani incident:</b> </h4>
-			<input type="text" placeholder="Povezani incidenti" ng-model="incident_id" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+			
 
+		<!--	<h4 ng-model="incident.incident"><b>Povezani incident:</b> </h4>
+			<input type="text" placeholder="Povezani incidenti" ng-model="incidentId" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+        -->
+        <!--
 			<h4><b>Broj ponavljanja incidenta:</b> </h4>
 			<input type="text" placeholder="Broj ponavljanja incidenta" ng-model="incident.repetition" name="name" class="username"
                            ng-minlength="3" ng-pattern="/^[0-9\s]*$/" required/>
+        -->
 
 			<h4 ng-model="incident.contactMethod"><b>Način odgovaranja:</b> </h4>
 			  <label class="radio-inline" for="contactMethod-1">
-			      <input type="radio" ng-model="incident.contactMethod" name="contact_method" id="contactMethod-1" value="1" checked="checked">
+			      <input type="radio" ng-model="incident.contactMethod" name="contactMethod" id="contactMethod-1" value="1" checked="checked">
 			      Telefon
 			    </label> 
 			    <label class="radio-inline" for="contactMethod-2">
-			      <input type="radio" ng-model="incident.contactMethod" name="contact_method" id="contactMethod-2" value="2">
+			      <input type="radio" ng-model="incident.contactMethod" name="contactMethod" id="contactMethod-2" value="2">
 			      E-mail
 			</label>
 
-	
+	        <br/>
 
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="prijaviIncident()" value="Prijavi incident"/>
 			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Odustani"/>
