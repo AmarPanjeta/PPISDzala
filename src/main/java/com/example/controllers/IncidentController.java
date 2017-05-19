@@ -30,6 +30,9 @@ public class IncidentController {
 	@Autowired 
 	private DepartmentRepository departmentr;
 	
+	@Autowired
+	private AnswerRepository ar;
+	
 	//bolje bi bilo da je u kontroleru za service pa bi bilo "/services/id/addIncident" na konkretnu uslugu
 	@RequestMapping("/service/{idservice}/{iduser}/addIncident")
 	public Incident addIncident(@PathVariable("idservice") long idservice, @PathVariable("iduser") long iduser, @RequestBody IncidentBody inc) throws Exception
@@ -234,7 +237,7 @@ public class IncidentController {
 	public void dodaj(@RequestBody Incident i ){
 		Incident inc=new Incident();
 		Status s=statusr.findByStatus("Nerijesen");
-		Department d=departmentr.findByName("Incident management");
+		
 		
 		inc.setUser(i.getUser());
 		inc.setTitle(i.getTitle());
@@ -242,13 +245,29 @@ public class IncidentController {
 		inc.setRepetition(i.getRepetition());
 		inc.setPriority(i.getPriority());
 		inc.setStatus(s);
-		inc.setDepartment(d);
+		inc.setDepartment(i.getDepartment());
 		inc.setService(i.getService());
 		inc.setContactMethod(i.getContactMethod());
 		inc.setReportMethod(i.getReportMethod());
 		inc.setDescription(i.getDescription());
+		inc.setUrgency(i.getUrgency());
 		
 		ir.save(inc);
+	}
+	
+	@RequestMapping("/getincidentbyid")
+	public Incident getIncidentById(@RequestParam("id") long id){
+		return ir.findById(id);
+	}
+	
+	@RequestMapping("/getmainincidents")
+	public List<Incident> getMainIncidents(){
+		return (List<Incident>) ir.getMainIncidents();
+	}
+	
+	@RequestMapping("/getanswerbyincident")
+	public List<Answer> getAnswersByIncidentId(@RequestParam("id") long id){
+		return (List<Answer>) ar.getAnswerByIncidentId(id);
 	}
 	
 	@SuppressWarnings("unused")

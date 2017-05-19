@@ -50,7 +50,7 @@
 				<td>{{inc.datumPrijave.day}}.{{inc.datumPrijave.month}}.{{inc.datumPrijave.year}}.godine <br/>
 				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
 				</td>
-				<td><input type="submit" class="btn btn-primary" value="Detaljno ili riješi"/></td>
+				<td><input type="submit" class="btn btn-primary" ng-click="rijesiIncident(inc.id)" value="Detaljno ili riješi"/></td>
 			</tr>
 			
 		</tbody>

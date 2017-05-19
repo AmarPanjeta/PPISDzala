@@ -74,15 +74,14 @@ $scope.prijaviIncident=function(){
 	$http.get("http://localhost:8080/incidents/search/countIncidentsByPriority?priority="+$scope.incident.priority).then(function(response1){
 		$scope.incident.urgency=response1.data+1;
 		$log.log("redoslijed rjesavanja:",$scope.incident.urgency);
-	})
-	$http.get("http://localhost:8080/statuses/search/findByStatus?status='Nerijesen'").then(function(response){
-		$scope.incident.status=response.data;
-	})
-
-	$http.post("http://localhost:8080/incidents/dodaj",$scope.incident).then(function(response){
-		$log.log("uspjesno dodan incident");
-	$location.path("/incidentmanager");
-	})
+		$http.get("http://localhost:8080/statuses/search/findByStatus?status=Nerijesen").then(function(response2){
+			$scope.incident.status=response2.data;
+			$http.post("http://localhost:8080/incidents/dodaj",$scope.incident).then(function(response3){
+				$log.log("uspjesno dodan incident");
+				$location.path("/incidentmanager");
+			});
+		});
+	});
 }
 
 $scope.odustani=function(){

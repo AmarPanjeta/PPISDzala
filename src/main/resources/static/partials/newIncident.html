@@ -55,14 +55,14 @@
 			    <label class="radio-inline" for="reportMethod-2">
 			      <input type="radio" ng-model="incident.reportMethod" name="report_method" id="reportMethod-2" value="2">
 			      E-mail
-			</label>
+				</label>
 
 			<h4 ><b>Usluga za koju se prijavljuje incident:</b></h4>
 			<select id="incident_service" class="form-control" ng-model="incident.service" ng-options="x.name for x in services">
 			</select>
 		
 
-			<h4 ng-model="incident.description"><b>Naziv incidenta:</b> </h4>
+			<h4 ><b>Naziv incidenta:</b> </h4>
 			<input type="text" placeholder="Opis incidenta" ng-model="incident.title" name="name" class="username"
                            ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
 
@@ -79,7 +79,7 @@
 			<select id="incident_influence" class="form-control" ng-model="incidentInfluence" ng-options="x for x in influence">
 			</select>
 		
-			<!--
+			
 
 			<h4><b>Odjel za rješavanje:</b></h4>
 			 <div class="ui-select">
@@ -88,7 +88,7 @@
 			              </select>
 			</div>
 
-			-->
+			
 
 			
 

@@ -126,5 +126,8 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 	$scope.promjenaPodataka=function(){
 		$location.path("/changeprofileinfo");
 	}
-	
+	$scope.rijesiIncident=function(id){
+		$log.log("id je:",id);
+		$location.path("/solveincident/"+id);
+	}
 })
