@@ -251,6 +251,7 @@ public class IncidentController {
 		inc.setReportMethod(i.getReportMethod());
 		inc.setDescription(i.getDescription());
 		inc.setUrgency(i.getUrgency());
+		inc.setTaken(0);
 		
 		ir.save(inc);
 	}
@@ -269,6 +270,21 @@ public class IncidentController {
 	public List<Answer> getAnswersByIncidentId(@RequestParam("id") long id){
 		return (List<Answer>) ar.getAnswerByIncidentId(id);
 	}
+	
+	@RequestMapping("/take")
+	public void takeIncident(@RequestParam("id") long id,@RequestParam("idUser") long idUser){
+		Incident i=ir.findById(id);
+		i.setTaken(idUser);
+		ir.save(i);
+	}
+	
+	@RequestMapping("/release")
+	public void releaseIncident(@RequestParam("id") long id){
+		Incident i=ir.findById(id);
+		i.setTaken(0);
+		ir.save(i);
+	}
+	
 	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{

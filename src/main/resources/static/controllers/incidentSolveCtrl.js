@@ -23,7 +23,7 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 
 	if($rootScope.username!=null){
 		$log.log($rootScope.username);
-		
+
 		$http.get("http://localhost:8080/users/search/findByUsername?username="+$rootScope.username).then(function(response){
 			$scope.user=response.data;
 			$http.get("http://localhost:8080/incidents/getincidentbyid?id="+$routeParams.id).then(function(response1){
@@ -69,7 +69,7 @@ $scope.povezani=function(){
 }
 
 $scope.odustani=function(){
-	
+
 	$location.path("/incidentmanager");
 }
 
@@ -119,6 +119,13 @@ $scope.dajOdgovore=function(){
 }
 
 
+$scope.editIncident=function(){
+	$http.post("http://localhost:8080/incidentanswers/edit",$scope.incident).then(function(response){
+		$location.path("/incidentmanager");
+	})
+}
+
+
 $scope.rijesenIncident=function(){
 
 	if($scope.incident.answer.id==null && $scope.incident.answer.text!=""){
@@ -134,7 +141,7 @@ $scope.rijesenIncident=function(){
 					$location.path("/incidentmanager");
 				});
 		})
-	
+
 	}
 	else{
 

@@ -62,6 +62,8 @@ public class Incident {
 	private RegisteredUser user;	
 	
 	private String title;
+	
+	private long taken;
 
 	public RegisteredUser getEvidenterUser() {
 		return evidenterUser;
@@ -198,6 +200,14 @@ public class Incident {
 
 	public void setUser(RegisteredUser user) {
 		this.user = user;
+	}
+
+	public long getTaken() {
+		return taken;
+	}
+
+	public void setTaken(long taken) {
+		this.taken = taken;
 	}
 
 	public Incident(){

@@ -8,9 +8,10 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 	$scope.aktuelniKlik=0;
 	$scope.zatvoreniKlik=0;
 	$scope.statistikaKlik=0;
+	$scope.incident={};
 
 	 $scope.labels = ["Aktivni incidenti", "Zatvoreni incidenti"];
- 	 
+
  	 $scope.options={responsive: false,
 					 maintainAspectRatio: false}
 
@@ -50,13 +51,13 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 				var date = new Date(timestamp);
 
 				var year = date.getUTCFullYear();
-				var month = date.getUTCMonth() + 1; 
+				var month = date.getUTCMonth() + 1;
 				var day = date.getUTCDate();
 				var hours = date.getUTCHours();
 				var minutes = date.getUTCMinutes();
 				var seconds = date.getUTCSeconds();
 				$scope.incidents[i].datumPrijave={year,month,day,hours,minutes,seconds};
-							
+
 				}
 		})
 	}
@@ -82,9 +83,9 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 				var minutes = date.getUTCMinutes();
 				var seconds = date.getUTCSeconds();
 				$scope.closedIncidents[i].datumPrijave={year,month,day,hours,minutes,seconds};
-							
+
 				}
-			
+
 		})
 	}
 
@@ -98,19 +99,19 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		niz=[];
 
 		$http.get("http://localhost:8080/incidents/search/countIncidents").then(function(response){
-			$scope.allInc=response.data;			
+			$scope.allInc=response.data;
 		})
 		$http.get("http://localhost:8080/incidents/search/countActiveIncidents").then(function(response1){
-			$scope.activeInc=response1.data;	
-			niz.push(response1.data);	
-			
+			$scope.activeInc=response1.data;
+			niz.push(response1.data);
+
 			$http.get("http://localhost:8080/incidents/search/countClosedIncidents").then(function(response2){
-				$scope.closedInc=response2.data;	
+				$scope.closedInc=response2.data;
 				niz.push($scope.closedInc);
-				$scope.data=niz;		
+				$scope.data=niz;
 			})
 		})
-	
+
 
 
 	}
@@ -130,4 +131,33 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		$log.log("id je:",id);
 		$location.path("/solveincident/"+id);
 	}
+
+
+	$scope.zauzmiIncident=function(id){
+
+		$http.get("http://localhost:8080/incidents/take?id="+id+"&idUser="+$scope.user.id).then(function(response){
+
+			$scope.prikaziAktuelne();
+		})
+
+	}
+
+	$scope.oslobodiIncident=function(id){
+
+		$http.get("http://localhost:8080/incidents/release?id="+id).then(function(response){
+			$scope.prikaziAktuelne();
+		})
+
+	}
+
+	$scope.zauzeto=function(taken){
+		if(taken!=0) return true;
+		return false;
+	}
+
+	$scope.zauzetoOdKorisnika=function(taken){
+		if(taken==$scope.user.id) return true;
+		return false;
+	}
+
 })

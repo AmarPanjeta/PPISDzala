@@ -79,6 +79,21 @@ public class IncidentAnswerController {
 		}
 		ir.save(i);
 	}
+	
+	
+	
+	@RequestMapping("edit")
+	public void editIncident(@RequestBody EditBody tijelo){
+		Incident i=ir.findById(tijelo.id);
+		i.setDescription(tijelo.description);
+		i.setTitle(tijelo.title);
+		i.setPriority(tijelo.priority);
+		i.setStatus(tijelo.status);
+		i.setUrgency(tijelo.urgency);
+		i.setDepartment(tijelo.department);
+		ir.save(i);
+		
+	}
 	@SuppressWarnings("unused")
 	private static class AnswerBody{
 		public String text;
@@ -99,6 +114,19 @@ public class IncidentAnswerController {
 		public int repetition;
 		public Incident incident;
 		public Answer incidentanswer;
+		
+	}
+	
+	
+	@SuppressWarnings("unused")
+	private static class EditBody{
+		public long id;
+		public String description;
+		public String title;
+		public int priority;
+		public Status status;
+		public int urgency;
+		public Department department;
 		
 	}
 

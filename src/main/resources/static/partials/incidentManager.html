@@ -25,7 +25,7 @@
 		<table class="col-12">
 		<thead>
 			<tr>
-				<th colspan="7">Aktuelni incidenti
+				<th colspan="8">Aktuelni incidenti
 					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
 					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" style="margin-left: 85.7%;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
 				</th>
@@ -33,6 +33,7 @@
 			<tr ng-show="aktuelniKlik">
 				<th>#</th>
 				<th>Redoslijed rješavanja</th>
+				<th>Naziv incidenta</th>
 				<th>Prioritet</th>
 				<th>Odjel</th>
 				<th>Status</th>
@@ -44,23 +45,29 @@
 			<tr ng-repeat="inc in incidents">
 				<td>{{inc.id}}</td>
 				<td>{{inc.urgency}}</td>
+				<td>{{inc.title}}</td>
 				<td><span class="priority-class" value="{{inc.priority}}">{{inc.priority}}</span></td>
 				<td><span class="department-class" value="{{inc.department.name}}">{{inc.department.name}}</span></td>
 				<td><span class="status-class" value="{{inc.status.status}}">{{inc.status.status}}</span></td>
 				<td>{{inc.datumPrijave.day}}.{{inc.datumPrijave.month}}.{{inc.datumPrijave.year}}.godine <br/>
 				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
 				</td>
-				<td><input type="submit" class="btn btn-primary" ng-click="rijesiIncident(inc.id)" value="Detaljno ili riješi"/></td>
+				<td>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)" style="margin-bottom:3px" value="Detaljno"/><br>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)"  style="margin-bottom:3px;padding-right:32px;" value="Rijesi"/><br>
+				<input type="submit" class="btn btn-primary" ng-show="zauzeto(inc.taken)==false" ng-click="zauzmiIncident(inc.id)" value="Zauzmi"/>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="oslobodiIncident(inc.id)" value="Oslobodi"/></td>
+
 			</tr>
-			
+
 		</tbody>
-			
+
 		</table>
 
 		<table class="col-12">
 		<thead>
 			<tr>
-				<th colspan="7">Zatvoreni incidenti
+				<th colspan="8">Zatvoreni incidenti
 					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info fl2" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
 					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info fl2" style="margin-left: 84.99%;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
 				</th>
@@ -68,6 +75,7 @@
 			<tr ng-show="zatvoreniKlik">
 				<th>#</th>
 				<th>Redoslijed rješavanja</th>
+				<th>Naziv incidenta</th>
 				<th>Prioritet</th>
 				<th>Odjel</th>
 				<th>Status</th>
@@ -79,6 +87,7 @@
 			<tr ng-repeat="cinc in closedIncidents">
 				<td>{{cinc.id}}</td>
 				<td>{{cinc.urgency}}</td>
+				<td>{{cinc.title}}</td>
 				<td ><span class="priority-class" value="{{cinc.priority}}">{{cinc.priority}}</span></td>
 				<td><span class="department-class" value="{{cinc.department.name}}">{{cinc.department.name}}</span></td>
 				<td><span class="status-class" value="{{cinc.status.status}}">{{cinc.status.status}}</span></td>
@@ -88,14 +97,14 @@
 				<td><input type="submit" class="btn btn-primary" value="Prikaži detaljnije"/></td>
 			</tr>
 
-			
+
 		</tbody>
 		</table>
 
 		<table class="col-12">
 		<thead>
 			<tr>
-				<th colspan="7">Statistika
+				<th colspan="8">Statistika
 					<button ng-if="!statistikaKlik" type="button" class="btn btn-info fl3" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
 					<button ng-if="statistikaKlik" type="button"  class="btn btn-info fl3" style="margin-left:90.8%;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
 				</th>
@@ -119,7 +128,7 @@
 					<div height="250px">
 						<canvas id="pie" width="200" height="200" style="margin:auto" class="chart chart-pie"
 						  chart-data="data" chart-labels="labels" chart-options="options">
-						</canvas> 
+						</canvas>
 					</div>
 				</td>
 				<td colspan="2">
@@ -130,18 +139,18 @@
 					</div>
 				</td>
 			</tr>
-			
+
 		</tbody>
-			
+
 		</table>
-		
-			
+
+
 		</div>
 
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">			
+		<div class="col-md-12">
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajIncident()" value="Evidentiraj incident"/>
 		</div>
 
