@@ -57,7 +57,7 @@
 		
 
 			<h4 ><b>Naziv incidenta:</b> </h4>
-			<input type="text" placeholder="Opis incidenta" ng-model="incident.title" name="name" class="username"
+			<input type="text" placeholder="Naziv incidenta" ng-model="incident.title" name="name" class="username"
                            ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
 
              <h4><b>Opis incidenta:</b> </h4>
@@ -87,7 +87,22 @@
 			</div>
 
 			
-
+   		<h4 ng-show="imaOdgovoraNaInc">Odgovori:</h4>
+   		<table class="col-12" ng-show="imaOdgovoraNaInc">
+        <thead>
+        	<tr>
+        		<th>Autor</th>
+        		<th>Odgovor</th>
+        		
+        	</tr>
+        </thead>
+        <tbody>
+        	<tr ng-repeat="a in answers1">
+        	<td>{{a.autor.username}}</td>
+        	<td>{{a.text}}</td>	
+        	</tr>
+        </tbody>
+        </table>
 			
 
 		<h4 ng-model="incident.incident"><b>Povezani s nekim od glavnih incidenata:</b> </h4>
@@ -101,7 +116,6 @@
 				</label>
 
 
-		<h4 ng-show="connection==1"><b>Glavni incident:</b></h4>
 
 			 <div class="ui-select" ng-show="connection==1">
 			              <select id="incident_influence" class="form-control" ng-model="incident.incident"  ng-options="x.title for x in mainIncidents" data-toggle="tooltip" title="{{x.description}}" ng-change="vratiOdgovore()">
@@ -109,12 +123,45 @@
 			              </select>
 			 </div>
         
-        <h4 ng-show="imaOdgovora"><b>Ponudjeni odgovori:</b></h4>
-        <div ng-repeat="a in answers">
-        	{{a.text}}<br/>
-        	{{a.autor.username}}
-        </div>
+        <h4 ng-show="imaOdgovora && connection==1 && incident.incident!=null"><b>Ponudjeni odgovori:</b></h4>
 
+
+        <table class="col-12" ng-show="imaOdgovora && connection==1 && incident.incident!=null">
+        <thead>
+        	<tr>
+        		<th>Autor</th>
+        		<th>Odgovor</th>
+        		<th>Prihvati odgovor</th>
+        	</tr>
+        </thead>
+        <tbody>
+        	<tr ng-repeat="a in answers">
+        	<td>{{a.autor.username}}</td>
+        	<td>{{a.text}}</td>
+        	<td><input type="radio" ng-model="incident.answer.id" name="da" value="{{a.id}}"></td> 		
+        	</tr>
+        </tbody>
+        </table>
+
+<!--
+        <div ng-repeat="a in answers" ng-show="imaOdgovora && connection==1">
+        	<input type="text" name="odg" ng-model="a.autor.username">
+
+        	<input type="text" name="odg" ng-model="a.text">
+        	<input type="checkbox" name="da" value="1">
+        	
+        </div>
+        -->
+        
+     
+
+
+
+
+
+		<h4 ng-show="connection==2 || connection==0 || incident.answer.id==null"><b>Novi odgovor:</b> </h4>
+		<input ng-show="connection==2 || connection==0" type="text" placeholder="Tekst odgovora" ng-model="incident.answer.text" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
         
 			<h4><b>Broj ponavljanja incidenta:</b> </h4>
 			<input type="number" placeholder="Broj ponavljanja incidenta" ng-model="incident.repetition" name="name" class="username"

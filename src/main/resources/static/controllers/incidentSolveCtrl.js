@@ -9,7 +9,11 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 	$scope.methodR="";
 	$scope.methodC="";
 	$scope.answers={};
+	$scope.answers1={};
+	$scope.imaOdgovoraNaInc=false;
 	$scope.imaOdgovora=false;
+	$scope.incidentanswers={};
+	$scope.ansBody={};
 
 
 
@@ -24,6 +28,9 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 			$scope.user=response.data;
 			$http.get("http://localhost:8080/incidents/getincidentbyid?id="+$routeParams.id).then(function(response1){
 				$scope.incident=response1.data;
+				$log.log("inciiiiii",$scope.incident);
+				$scope.dajOdgovore();
+				$scope.incidentanswers.incident=response1.data;
 				if($scope.incident.reportMethod==1){
 					$scope.methodR="Telefon";
 				}else if($scope.incident.reportMethod==2){
@@ -53,7 +60,11 @@ $scope.povezani=function(){
 	if($scope.connection==1){
 		$http.get("http://localhost:8080/incidents/getmainincidents").then(function(response){
 			$scope.mainIncidents=response.data;
+			$scope.answers={};
 		})
+	}else if($scope.connection==2){
+		$scope.answers={};
+		$scope.incident.incident={};
 	}
 }
 
@@ -95,6 +106,52 @@ $scope.vratiOdgovore=function(){
 	})
 }
 
+
+$scope.dajOdgovore=function(){
+
+	$http.get("http://localhost:8080/incidents/getanswerbyincident?id="+$scope.incident.id).then(function(response){
+		$scope.answers1=response.data;
+		$log.log("odgovori",$scope.answers1);
+		if($scope.answers1.length>0){
+			$scope.imaOdgovoraNaInc=true;
+		}
+	})
+}
+
+
+$scope.rijesenIncident=function(){
+
+	if($scope.incident.answer.id==null && $scope.incident.answer.text!=""){
+
+		$scope.ansBody.text=$scope.incident.answer.text;
+		$scope.ansBody.autorId=$scope.user.id;
+		$scope.ansBody.incId=$scope.incident.id;
+
+		$http.post("http://localhost:8080/incidentanswers/add",$scope.ansBody).then(function(response){
+
+				$http.post("http://localhost:8080/incidentanswers/update",$scope.incident).then(function(response1){
+					$log.log("incident",$scope.incident);
+					$location.path("/incidentmanager");
+				});
+		})
+	
+	}
+	else{
+
+		$http.post("http://localhost:8080/incidentanswers/addbyid?incId="+$scope.incident.id+"&ansId="+$scope.incident.answer.id).then(function(response3){
+
+			$http.post("http://localhost:8080/incidentanswers/update",$scope.incident).then(function(response1){
+					$log.log("incident",$scope.incident);
+					$location.path("/incidentmanager");
+			});
+
+
+		})
+
+	}
+
+
+}
 
 
 })
