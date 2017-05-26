@@ -130,4 +130,15 @@ public class IncidentAnswerController {
 		
 	}
 
+	@SuppressWarnings("unused")
+	private static class FixBody{
+		public long id;
+		//tekst odgovora
+		public String text;
+		//povezani incident
+		public Incident incident;
+		//odgovor povezanog incidenta
+		public Answer answer;
+		
+	}
 }

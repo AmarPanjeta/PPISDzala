@@ -132,6 +132,10 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		$location.path("/solveincident/"+id);
 	}
 
+	$scope.popraviIncident=function(id){
+		$log.log("id je:",id);
+		$location.path("/fixincident/"+id);
+	}
 
 	$scope.zauzmiIncident=function(id){
 

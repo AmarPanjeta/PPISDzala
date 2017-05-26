@@ -30,7 +30,7 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 				$scope.incident=response1.data;
 				$log.log("inciiiiii",$scope.incident);
 				$scope.dajOdgovore();
-				$scope.incidentanswers.incident=response1.data;
+				
 				if($scope.incident.reportMethod==1){
 					$scope.methodR="Telefon";
 				}else if($scope.incident.reportMethod==2){
@@ -48,10 +48,6 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 					$scope.departments=response2.data;
 					$scope.findInDepartments();
 					$log.log("odjel je",$scope.incident.department);
-					$http.get("http://localhost:8080/statuses/all").then(function(response3){
-						$scope.statuses=response3.data;
-						$scope.findInStatuses();
-					})
 				})
 			});
 		})
@@ -102,6 +98,10 @@ $scope.vratiOdgovore=function(){
 		$log.log("odgovori",$scope.answers);
 		if($scope.answers.length>0){
 			$scope.imaOdgovora=true;
+
+
+
+
 		}
 	})
 }
@@ -114,6 +114,23 @@ $scope.dajOdgovore=function(){
 		$log.log("odgovori",$scope.answers1);
 		if($scope.answers1.length>0){
 			$scope.imaOdgovoraNaInc=true;
+
+
+				for(i=0;i<$scope.answers1.length;i++){
+
+				timestamp=$scope.answers1[i].created;
+				var date = new Date(timestamp);
+
+				var year = date.getUTCFullYear();
+				var month = date.getUTCMonth() + 1;
+				var day = date.getUTCDate();
+				var hours = date.getUTCHours();
+				var minutes = date.getUTCMinutes();
+				var seconds = date.getUTCSeconds();
+				$scope.answers1[i].datumPrijave={year,month,day,hours,minutes,seconds};
+			
+
+				}
 		}
 	})
 }
