@@ -21,7 +21,7 @@
 	<div class="row info">
 
 		<div class="col-md-12">
-		<h2 style="text-decoration: underline;"><b>Pregled incidenata:</b></h2>
+		<h2 style="text-decoration: underline;"><b>Pregled zahtjeva za uslugom:</b></h2>
 		<table class="col-12">
 		<thead>
 			<tr>
@@ -42,7 +42,7 @@
 			</tr>
 		</thead>
 		<tbody ng-show="aktuelniKlik">
-			<tr ng-repeat="inc in incidents">
+			<tr ng-repeat="inc in requests">
 				<td>{{inc.id}}</td>
 				<td>{{inc.urgency}}</td>
 				<td>{{inc.title}}</td>
@@ -151,7 +151,7 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajIncident()" value="Evidentiraj incident"/>
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajZahtjev()" value="Evidentiraj zahtjev"/>
 			<br>
 				<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="generisiIzvjestaj()" value="Generisi izvjestaj"/>
 		</div>

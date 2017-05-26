@@ -7,6 +7,7 @@ import com.example.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +69,16 @@ public class RequestController {
         reqr.delete(i);
     }
     
+    
+    @RequestMapping("/active")
+    public List<Request> getActiveRequests(){
+    	return reqr.getActiveRequests();
+    }
+    
+    @RequestMapping("/closed")
+    public List<Request> getClosedRequests(){
+    	return reqr.getClosedRequests();
+    }
     @RequestMapping("/all")
     public List<Request> all(){
     	return (List<Request>)reqr.findAll();
