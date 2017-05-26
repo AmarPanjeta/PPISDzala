@@ -285,6 +285,16 @@ public class IncidentController {
 		ir.save(i);
 	}
 	
+	@RequestMapping("/stats")
+	public StatsResponse stats(){
+		StatsResponse sr = new StatsResponse();
+		sr.number=ir.countIncidents();
+		sr.fixed=ir.countClosedIncidents();
+		sr.open=ir.countActiveIncidents();
+		sr.falseIncidents=0;
+		return sr;
+	}
+	
 	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
@@ -292,5 +302,14 @@ public class IncidentController {
 		public int reportMethod;		
 		public int contactMethod;
 		public String title;
+	}	
+	
+	
+	@SuppressWarnings("unused")
+	private static class StatsResponse{
+		public int number;
+		public int fixed;
+		public int open;
+		public int falseIncidents;
 	}	
 }

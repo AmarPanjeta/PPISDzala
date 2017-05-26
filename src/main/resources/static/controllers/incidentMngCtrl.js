@@ -160,4 +160,25 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		return false;
 	}
 
+	$scope.generisiIzvjestaj=function(){
+		stats={};
+
+		$http.get("http://localhost:8080/incidents/stats").then(function(response){
+			stats=response.data;
+			var doc = new jsPDF()
+
+			doc.text('Izvjestaj', 10, 10)
+
+			doc.text('Broj incidenata:'+stats.number,10,22);
+
+			doc.text('Broj rijesenih:'+stats.fixed,10,32);
+
+			doc.text('Broj otvorenih:'+stats.open,10,42);
+
+			doc.text('Broj pogresnih prijava:'+stats.falseIncidents,10,52);
+
+			doc.save('izvjestaj.pdf')
+		})
+
+	}
 })
