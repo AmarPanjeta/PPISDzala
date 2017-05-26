@@ -26,6 +26,9 @@ app.config(function($routeProvider){
   }).when('/solveincident/:id',{
     templateUrl:"partials/solveIncident.html",
     controller: "incidentSolveCtrl"
+  }).when("/reqm",{
+    templateUrl:"partials/requestFulfillmentManager.html",
+    controller: "requestFulfillmentManagerCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")
