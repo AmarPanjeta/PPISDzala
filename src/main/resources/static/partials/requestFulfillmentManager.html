@@ -1,0 +1,163 @@
+<div class="container">
+<div ng-show="loggedIn()">
+<h1 ng-model="user.username" >Dobro došli, <b><i>{{user.username}}!</i></b></h1>
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Informacije o korisniku:</b></h2>
+			<h4 ng-model="user.username"><b>Korisničko ime:</b> {{user.username}}</h4>
+			<h4 ng-model="user.username"><b>Ime:</b> {{user.name}}</h4>
+			<h4 ng-model="user.username"><b>Prezime:</b> {{user.surname}}</h4>
+			<h4 ng-model="user.address"><b>Adresa:</b> {{user.address}}</h4>
+			<h4 ng-model="user.email"><b>Email:</b> {{user.email}}</h4>
+			<h4 ng-model="user.telephone"><b>Kontakt telefon:</b> {{user.telephone}}</h4>
+			<h4 ng-model="user.type"><b>Uloga:</b> {{user.type}}</h4>
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="promjenaPodataka()" value="Promijeni podatke"/>
+		</div>
+
+	</div>
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Pregled incidenata:</b></h2>
+		<table class="col-12">
+		<thead>
+			<tr>
+				<th colspan="8">Aktuelni incidenti
+					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
+					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" style="margin-left: 85.7%;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
+				</th>
+			</tr>
+			<tr ng-show="aktuelniKlik">
+				<th>#</th>
+				<th>Redoslijed rješavanja</th>
+				<th>Naziv incidenta</th>
+				<th>Prioritet</th>
+				<th>Odjel</th>
+				<th>Status</th>
+				<th>Datum prijave</th>
+				<th>Opcije</th>
+			</tr>
+		</thead>
+		<tbody ng-show="aktuelniKlik">
+			<tr ng-repeat="inc in incidents">
+				<td>{{inc.id}}</td>
+				<td>{{inc.urgency}}</td>
+				<td>{{inc.title}}</td>
+				<td><span class="priority-class" value="{{inc.priority}}">{{inc.priority}}</span></td>
+				<td><span class="department-class" value="{{inc.department.name}}">{{inc.department.name}}</span></td>
+				<td><span class="status-class" value="{{inc.status.status}}">{{inc.status.status}}</span></td>
+				<td>{{inc.datumPrijave.day}}.{{inc.datumPrijave.month}}.{{inc.datumPrijave.year}}.godine <br/>
+				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
+				</td>
+				<td>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)" style="margin-bottom:3px" value="Detaljno"/><br>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)"  style="margin-bottom:3px;padding-right:32px;" value="Rijesi"/><br>
+				<input type="submit" class="btn btn-primary" ng-show="zauzeto(inc.taken)==false" ng-click="zauzmiIncident(inc.id)" value="Zauzmi"/>
+				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="oslobodiIncident(inc.id)" value="Oslobodi"/></td>
+
+			</tr>
+
+		</tbody>
+
+		</table>
+
+		<table class="col-12">
+		<thead>
+			<tr>
+				<th colspan="8">Zatvoreni incidenti
+					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info fl2" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
+					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info fl2" style="margin-left: 84.99%;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
+				</th>
+			</tr>
+			<tr ng-show="zatvoreniKlik">
+				<th>#</th>
+				<th>Redoslijed rješavanja</th>
+				<th>Naziv incidenta</th>
+				<th>Prioritet</th>
+				<th>Odjel</th>
+				<th>Status</th>
+				<th>Datum prijave</th>
+				<th>Opcije</th>
+			</tr>
+		</thead>
+		<tbody ng-show="zatvoreniKlik">
+			<tr ng-repeat="cinc in closedIncidents">
+				<td>{{cinc.id}}</td>
+				<td>{{cinc.urgency}}</td>
+				<td>{{cinc.title}}</td>
+				<td ><span class="priority-class" value="{{cinc.priority}}">{{cinc.priority}}</span></td>
+				<td><span class="department-class" value="{{cinc.department.name}}">{{cinc.department.name}}</span></td>
+				<td><span class="status-class" value="{{cinc.status.status}}">{{cinc.status.status}}</span></td>
+				<td>{{cinc.datumPrijave.day}}.{{cinc.datumPrijave.month}}.{{cinc.datumPrijave.year}}.godine <br/>
+				{{cinc.datumPrijave.hours}}:{{cinc.datumPrijave.minutes}}:{{cinc.datumPrijave.seconds}} sati
+				</td>
+				<td><input type="submit" class="btn btn-primary" value="Prikaži detaljnije"/></td>
+			</tr>
+
+
+		</tbody>
+		</table>
+
+		<table class="col-12">
+		<thead>
+			<tr>
+				<th colspan="8">Statistika
+					<button ng-if="!statistikaKlik" type="button" class="btn btn-info fl3" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
+					<button ng-if="statistikaKlik" type="button"  class="btn btn-info fl3" style="margin-left:90.8%;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
+				</th>
+			</tr>
+
+			<tr ng-show="statistikaKlik">
+				<th>Ukupno incienata</th>
+				<th>Zatvoreni incidenti</th>
+				<th>Aktivni incidenti</th>
+			</tr>
+		</thead>
+
+		<tbody ng-show="statistikaKlik">
+			<tr >
+				<td>{{allInc}}</td>
+				<td>{{closedInc}}</td>
+				<td>{{activeInc}}</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<div height="250px">
+						<canvas id="pie" width="200" height="200" style="margin:auto" class="chart chart-pie"
+						  chart-data="data" chart-labels="labels" chart-options="options">
+						</canvas>
+					</div>
+				</td>
+				<td colspan="2">
+					<div height="250px">
+						<canvas id="bar" class="chart chart-bar" style="margin:auto"
+						  chart-data="dataBAR" chart-labels="labelsBAR" chart-series="series" chart-options="options2">
+						</canvas>
+					</div>
+				</td>
+			</tr>
+
+		</tbody>
+
+		</table>
+
+
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajIncident()" value="Evidentiraj incident"/>
+			<br>
+				<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="generisiIzvjestaj()" value="Generisi izvjestaj"/>
+		</div>
+
+	</div>
+
+
+</div>
+</div>
