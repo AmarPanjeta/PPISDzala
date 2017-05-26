@@ -30,7 +30,7 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 				$scope.incident=response1.data;
 				$log.log("inciiiiii",$scope.incident);
 				$scope.dajOdgovore();
-				$scope.incidentanswers.incident=response1.data;
+				
 				if($scope.incident.reportMethod==1){
 					$scope.methodR="Telefon";
 				}else if($scope.incident.reportMethod==2){
@@ -48,10 +48,6 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 					$scope.departments=response2.data;
 					$scope.findInDepartments();
 					$log.log("odjel je",$scope.incident.department);
-					$http.get("http://localhost:8080/statuses/all").then(function(response3){
-						$scope.statuses=response3.data;
-						$scope.findInStatuses();
-					})
 				})
 			});
 		})
