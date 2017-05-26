@@ -102,6 +102,10 @@ $scope.vratiOdgovore=function(){
 		$log.log("odgovori",$scope.answers);
 		if($scope.answers.length>0){
 			$scope.imaOdgovora=true;
+
+
+
+
 		}
 	})
 }
@@ -114,6 +118,23 @@ $scope.dajOdgovore=function(){
 		$log.log("odgovori",$scope.answers1);
 		if($scope.answers1.length>0){
 			$scope.imaOdgovoraNaInc=true;
+
+
+				for(i=0;i<$scope.answers1.length;i++){
+
+				timestamp=$scope.answers1[i].created;
+				var date = new Date(timestamp);
+
+				var year = date.getUTCFullYear();
+				var month = date.getUTCMonth() + 1;
+				var day = date.getUTCDate();
+				var hours = date.getUTCHours();
+				var minutes = date.getUTCMinutes();
+				var seconds = date.getUTCSeconds();
+				$scope.answers1[i].datumPrijave={year,month,day,hours,minutes,seconds};
+			
+
+				}
 		}
 	})
 }

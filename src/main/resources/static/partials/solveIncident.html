@@ -91,15 +91,20 @@
    		<table class="col-12" ng-show="imaOdgovoraNaInc">
         <thead>
         	<tr>
-        		<th>Autor</th>
-        		<th>Odgovor</th>
+        		<th colspan="1">Autor</th>
+        		<th colspan="2">Odgovor</th>
+        		<th colspan="1">Datum</th>
 
         	</tr>
         </thead>
         <tbody>
         	<tr ng-repeat="a in answers1">
-        	<td>{{a.autor.username}}</td>
-        	<td>{{a.text}}</td>
+        	<td colspan="1">{{a.autor.username}}</td>
+        	<td colspan="2">{{a.text}}</td>
+        	<td>{{a.datumPrijave.day}}.{{a.datumPrijave.month}}.{{a.datumPrijave.year}}.godine <br/>
+				{{a.datumPrijave.hours}}:{{a.datumPrijave.minutes}}:{{a.datumPrijave.seconds}} sati
+				</td>
+
         	</tr>
         </tbody>
         </table>
