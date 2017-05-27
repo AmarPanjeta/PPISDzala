@@ -81,7 +81,9 @@ public class RequestController {
     }
     @RequestMapping("/add")
     public void add(@RequestBody Request rb){
+    	
     	Request r = new Request();
+    	Status s=statusr.findByStatus("Nerijesen");
     	r.setTitle(rb.getTitle());
     	r.setUser(rb.getUser());
     	r.setDescription(rb.getDescription());
@@ -90,9 +92,9 @@ public class RequestController {
     	r.setPriority(rb.getPriority());
     	r.setUrgency(rb.getUrgency());
     	r.setReportMethod(rb.getReportMethod());
-    	r.setStatus(rb.getStatus());
+    	r.setStatus(s);
     	r.setDepartment(rb.getDepartment());
-    	
+    	reqr.save(r);
     }
     
     @RequestMapping("/all")

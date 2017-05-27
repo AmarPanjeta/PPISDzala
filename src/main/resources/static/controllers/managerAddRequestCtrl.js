@@ -52,21 +52,14 @@ $scope.evidentirajZahtjev=function(){
 	} else{
 		$scope.request.priority=5;
 	}
-	$log.log("priority:",$scope.request.priority);/*
-	$http.get("http://localhost:8080/incidents/search/countIncidentsByPriority?priority="+$scope.request.priority).then(function(response1){
-		$scope.request.urgency=response1.data+1;
-		$log.log("redoslijed rjesavanja:",$scope.request.urgency);
-		$http.get("http://localhost:8080/statuses/search/findByStatus?status=Nerijesen").then(function(response2){
-			$scope.request.status=response2.data;
-
-			$http.post("http://localhost:8080/requests/add",$scope.request).then(function(response3){
-				$log.log("uspjesno dodan zahtjev");
-				$log.log($scope.request);
-				//$location.path("/reqm");
-			});
-		});
-	});*/
-	$log.log($scope.request);
+	$log.log("priority:",$scope.request.priority);
+	// Komentar - ovo trenutno stoji zbog toga sto nismo sigurni na sta se odnosi i da li je za zahtjeve potrebna hitnost
+	$scope.request.urgency=0;
+	$http.post("http://localhost:8080/requests/add",$scope.request).then(function(response3){
+		$log.log("uspjesno dodan zahtjev");
+		$log.log($scope.request);
+		$location.path("/reqm");
+	});
 }
 
 $scope.odustani=function(){
