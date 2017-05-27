@@ -79,6 +79,22 @@ public class RequestController {
     public List<Request> getClosedRequests(){
     	return reqr.getClosedRequests();
     }
+    @RequestMapping("/add")
+    public void add(@RequestBody Request rb){
+    	Request r = new Request();
+    	r.setTitle(rb.getTitle());
+    	r.setUser(rb.getUser());
+    	r.setDescription(rb.getDescription());
+    	r.setContactMethod(rb.getContactMethod());
+    	r.setDepartment(rb.getDepartment());
+    	r.setPriority(rb.getPriority());
+    	r.setUrgency(rb.getUrgency());
+    	r.setReportMethod(rb.getReportMethod());
+    	r.setStatus(rb.getStatus());
+    	r.setDepartment(rb.getDepartment());
+    	
+    }
+    
     @RequestMapping("/all")
     public List<Request> all(){
     	return (List<Request>)reqr.findAll();

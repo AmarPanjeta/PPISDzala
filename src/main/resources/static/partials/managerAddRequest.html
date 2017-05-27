@@ -1,0 +1,124 @@
+<div class="container">
+
+
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Prijava requesta od strane uposlenika:</b></h2>
+
+
+
+		<!-- automatski nerijesen
+			<h4 ng-model="request.status"><b>Status requesta:</b> </h4>
+			<input type="text" placeholder="Status requesta:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+        -->
+
+			<h4><b>Prijavio:</b></h4>
+			<input type="text" placeholder="Korisnicko ime" ng-model="user.username" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" ng-change="ispuni(user.username)" required/>
+
+			<h4><b>Ime korisnika:</b></h4>
+			<input type="text" placeholder="Ime" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4 ><b>Prezime korisnika:</b></h4>
+			<input type="text" placeholder="Prezime" ng-model="user.surname" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+            <h4><b>Adresa korisnika:</b> </h4>
+			<input type="text" placeholder="Adresa korisnika" ng-model="user.address" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4><b>Email korisnika:</b> </h4>
+			<input type="text" placeholder="Email" ng-model="user.email" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4><b>Kontakt telefon:</b></h4>
+			<input type="text" placeholder="Kontakt telefon" ng-model="user.telephone" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+
+<!--sta ako nije pogledao mail na vrijeme?
+			<h4 ng-model="request.created"><b>Datum prijave:</b> </h4>
+			<input type="text" placeholder="Datum prijave" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+-->
+
+
+			<h4 ><b>Način prijave:</b> </h4>
+		  <label class="radio-inline" for="reportMethod-1">
+		      <input type="radio" ng-model="request.reportMethod" name="report_method" id="reportMethod-1" value="1" checked="checked">
+		      Telefon
+		    </label>
+		    <label class="radio-inline" for="reportMethod-2">
+		      <input type="radio" ng-model="request.reportMethod" name="report_method" id="reportMethod-2" value="2">
+		      E-mail
+			</label>
+
+
+			<h4 ><b>Naziv requesta:</b> </h4>
+			<input type="text" placeholder="Opis requesta" ng-model="request.title" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+      <h4><b>Opis requesta:</b> </h4>
+			<input type="text" placeholder="Opis poduzetih requesta" ng-model="request.description" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s\,\.\?\!]*$/" required/>
+
+            <h4><b>Hitnost:</b> </h4>
+			<select id="request_urgency" class="form-control" ng-model="requestUrgency" ng-options="x for x in urgency">
+		     </select>
+
+
+			<h4 ><b>Uticaj:</b></h4>
+			<select id="request_influence" class="form-control" ng-model="requestInfluence" ng-options="x for x in influence">
+			</select>
+
+
+
+			<h4><b>Odjel za rješavanje:</b></h4>
+			 <div class="ui-select">
+			              <select id="request_influence" class="form-control" ng-model="request.department" ng-options="x.name for x in departments" >
+
+			              </select>
+			</div>
+
+
+
+
+
+		<!--	<h4 ng-model="request.request"><b>Povezani request:</b> </h4>
+			<input type="text" placeholder="Povezani requesti" ng-model="requestId" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+        -->
+        <!--
+			<h4><b>Broj ponavljanja requesta:</b> </h4>
+			<input type="text" placeholder="Broj ponavljanja requesta" ng-model="request.repetition" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[0-9\s]*$/" required/>
+        -->
+
+			<h4 ng-model="request.contactMethod"><b>Način odgovaranja:</b> </h4>
+			  <label class="radio-inline" for="contactMethod-1">
+			      <input type="radio" ng-model="request.contactMethod" name="contactMethod" id="contactMethod-1" value="1" checked="checked">
+			      Telefon
+			    </label>
+			    <label class="radio-inline" for="contactMethod-2">
+			      <input type="radio" ng-model="request.contactMethod" name="contactMethod" id="contactMethod-2" value="2">
+			      E-mail
+			</label>
+
+	        <br/>
+
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="evidentirajZahtjev()" value="Evidentiraj zahtjev"/>
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Odustani"/>
+		</div>
+
+	</div>
+
+
+
+
+
+
+</div>

@@ -136,6 +136,6 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
 
   $scope.evidentirajZahtjev=function(){
     $log.log("to je to!");
-    //$location.path("/newrequest");
+    $location.path("/manageraddrequest");
   }
 })
