@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.Date;
+
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class IncidentAnswerController {
 		
 	}
 	
-	@RequestMapping("addbyid")
+	@RequestMapping("/addbyid")
 	public void addById(@RequestParam("incId") long incId,@RequestParam("ansId") long ansId){
 		Incident i=ir.findById(incId);
 		Answer a=ar.findOne(ansId);
@@ -61,7 +63,7 @@ public class IncidentAnswerController {
 		
 	}
 	
-	@RequestMapping("update")
+	@RequestMapping("/update")
 	public void updateIncident(@RequestBody UpdateBody tijelo) throws Exception{
 		Incident i=ir.findById(tijelo.id);
 		i.setDescription(tijelo.description);
@@ -82,7 +84,7 @@ public class IncidentAnswerController {
 	
 	
 	
-	@RequestMapping("edit")
+	@RequestMapping("/edit")
 	public void editIncident(@RequestBody EditBody tijelo){
 		Incident i=ir.findById(tijelo.id);
 		i.setDescription(tijelo.description);
@@ -93,6 +95,44 @@ public class IncidentAnswerController {
 		i.setDepartment(tijelo.department);
 		ir.save(i);
 		
+	}
+	
+	@RequestMapping("/fix")
+	public void fixIncident(@RequestBody FixBody tijelo){
+		Incident i=ir.findById(tijelo.id);
+		if(tijelo.answerText!=null && !tijelo.answerText.equals("") ){
+			Answer a=new Answer();
+			a.setText(tijelo.answerText);
+			a.setAutor(ur.findById(tijelo.idAutora));
+			a=ar.save(a);
+			IncidentAnswer iao=new IncidentAnswer();
+			i=ir.save(i);
+			iao.setIncident(i);
+			iao.setAnswer(a);
+			iar.save(iao);
+		}else{
+			System.out.println("Fali tekst odgovora");
+		}
+		if(tijelo.incidentId!=-1){
+			Incident povezaniInc=ir.findById(tijelo.incidentId);
+			i.setIncident(povezaniInc);
+			if(tijelo.answerId!=-1){
+				Answer ap=ar.findOne(tijelo.answerId);
+				IncidentAnswer po=new IncidentAnswer();
+				po.setAnswer(ap);
+				i=ir.save(i);
+				po.setIncident(i);
+				iar.save(po);
+			}else{
+				System.out.println("Fali odgovor od poveyanog inc");
+			}
+		}else{
+			System.out.println("fali poveyani inc");
+		}
+		i.setClosedTimeDate(new Date());
+		i.setFixedTimeDate(new Date());
+		
+		ir.save(i);
 	}
 	@SuppressWarnings("unused")
 	private static class AnswerBody{
@@ -132,13 +172,16 @@ public class IncidentAnswerController {
 
 	@SuppressWarnings("unused")
 	private static class FixBody{
+		//id incidenta
 		public long id;
+		//id autora
+		public long idAutora;
 		//tekst odgovora
-		public String text;
+		public String answerText;
 		//povezani incident
-		public Incident incident;
+		public long incidentId;
 		//odgovor povezanog incidenta
-		public Answer answer;
+		public long answerId;
 		
 	}
 }
