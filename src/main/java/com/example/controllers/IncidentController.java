@@ -3,6 +3,8 @@ package com.example.controllers;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletException;
+
 import com.example.models.*;
 import com.example.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,51 @@ public class IncidentController {
 		
 		return ir.save(novi);
 	}
+	
+	@RequestMapping("/reportincident")
+	public void reportIncident(@RequestBody UserIncidentBody tijelo) throws ServletException{
+		RegisteredUser user=userr.findById(tijelo.userId);
+		Service service=servicer.findById(tijelo.serviceId);
+		Status status=statusr.findByStatus("Nerijesen");
+		Department d=departmentr.findByName("Incident management");
+		
+		if(service.isAvailable()==false){
+			throw new ServletException("Usluga nije aktivna");
+		}
+		
+		if(tijelo.description==null || tijelo.description.equals("")){
+			throw new ServletException("Nedostaje opis incidenta");
+		}
+		
+		if(tijelo.title==null || tijelo.title.equals("")){
+			throw new ServletException("Nedostaje naziv incidenta");
+		}
+		
+		
+		if(usr.isUserOfService(user, service)==0){
+			throw new ServletException("Ne mozete prijaviti incident za uslugu ciji niste korisnik");
+		}
+		
+		Incident i= new Incident();
+		i.setContactMethod(tijelo.contactMethod);
+		i.setCreated(new Date());
+		i.setDescription(tijelo.description);
+		i.setPriority(-1);
+		i.setRepetition(0);
+		i.setReportMethod(3);
+		i.setTitle(tijelo.title);
+		i.setUrgency(0);
+		i.setDepartment(d);
+		i.setEvidenterUser(user);
+		i.setService(service);
+		i.setStatus(status);
+		i.setUser(user);
+		i.setTaken(0);
+		
+		ir.save(i);
+		
+		
+	} 
 
 	@RequestMapping(value = "/userIncident", method = RequestMethod.GET)
 	@ResponseBody
@@ -303,6 +350,15 @@ public class IncidentController {
 		public int contactMethod;
 		public String title;
 	}	
+	
+	@SuppressWarnings("unused")
+	private static class UserIncidentBody{
+		public long userId;
+		public long serviceId;
+		public String title;
+		public String description;
+		public int contactMethod;
+	}
 	
 	
 	@SuppressWarnings("unused")

@@ -19,4 +19,7 @@ public interface UserServiceRepository extends CrudRepository<UserService, Long>
     @Query("select ru from UserService ru where ru.user=:userid and ru.service=:serviceid")
     List<UserService> getByUserAndService(@Param("userid") RegisteredUser userid, @Param("serviceid") Service serviceid);
 
+    @Query("select count(ru) from UserService ru where ru.user=:userid and ru.service=:serviceid")
+    int isUserOfService(@Param("userid") RegisteredUser userid, @Param("serviceid") Service serviceid);
+
 }

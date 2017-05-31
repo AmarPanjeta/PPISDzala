@@ -32,6 +32,8 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 					$scope.methodR="Telefon";
 				}else if($scope.incident.reportMethod==2){
 					$scope.methodR="Email";
+				}else if($scope.incident.reportMethod==3){
+					$scope.methodR="Web aplikacija";
 				}
 
 
@@ -39,6 +41,8 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 					$scope.methodC="Telefon";
 				}else if($scope.incident.contactMethod==2){
 					$scope.methodC="Email";
+				}else if($scope.incident.contactMethod==3){
+					$scope.methodC="Web aplikacija";
 				}
 
 				$http.get("http://localhost:8080/departments/all").then(function(response2){
