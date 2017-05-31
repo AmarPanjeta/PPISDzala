@@ -1,0 +1,23 @@
+<div>
+	<div class="row userSve">
+		<div class="col-xs-4 col-xs-offset-1">
+			<button ng-click="prikaziInfo()">Moje informacije</button> 
+			<button ng-click="prikaziUsluge()">Moje usluge</button> 
+			<button ng-click="prikaziIncidentZahtjeve()">Statusi zahtjeva i incidenata</button>
+		</div>
+
+		<div class="col-xs-4 col-xs-offset-1" id="userInfo">
+			<div ng-show="prikaz">
+				<h5>Ime:{{usercic.name}}</h5>
+				<h5>Prezime:{{usercic.surname}}</h5>
+				<h5>Adresa:{{usercic.address}}</h5>
+				<h5>Broj telefona:{{usercic.telephone}}</h5>
+				<h5>Email:{{usercic.email}}</h5>
+			</div>
+
+		</div>
+
+		
+	</div>
+
+</div>

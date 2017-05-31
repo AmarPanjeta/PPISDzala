@@ -92,7 +92,6 @@ public class UserController {
         return data;
     }
 
-
     @SuppressWarnings("unused")
     private static class UserData {
 

@@ -12,8 +12,8 @@ app.config(function($routeProvider){
     templateUrl:"partials/serviceViewPage.html",
     controller:"serviceViewCtrl"
   }).when('/useraccount',{
-      templateUrl:"partials/userAccountPage.html",
-      controller:"userAccountCtrl"
+      templateUrl:"partials/userInfo.html",
+      controller:"userInfoCtrl"
   }).when('/incidentmanager',{
     templateUrl:"partials/incidentManager.html",
     controller:"incidentMngCtrl"
