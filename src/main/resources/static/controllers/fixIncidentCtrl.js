@@ -6,9 +6,12 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 	$scope.departments={};
 	$scope.methodR="";
 	$scope.methodC="";
-	$scope.connection=0;
+	$scope.connection=2;
 	$scope.imaOdgovoraNaInc=false;
 	$scope.imaOdgovora=false;
+	$scope.incident.answerText="";
+	$scope.incident.answer={};
+
 
 	$scope.loggedIn = function() {
       return $rootScope.username !== null;
@@ -19,6 +22,7 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 
 		$http.get("http://localhost:8080/users/search/findByUsername?username="+$rootScope.username).then(function(response){
 			$scope.user=response.data;
+			$scope.incident.idAutora=$scope.user.id;
 			$http.get("http://localhost:8080/incidents/getincidentbyid?id="+$routeParams.id).then(function(response1){
 				$scope.incident=response1.data;
 				$log.log("inciiiiii",$scope.incident);
@@ -117,6 +121,31 @@ $scope.povezani=function(){
 		$scope.answers={};
 		$scope.incident.incident={};
 	}
+}
+
+$scope.fixIncident=function(){
+
+	$scope.incident.idAutora=$scope.user.id;
+
+	if($scope.incident.incident!=null){
+	$scope.incident.incidentId=$scope.incident.incident.id;
+	}else{
+		$scope.incident.incidentId=-1;
+	}
+	if($scope.incident.answer!=null){
+		$scope.incident.answerId=$scope.incident.answer.id;
+	}else{
+		$scope.incident.answerId=-1;
+	}
+	$log.log("incident odgovor id",$scope.incident.answerId);
+	$log.log("incident povezani",$scope.incident.incidentId);
+	$log.log("incident text",$scope.incident.answerText);
+	$log.log("incident autor id",$scope.incident.idAutora);
+	$log.log("incident id",$scope.incident.id);
+	$http.post("http://localhost:8080/incidentanswers/fix",$scope.incident).then(function(response){
+		$log.log("incident",$scope.incident);
+		$location.path("/incidentmanager");
+	})
 }
 
 })

@@ -85,8 +85,8 @@
 			    <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="1" ng-change="povezani()" >
 			      Da
 			    </label>
-			    <label class="radio-inline" for="Povezan-2" checked="checked">
-			      <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="2" ng-change="povezani()">
+			    <label class="radio-inline" for="Povezan-2" >
+			      <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="2" ng-checked="true"  ng-change="povezani()">
 			      Ne
 				</label>
 
@@ -124,7 +124,7 @@
        <div ng-show="incident.answer.id==null">
 
 		<h4 ><b>Novi odgovor:</b> </h4>
-		<input type="text" placeholder="Tekst odgovora" ng-model="incident.answer.text" name="name" class="username"
+		<input type="text" placeholder="Tekst odgovora" ng-model="incident.answerText" name="name" class="username"
                            ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
 
 <!--
