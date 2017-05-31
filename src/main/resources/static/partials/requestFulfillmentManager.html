@@ -53,6 +53,7 @@
 				{{inc.datumPrijave.hours}}:{{inc.datumPrijave.minutes}}:{{inc.datumPrijave.seconds}} sati
 				</td>
 				<td>
+				<input type="submit" class="btn btn-primary" ng-click="detaljnoZahtjev(inc.id)" style="margin-bottom:3px" value="Detaljno"/><br>
 				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)" style="margin-bottom:3px" value="Detaljno"/><br>
 				<input type="submit" class="btn btn-primary" ng-show="zauzetoOdKorisnika(inc.taken)" ng-click="rijesiIncident(inc.id)"  style="margin-bottom:3px;padding-right:32px;" value="Rijesi"/><br>
 				<input type="submit" class="btn btn-primary" ng-show="zauzeto(inc.taken)==false" ng-click="zauzmiIncident(inc.id)" value="Zauzmi"/>
