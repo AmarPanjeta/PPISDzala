@@ -4,9 +4,11 @@ app.controller('loginCtrl',function($http,$log,$rootScope,$scope,$route,$locatio
 	$scope.login=function(){
 
 		$http.post("http://localhost:8080/user/login",$scope.user).then(function(response){
-			//$log.log("logovan korisnik:"+response.data);
+			$log.log(response.data);
 			$rootScope.username=response.data.username;
+			$rootScope.id=response.data.id;
 			localStorage.setItem("username",response.data.username);
+			localStorage.setItem("id",response.data.id);
 			$log.log("mozda");
 			$location.path("/");
 		},function(response){$log.log("nece");});

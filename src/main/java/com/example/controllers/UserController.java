@@ -26,7 +26,7 @@ public class UserController {
     private ServiceRepository sr;
 
     @RequestMapping("/login")
-    public LoginData login(@RequestBody LoginData data) throws ServletException {
+    public RegisteredUser login(@RequestBody LoginData data) throws ServletException {
 
         if (data.username == null || data.username.isEmpty() || data.password == null || data.password.isEmpty()) {
 
@@ -36,7 +36,7 @@ public class UserController {
 
         RegisteredUser user = ur.findFirstByUsernameAndPassword(data.username, data.password);
         if (user != null) {
-            return data;
+            return user;
         } else {
             throw new ServletException("Pogresna kombinacija username-password");
         }

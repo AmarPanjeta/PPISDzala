@@ -7,7 +7,13 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
   }
   else{
   $rootScope.username=null;
-}
+  }
+  if(localStorage.hasOwnProperty("id")){
+    $rootScope.id=localStorage.getItem("id");
+  }
+  else{
+  $rootScope.id=null;
+  }
 
   $log.log("username je "+$rootScope.username);
 

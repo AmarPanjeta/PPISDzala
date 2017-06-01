@@ -1,3 +1,4 @@
+<!---ppp
 <div>
 	<div class="row userSve">
 		<div class="col-xs-4 col-xs-offset-1">
@@ -7,17 +8,118 @@
 		</div>
 
 		<div class="col-xs-4 col-xs-offset-1" id="userInfo">
-			<div ng-show="prikaz">
+			<div ng-show="prikaz=='info'">
 				<h5>Ime:{{usercic.name}}</h5>
 				<h5>Prezime:{{usercic.surname}}</h5>
 				<h5>Adresa:{{usercic.address}}</h5>
 				<h5>Broj telefona:{{usercic.telephone}}</h5>
 				<h5>Email:{{usercic.email}}</h5>
 			</div>
-
+			<div ng-show="prikaz=='usluge'">
+				<table>
+					<tr ng-repeat="usluga in usluge">
+						<td>{{usluga.name}}</td>
+						<td>Prijavi incident na uslugu</td>
+					</tr>
+				</table>
+			</div>
+			<div ng-show="prikaz=='incidenti'">
+				<h3>lalal</h3>
+			</div>
 		</div>
 
 		
 	</div>
+</div>
+-->
 
+<div class="row" id="userView">
+	<div class="col-xs-3 col-xs-offset-0" id="miniMeni">
+		<nav class="navbar navbar-fixed-left navbar-minimal" role="navigation">
+			<ul class="navbar-menu">
+				<li ng-click="prikaziInfo()">
+					<a href="#!/useraccount" >
+						<span class="desc"> Moj profil</span>
+						<span class="glyphicon glyphicon-user"></span>
+					</a>
+				</li>
+				<li ng-click="prikaziUsluge()">
+					<a href="#!/useraccount" >
+						<span class="desc"> Usluge</span>
+						<span class="glyphicon glyphicon-info-sign"></span>
+					</a>
+				</li>
+				<ul  ng-show="prikaz=='usluge'" class="miniMiniMeni">
+					<li>
+						<a href="#!/useraccount" >
+							<span class="desc">Predaj novi zahtjev</span>
+							<span class="glyphicon glyphicon-plus-sign"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#!/useraccount" >
+							<span class="desc">Pogledaj status</span>
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+				
+				<li ng-click="prikaziIncidente()">
+					<a href="#!/useraccount">
+						<span class="desc"> Incidenti </span>
+						<span class="glyphicon glyphicon-comment"></span>
+					</a>
+				</li>
+
+				<ul  ng-show="prikaz=='incidenti'" class="miniMiniMeni">
+					<li>
+						<a href="#!/useraccount" >
+							<span class="desc" ng-click="prijavaIncidenta()">Prijavi novi incident</span>
+							<span class="glyphicon glyphicon-plus-sign"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#!/useraccount" >
+							<span class="desc">Pogledaj status</span>
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+			</ul>
+		</nav>
+	</div>
+
+	<div class="col-xs-9 col-xs-offset-3" id="userInfo">
+		<div ng-show="prikaz=='info'" id="prikazInfoa">
+			<h5>Ime:{{usercic.name}}</h5>
+			<h5>Prezime:{{usercic.surname}}</h5>
+			<h5>Adresa:{{usercic.address}}</h5>
+			<h5>Broj telefona:{{usercic.telephone}}</h5>
+			<h5>Email:{{usercic.email}}</h5>
+		</div>
+		<div ng-show="prikaz=='usluge'" id="prikazUsluga">
+			<table>
+				<tr ng-repeat="usluga in usluge">
+					<td>{{usluga.name}}</td>
+					<td><button ng-click="prijavaIncidenta()">Prijavi incident</button></td>
+				</tr>
+			</table>
+		</div>
+		<div ng-show="prikaz=='incidenti'" id="prikazIncidenata">
+			<table>
+				<tr ng-repeat="incident in incidenti">
+					<td>{{incident.description}}</td>
+					<td><button>Otvori info</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<div ng-show="prikaz=='prijavaUsluge'">
+			<h3>Prijavaa usluge</h3>
+		</div>
+
+		<div ng-show="prikaz=='prijavaIncidenta'">
+			<h3>Prijavaa incidenta</h3>
+		</div>
+	</div>
 </div>
