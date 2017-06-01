@@ -1,14 +1,4 @@
 app.controller('showRequestCtrl',function($scope,$http,$location,$log,$routeParams){
-<<<<<<< HEAD
-  $scope.request={}
-  $scope.urgency=["Velika","Srednja","Mala"];
-  $scope.influence=["Veliki","Srednji","Mali"];
-
-  $http.get('http://localhost:8080/requests/getbyid/'+$routeParams.id).then(function(response){
-    $scope.request=response.data;
-  })
-
-=======
   $scope.request={};
   $scope.urgency=["Velika","Srednja","Mala"];
   $scope.influence=["Veliki","Srednji","Mali"];
@@ -36,7 +26,7 @@ app.controller('showRequestCtrl',function($scope,$http,$location,$log,$routePara
       $location.path("/reqm");
     })
   }
->>>>>>> 76435d15846dd8078e3fd2847b2b0912d46c972a
+
   $scope.dajNacinPrijave=function(id){
     if(id==1) return "Telefon";
     else if(id==2) return "E-mail";

@@ -8,9 +8,12 @@
 	background-color: transparent;
 }
 
-#prikazInfoa{
+#prikazInfoa, #prikazUsluga, #prikazIncidenata, #prikazPrijaveUsluge, #prikazPrijaveIncidenta,
+#prikazStatusaUsluga, #prikazStatusaIncidenata{
 	border:1px solid white;
+	width: 90%;
 }
+
 
 #miniMeni{
 	padding: 0px;
@@ -81,4 +84,32 @@
 
 .navbar-minimal > .navbar-menu > li > a > .glyphicon, .miniMiniMeni > li > a > .glyphicon{
 	float: right;
+}
+
+
+.tabela{
+	background:transparent;
+	width:90%;
+	border-radius: 0px;
+}
+
+
+.tabela tbody, thead, th,td,tr{
+	background-color: transparent;
+	border-radius: 0px;
+}
+
+.taskDetails{
+	opacity: 0.75;
+	border:2px solid lightgray;
+}
+
+.taskDetails button{
+	padding:0px;
+	margin: 0px;
+	background-color: gray;
+}
+
+#incidentForm{
+	margin-left: 5%;
 }

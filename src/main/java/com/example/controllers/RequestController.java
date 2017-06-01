@@ -29,7 +29,7 @@ public class RequestController {
     private IncidentRepository incidentr;
 
     @RequestMapping("/{iduser}/addRequest")
-    public Request add( @PathVariable("iduser") long iduser, @RequestBody ReqBody req) throws Exception
+    public void	 add( @PathVariable("iduser") long iduser, @RequestBody ReqBody req) throws Exception
     {
 
         RegisteredUser user=userr.findById(iduser);
@@ -49,7 +49,8 @@ public class RequestController {
         newreq.setContactMethod(req.contactMethod);
         newreq.setReportMethod(req.reportMethod);
         if(req.title!=null) newreq.setTitle(req.title);
-        return  reqr.save(newreq);
+        
+        reqr.save(newreq);
     }
 
     @RequestMapping(value = "/userRequest", method = RequestMethod.GET)
