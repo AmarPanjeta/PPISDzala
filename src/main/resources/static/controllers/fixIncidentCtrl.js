@@ -11,6 +11,7 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 	$scope.imaOdgovora=false;
 	$scope.incident.answerText="";
 	$scope.incident.answer={};
+	$scope.answers={};
 
 
 	$scope.loggedIn = function() {
@@ -25,6 +26,15 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 			$scope.incident.idAutora=$scope.user.id;
 			$http.get("http://localhost:8080/incidents/getincidentbyid?id="+$routeParams.id).then(function(response1){
 				$scope.incident=response1.data;
+				if($scope.incident.incident!=null){
+					$scope.connection=1;
+					$http.get("http://localhost:8080/incidents/getmainincidents").then(function(response3){
+						$scope.mainIncidents=response3.data;
+						$scope.findInMainIncidents();
+							
+
+					})
+				}
 				$log.log("inciiiiii",$scope.incident);
 				$scope.dajOdgovore();
 			
@@ -51,6 +61,8 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 					$log.log("odjel je",$scope.incident.department);
 				
 				});
+
+			
 
 		
 			});
@@ -93,6 +105,18 @@ $scope.findInDepartments=function(){
 	}
 }
 
+$scope.findInMainIncidents=function(){
+	for(i=0;i<$scope.mainIncidents.length;i++){
+		if($scope.mainIncidents[i].id==$scope.incident.incident.id){
+			$scope.incident.incident=$scope.mainIncidents[i];
+			$scope.vratiOdgovore();
+
+			
+		}
+	}
+}
+
+
 $scope.vratiOdgovore=function(){
 	$log.log("petraaa",$scope.incident.incident.id);
 	$http.get("http://localhost:8080/incidents/getanswerbyincident?id="+$scope.incident.incident.id).then(function(response){
@@ -100,9 +124,6 @@ $scope.vratiOdgovore=function(){
 		$log.log("odgovori",$scope.answers);
 		if($scope.answers.length>0){
 			$scope.imaOdgovora=true;
-
-
-
 
 		}
 	})
