@@ -137,6 +137,10 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		$location.path("/fixincident/"+id);
 	}
 
+	$scope.prikaziZatvoreniIncident=function(id){
+		$location.path("/showincident/"+id);
+	}
+
 	$scope.zauzmiIncident=function(id){
 
 		$http.get("http://localhost:8080/incidents/take?id="+id+"&idUser="+$scope.user.id).then(function(response){

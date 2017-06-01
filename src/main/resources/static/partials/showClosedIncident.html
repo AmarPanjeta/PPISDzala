@@ -1,0 +1,144 @@
+<div class="container">
+
+
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Prikaz zatvorenog incidenta</b></h2>
+
+
+
+		<!-- automatski nerijesen
+			<h4 ng-model="incident.status"><b>Status incidenta:</b> </h4>
+			<input type="text" placeholder="Status incidenta:" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+        -->
+
+      
+		<h3 style="text-decoration: underline;"><b>Informacije o korisniku:</b></h2>
+			<h4><b>Korisničko ime:</b> {{incident.user.username}}</h4>
+			<h4><b>Ime:</b> {{incident.user.name}}</h4>
+			<h4><b>Prezime:</b> {{incident.user.surname}}</h4>
+			<h4><b>Adresa:</b> {{incident.user.address}}</h4>
+			<h4><b>Email:</b> {{incident.user.email}}</h4>
+			<h4><b>Kontakt telefon:</b> {{incident.user.telephone}}</h4>
+			
+		<h3 style="text-decoration: underline;"><b>Incident prijavio:</b></h2>
+			<h4><b>Korisničko ime:</b> {{incident.evidenterUser.username}}</h4>
+		
+		<h3 style="text-decoration: underline;"><b>Informacije o incidentu:</b></h2>
+
+
+			<h4><b>Način prijave:</b>{{methodR}}</h4>
+
+			<h4 ><b>Usluga za koju je prijavljen incident:</b>{{incident.service.name}}</h4>
+
+
+			<h4 ><b>Naziv incidenta:</b> {{incident.title}}</h4>
+			
+
+             <h4><b>Opis incidenta: </b>{{incident.description}} </h4>
+
+            <h4><b>Prioritet: </b>{{incident.priority}}</h4>
+
+            <h4><b>Status:</b>{{incident.status.status}}</h4>
+
+    
+
+
+
+			<h4><b>Odjel za rješavanje:</b>{{incident.department.name}}</h4>
+		
+
+			<h4><b>Način odgovaranja:</b>{{methodC}}</h4>
+
+			<h4><b>Datum i vrijeme zatvaranja:</b>{{incident.fixedtime.day}}.{{incident.fixedtime.month}}.{{incident.fixedtime.year}}.godine u {{incident.fixedtime.hours}}.{{incident.fixedtime.minutes}}.{{incident.fixedtime.seconds}} sati
+			</h4>
+			
+
+
+   		<h4 ng-show="imaOdgovoraNaInc"><b>Odgovori na incident:</b></h4>
+   		<table class="col-12" ng-show="imaOdgovoraNaInc">
+        <thead>
+        	<tr style="text-align: center;">
+        		<th style="width: 10%">Autor</th>
+        		<th style="width: 60%">Odgovor</th>
+        		<th style="width: 30%">Datum</th>
+
+        	</tr>
+        </thead>
+        <tbody>
+        	<tr ng-repeat="a in answers1">
+        	<td style="width: 10%">{{a.autor.username}}</td>
+        	<td style="width: 60%">{{a.text}}</td>
+        	<td style="width: 30%">{{a.datumPrijave.day}}.{{a.datumPrijave.month}}.{{a.datumPrijave.year}}.godine u
+				{{a.datumPrijave.hours}}:{{a.datumPrijave.minutes}}:{{a.datumPrijave.seconds}} sati
+				</td>
+
+        	</tr>
+        </tbody>
+        </table>
+
+
+
+		<h4><b>Povezani s nekim od glavnih incidenata:</b> </h4>
+			 	<label class="radio-inline" for="Povezan-1">
+			    <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="1" ng-checked="incident.incident!=null" ng-change="povezani()" disabled="true">
+			      Da
+			    </label>
+			    <label class="radio-inline" for="Povezan-2" >
+			      <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="2" ng-checked="incident.incident==null"  ng-change="povezani()" disabled="true">
+			      Ne
+				</label>
+
+			<br/>
+
+			 <div class="ui-select" ng-show="connection==1 || incident.incident!=null" style="margin-top: 13px;">
+			              <select id="incident_influence" class="form-control" ng-model="incident.incident"  ng-options="x.title for x in mainIncidents" data-toggle="tooltip" title="{{x.description}}" ng-change="vratiOdgovore()" disabled="true">
+
+			              </select>
+
+			              <h5><b>Opis glavnog incidenta:</b><br/>{{incident.incident.description}}</h5>
+
+			              <b><a href="" ng-click="vratiOdgovore()" ng-show="prikazi==0" style="text-decoration: underline;">Prikaži odgovore na glavni incident</a></b>
+			              <b><a href="" ng-click="vratiOdgovore()" ng-show="prikazi==1" style="text-decoration: underline;">Sakrij odgovore na glavni incident</a></b>
+			 </div>
+
+        <h4 ng-show="imaOdgovora && connection==1 && incident.incident!=null && prikazi==1"><b>Ponudjeni odgovori na glavni incident:</b></h4>
+
+
+        <table class="col-12" ng-show="imaOdgovora && connection==1 && incident.incident!=null && prikazi==1">
+        <thead>
+        	<tr>
+        		<th>Autor</th>
+        		<th>Odgovor</th>
+        	</tr>
+        </thead>
+        <tbody>
+        	<tr ng-repeat="a in answers">
+        	<td>{{a.autor.username}}</td>
+        	<td>{{a.text}}</td>
+        	
+        	</tr>
+        </tbody>
+        </table>
+
+
+
+		
+<!--
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="rijesenIncident()" value="Rijesi incident"/>
+-->
+			
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Nazad"/>
+		</div>
+
+	</div>
+
+
+
+
+
+
+</div>
