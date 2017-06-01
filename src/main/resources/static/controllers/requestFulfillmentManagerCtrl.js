@@ -34,6 +34,10 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
     })
   }
 
+  $scope.detaljnoZahtjev=function(id){
+    $location.path("/requests/"+id);
+  }
+
   $scope.generisiIzvjestaj=function(){
     stats={};
 

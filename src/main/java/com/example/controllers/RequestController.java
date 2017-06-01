@@ -69,6 +69,10 @@ public class RequestController {
         reqr.delete(i);
     }
     
+    @RequestMapping("/getbyid/{id}")
+    public Request getRequest(@PathVariable("id") long id){
+    	return reqr.findOne(id);
+    }
     
     @RequestMapping("/active")
     public List<Request> getActiveRequests(){
