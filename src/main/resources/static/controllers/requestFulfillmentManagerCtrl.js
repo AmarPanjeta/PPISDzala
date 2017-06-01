@@ -1,6 +1,7 @@
 app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$rootScope,$route,$location,$log){
   $scope.user={};
   $scope.requests=[];
+  $scope.closedRequests=[];
   $scope.aktuelniKlik=0;
 	$scope.zatvoreniKlik=0;
 	$scope.statistikaKlik=0;
@@ -67,35 +68,17 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
 
     niz=[];
 
-    $http.get("http://localhost:8080/incidents/search/countIncidents").then(function(response){
+    $http.get("http://localhost:8080/requests/search/countRequests").then(function(response){
       $scope.allInc=response.data;
     })
-    $http.get("http://localhost:8080/incidents/search/countActiveIncidents").then(function(response1){
+    $http.get("http://localhost:8080/requests/search/countActiveRequests").then(function(response1){
       $scope.activeInc=response1.data;
       niz.push(response1.data);
 
-      $http.get("http://localhost:8080/incidents/search/countClosedIncidents").then(function(response2){
+      $http.get("http://localhost:8080/requests/search/countClosedRequests").then(function(response2){
         $scope.closedInc=response2.data;
         niz.push($scope.closedInc);
         $scope.data=niz;
-
-        var pdf = new jsPDF('p', 'pt', 'letter');
-var canvas = pdf.canvas;
-canvas.height = 72 * 11;
-canvas.width=72 * 8.5;;
-// var width = 400;
-html2canvas("<h1>to je to</h1>", {
-        canvas:canvas,
-        onrendered: function(canvas) {
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
-            document.body.appendChild(iframe);
-            iframe.src = pdf.output('datauristring');
-           //var div = document.createElement('pre');
-           //div.innerText=pdf.output();
-           //document.body.appendChild(div);
-        }
-    });
 
       })
     })
@@ -120,7 +103,10 @@ html2canvas("<h1>to je to</h1>", {
         $scope.requests[i].datumPrijave={year,month,day,hours,minutes,seconds};
       }
 
-    })
+      $http.get("http://localhost:8080/requests/closed").then(function(response2){
+        $scope.closedRequests=response2.data;
+      });
+    });
   }
 
   $scope.prikaziZatvorene=function(){

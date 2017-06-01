@@ -53,6 +53,12 @@ app.controller('incidentSolveCtrl',function($http,$log,$rootScope,$scope,$route,
 					$scope.findInDepartments();
 					$log.log("odjel je",$scope.incident.department);
 				})
+
+				$http.get("http://localhost:8080//statuses/all").then(function(response3){
+					$scope.statuses=response3.data;
+					$scope.findInStatuses();
+					$log.log("status je",$scope.incident.status);
+				})
 			});
 		})
 	}

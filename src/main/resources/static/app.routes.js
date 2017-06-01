@@ -32,9 +32,15 @@ app.config(function($routeProvider){
   }).when("/reqm",{
     templateUrl:"partials/requestFulfillmentManager.html",
     controller: "requestFulfillmentManagerCtrl"
-  }).when("/manageraddrequest",{
+  }).when("/fixincident/:id",{
+   templateUrl:"partials/fixIncident.html",
+   controller:"fixIncidentCtrl"
+}).when("/manageraddrequest",{
     templateUrl:"partials/managerAddRequest.html",
     controller:"managerAddRequestCtrl"
+  }).when("/showincident/:id",{
+    templateUrl:"partials/showClosedIncident.html",
+    controller:"showClosedIncidentCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

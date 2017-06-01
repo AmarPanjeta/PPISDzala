@@ -64,7 +64,7 @@ $scope.evidentirajZahtjev=function(){
 
 $scope.odustani=function(){
 
-	//$location.path("/requestmanager");
+	$location.path("/reqm");
 
 /*
 	html2canvas(document.body, {
@@ -72,7 +72,7 @@ $scope.odustani=function(){
 		document.body.appendChild(canvas);
 	}
 });*/
-
+/*
 var objekat=document.getElementsByClassName('info')[0];
 var pdf = new jsPDF('p', 'pt', 'letter');
     var canvas = pdf.canvas;
@@ -81,17 +81,17 @@ var pdf = new jsPDF('p', 'pt', 'letter');
     html2canvas(document.body, {
         canvas:canvas,
         onrendered: function(canvas) {
-					/*
+
             var iframe = document.createElement('iframe');
             iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
             document.body.appendChild(iframe);
-            iframe.src = pdf.output('datauristring');*/
+            iframe.src = pdf.output('datauristring');
 						pdf.save("proba.pdf");
            //var div = document.createElement('pre');
            //div.innerText=pdf.output();
            //document.body.appendChild(div);
         }
-    });
+    });*/
 }
 
 })
