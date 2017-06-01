@@ -14,16 +14,16 @@ Request findById(@Param("id") long id);
     @Query("select i from Request i where i.user=:userid")
     List<Request> getByUser(@Param("userid") RegisteredUser userid);
     
-	@Query("select i from Request i where i.status.status<>'Zatvoren'")
+	@Query("select i from Request i where i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
 	List<Request> getActiveRequests();
 	
-	@Query("select count(i) from Request i where i.status.status<>'Zatvoren'")
+	@Query("select count(i) from Request i where i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
 	int countActiveRequests();
 	
-	@Query("select i from Request i where i.status.status='Zatvoren'")
+	@Query("select i from Request i where i.status.status='Zatvoren' or i.status.status='Odbijen' or i.status.status='Pogresno prijavljen'")
 	List<Request> getClosedRequests();
 	
-	@Query("select count(i) from Request i where i.status.status='Zatvoren'")
+	@Query("select count(i) from Request i where i.status.status='Zatvoren' or i.status.status='Odbijen' or i.status.status='Pogresno prijavljen'")
 	int countClosedRequests();
 	
 	@Query("select count(i) from Request i")
