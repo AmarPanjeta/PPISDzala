@@ -34,6 +34,8 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
 
     $rootScope.username=null;
     localStorage.removeItem("username");
+    $rootScope.id=null;
+    localStorage.removeItem("id");
     $location.path("/");
   };
 

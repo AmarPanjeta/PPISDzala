@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.models.*;
+import com.example.repositories.IncidentRepository;
 import com.example.repositories.RequestRepository;
 import com.example.repositories.StatusRepository;
 import com.example.repositories.UserRepository;
@@ -24,6 +25,8 @@ public class RequestController {
     private RequestRepository reqr;
     @Autowired
     private StatusRepository statusr;
+    @Autowired
+    private IncidentRepository incidentr;
 
     @RequestMapping("/{iduser}/addRequest")
     public Request add( @PathVariable("iduser") long iduser, @RequestBody ReqBody req) throws Exception
@@ -99,6 +102,34 @@ public class RequestController {
     	r.setStatus(s);
     	r.setDepartment(rb.getDepartment());
     	reqr.save(r);
+    }
+    @RequestMapping("/convert/{id}")
+    public void pretvoriUIncident(@PathVariable("id") long id){
+    	Request falseRequest=reqr.findOne(id);
+    	Incident realIncident= new Incident();
+    	realIncident.setTitle(falseRequest.getTitle());
+    	realIncident.setDescription(falseRequest.getDescription());
+    	realIncident.setContactMethod(falseRequest.getContactMethod());
+    	realIncident.setReportMethod(falseRequest.getReportMethod());
+    	realIncident.setTaken(0);
+    	realIncident.setCreated(falseRequest.getCreated());
+    	realIncident.setUser(falseRequest.getUser());
+    	realIncident.setPriority(0);
+    	realIncident.setRepetition(0);
+    	realIncident.setDepartment(falseRequest.getDepartment());
+    	realIncident.setUrgency(falseRequest.getUrgency());
+    	realIncident.setStatus(statusr.findByStatus("Poslan"));
+    	incidentr.save(realIncident);
+    	falseRequest.setStatus(statusr.findByStatus("Pogresno prijavljen"));
+    	reqr.save(falseRequest);
+    	
+    }
+    
+    @RequestMapping("/reject/{id}")
+    public void reject(@PathVariable("id") long id){
+    	Request request = reqr.findById(id);
+    	request.setStatus(statusr.findByStatus("Odbijen"));
+    	reqr.save(request);
     }
     
     @RequestMapping("/all")
