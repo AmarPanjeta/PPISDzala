@@ -54,6 +54,7 @@ app.controller('showRequestCtrl',function($scope,$http,$location,$log,$routePara
       $location.path("/reqm");
     })
   }
+
   $scope.dajNacinPrijave=function(id){
     if(id==1) return "Telefon";
     else if(id==2) return "E-mail";

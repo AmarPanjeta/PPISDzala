@@ -1,0 +1,201 @@
+<div class="row" id="userView">
+	<div class="col-xs-3 col-xs-offset-0" id="miniMeni">
+
+		<!--meni-->
+		<nav class="navbar navbar-fixed-left navbar-minimal" role="navigation">
+			<ul class="navbar-menu">
+				<li ng-click="prikaziInfo()">
+					<a href="#!/useraccount" >
+						<span class="desc"> Moj profil</span>
+						<span class="glyphicon glyphicon-user"></span>
+					</a>
+				</li>
+				<li ng-click="prikaziUsluge()">
+					<a href="#!/useraccount" >
+						<span class="desc"> Usluge</span>
+						<span class="glyphicon glyphicon-info-sign"></span>
+					</a>
+				</li>
+				<ul  ng-show="prikaz=='usluge'" class="miniMiniMeni">
+					<li ng-click="prikaziDodavanjeZahtjevaZaUslugom()">
+						<a href="#!/useraccount" >
+							<span class="desc">Predaj novi zahtjev</span>
+							<span class="glyphicon glyphicon-plus-sign"></span>
+						</a>
+					</li>
+					<li ng-click="prikaziStatusUsluga()">
+						<a href="#!/useraccount" >
+							<span class="desc">Pogledaj status</span>
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+				
+				<li ng-click="prikaziIncidente()">
+					<a href="#!/useraccount">
+						<span class="desc"> Incidenti </span>
+						<span class="glyphicon glyphicon-comment"></span>
+					</a>
+				</li>
+
+				<ul  ng-show="prikaz=='incidenti'" class="miniMiniMeni">
+					<li ng-click="prikaziPrijavuIncidenta()">
+						<a href="#!/useraccount" >
+							<span class="desc">Prijavi novi incident</span>
+							<span class="glyphicon glyphicon-plus-sign"></span>
+						</a>
+					</li>
+					<li ng-click="prikaziStatusIncidenata()">
+						<a href="#!/useraccount" >
+							<span class="desc">Pogledaj status</span>
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+			</ul>
+		</nav>
+	</div>
+
+	<!--krajMeni-->
+
+
+
+
+
+
+	<!--viewi-->
+	<div class="col-xs-9 col-xs-offset-3" id="userInfo">
+
+		<div ng-show="prikaz=='info'">
+			<h5>Ime:{{usercic.name}}</h5>
+			<h5>Prezime:{{usercic.surname}}</h5>
+			<h5>Adresa:{{usercic.address}}</h5>
+			<h5>Broj telefona:{{usercic.telephone}}</h5>
+			<h5>Email:{{usercic.email}}</h5>
+		</div>
+
+		<div ng-show="prikaz=='usluge'">
+			<table class="tabela">
+				<tr ng-repeat="usluga in usluge">
+					<td>{{usluga.name}}</td>
+					<td><button ng-click="prikaziPrijavuIncidenta(usluga.id)">Prijavi incident</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<div ng-show="prikaz=='incidenti'">
+			<table class="tabela">
+				<thead>
+					<tr>
+						<th>Naziv incidenta</th>
+						<th>Opis incidenta</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="incident in incidenti" ng-switch on="isSelInc(incident)" ng-click="selectIncident(incident,$index)">
+					<tr ng-class="{sel:selIdx==$index}">
+						<td>{{incident.title}}</td>
+						<td>{{incident.description}}</td>
+					</tr>
+					<tr ng-switch-when="true" class="taskDetails">
+						<td colspan="2">{{incident.description}}</td>
+						<td colspan="1">{{incident.datumPrijave.day}}.{{incident.datumPrijave.month}}.{{incident.datumPrijave.year}}.godine <br/>
+							{{incident.datumPrijave.hours}}:{{incident.datumPrijave.minutes}}:{{incident.datumPrijave.seconds}} sati</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+			<div ng-show="prikaz=='prijavaUsluge'">
+				<h3>Prijavaa usluge</h3>
+				<form ng-submit="prijaviZahtjevZaUslugom()" name="reqform" class="forma">
+					<div class="form-group">
+						<label>Naziv zahtjeva:</label><br>
+						<input type="text" placeholder="Naziv" ng-model="request.title" name="address" class="address"
+						ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+					</div>
+
+					<div class="form-group">
+						<label>Opis:</label><br>
+						<input type="text" placeholder="Opis" ng-model="request.description" name="address"
+						class="address" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+					</div>
+					<div class="form-group">
+						<label>O statusu zahtjeva obavijestiti putem: </label>
+						<label>Emaila <input type="radio" placeholder="Ime" ng-model="request.contact_method"
+							value="email" />
+						</label>
+						<label>Telefona <input type="radio" placeholder="Prezime" ng-model="request.contact_method"
+							value="telephone" />
+						</label><br>
+					</div>
+					<input class="btn btn-info" type="submit" value="Dodaj zahtjev"/>
+				</form>
+			</div>
+
+
+			<div ng-show="prikaz=='prijavaIncidenta'">
+				<h4>Prijava incidenta</h4>
+				<form ng-submit="prijaviIncidentUnos()" name="incidentForm" class="forma">
+					<div class="form-group">
+						<label>Naziv incidenta:</label><br>
+						<input type="text" placeholder="Adresa" ng-model="incident.title" name="address" class="address"
+						ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+					</div>
+					<div class="form-group">
+						<label>Opis:</label><br>
+						<input type="text" placeholder="Adresa" ng-model="incident.description" name="address"
+						class="address" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+
+					</div>
+					<div class="form-group">
+						<label>O saniranju smetnje obavijestiti putem: </label>
+						<label>Emaila <input type="radio" placeholder="Ime" ng-model="incident.contact_method"
+							value="email" />
+						</label>
+						<label>Telefona <input type="radio" placeholder="Prezime" ng-model="incident.contact_method"
+							value="telephone" />
+						</label><br>
+					</div>
+					<input class="btn btn-info" type="submit" value="Prijavi incident"/>
+				</form>
+			</div>
+
+
+			<div ng-show="prikaz=='statusiUsluga'">
+				<table class="tabela">
+					<thead>
+						<tr>
+							<th>Naziv incidenta</th>
+							<th>Opis incidenta</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="zahtjev in zahtjevi">
+							<td>{{zahtjev.title}}</td>
+							<td>{{zahtjev.description}}</td>
+							<td>{{zahtjev.status.status}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div ng-show="prikaz=='statusiIncidenata'" id="prikazStatusaIncidenata">
+				<table class="tabela">
+					<thead>
+						<tr>
+							<th>Naziv incidenta</th>
+							<th>Status incidenta</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="statusInc in statusIncs">
+							<td>{{statusInc.title}}</td>
+							<td>{{statusInc.status}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>

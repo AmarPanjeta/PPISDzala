@@ -15,8 +15,9 @@ app.config(function($routeProvider){
     templateUrl:"partials/showRequest.html",
     controller:"showRequestCtrl"
   }).when('/useraccount',{
-      templateUrl:"partials/userAccountPage.html",
-      controller:"userAccountCtrl"
+      templateUrl:"partials/userInfo.html",
+      controller:"userInfoCtrl",
+      css:"stylesheets/userInfoStyle.css"
   }).when('/incidentmanager',{
     templateUrl:"partials/incidentManager.html",
     controller:"incidentMngCtrl"
@@ -38,6 +39,9 @@ app.config(function($routeProvider){
 }).when("/manageraddrequest",{
     templateUrl:"partials/managerAddRequest.html",
     controller:"managerAddRequestCtrl"
+  }).when("/showincident/:id",{
+    templateUrl:"partials/showClosedIncident.html",
+    controller:"showClosedIncidentCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

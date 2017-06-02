@@ -1,0 +1,115 @@
+#userView{
+	margin-top: 5%;
+}
+
+#userInfo{
+	padding: 0px;
+	width: 100%;
+	background-color: transparent;
+}
+
+#prikazInfoa, #prikazUsluga, #prikazIncidenata, #prikazPrijaveUsluge, #prikazPrijaveIncidenta,
+#prikazStatusaUsluga, #prikazStatusaIncidenata{
+	border:1px solid white;
+	width: 90%;
+}
+
+
+#miniMeni{
+	padding: 0px;
+}
+
+.miniMiniMeni{
+	height: 30%;
+	border-radius: 0px;
+	background-color: white;
+	padding: 0px;
+	border:1px solid white;
+}
+
+.navbar-fixed-left {
+	position: fixed;
+	border-radius: 0px;
+	background-color: transparent;
+	padding: 0px;
+}
+
+.navbar-minimal {
+	width: 20%;		
+	border-width: 0px;
+	z-index: 1000;
+	height: 50%;
+}
+
+.navbar-minimal > .navbar-menu {
+	padding: 0px;
+	height: 100%;
+	width:100%;
+}
+
+.navbar-minimal > .navbar-menu > li{
+	margin: 0px;
+	padding:0px;
+	background-color: transparent;
+	width: 100%;
+	height: 20%;
+	border:1px solid white;
+}
+
+.miniMiniMeni > li{
+	margin: 0px;
+	padding:0px;
+	background-color: transparent;
+	width: 100%;
+	height: 50%;
+	border:1px solid white;
+}
+
+.navbar-minimal > .navbar-menu > li:hover, .miniMiniMeni > li:hover{
+	background-color: #3f869b;
+}
+
+.navbar-minimal > .navbar-menu > li > a, .miniMiniMeni > li > a {
+	display: inline-block;
+	color: black;
+	padding: 10%;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	margin: 0px;
+}
+
+
+.navbar-minimal > .navbar-menu > li > a > .glyphicon, .miniMiniMeni > li > a > .glyphicon{
+	float: right;
+}
+
+
+.tabela{
+	background:transparent;
+	width:90%;
+	border-radius: 0px;
+}
+
+
+.tabela tbody, thead, th,td,tr{
+	background-color: transparent;
+	border-radius: 0px;
+}
+
+.taskDetails{
+	opacity: 0.75;
+	border:2px solid lightgray;
+}
+
+.taskDetails button{
+	padding:0px;
+	margin: 0px;
+	background-color: gray;
+}
+
+#incidentForm{
+	margin-left: 5%;
+}

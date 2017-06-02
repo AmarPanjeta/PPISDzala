@@ -12,6 +12,7 @@ app.controller('fixIncidentCtrl',function($http,$log,$rootScope,$scope,$route,$l
 	$scope.incident.answerText="";
 	$scope.incident.answer={};
 	$scope.answers={};
+	$scope.prikazi=0;
 
 
 	$scope.loggedIn = function() {
@@ -109,7 +110,7 @@ $scope.findInMainIncidents=function(){
 	for(i=0;i<$scope.mainIncidents.length;i++){
 		if($scope.mainIncidents[i].id==$scope.incident.incident.id){
 			$scope.incident.incident=$scope.mainIncidents[i];
-			$scope.vratiOdgovore();
+			
 
 			
 		}
@@ -122,6 +123,11 @@ $scope.vratiOdgovore=function(){
 	$http.get("http://localhost:8080/incidents/getanswerbyincident?id="+$scope.incident.incident.id).then(function(response){
 		$scope.answers=response.data;
 		$log.log("odgovori",$scope.answers);
+		if($scope.prikazi==0){
+			$scope.prikazi=1;
+		}else if($scope.prikazi==1){
+			$scope.prikazi=0;
+		}
 		if($scope.answers.length>0){
 			$scope.imaOdgovora=true;
 

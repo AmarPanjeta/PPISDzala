@@ -38,11 +38,11 @@
 
 			<h4 ><b>Naziv incidenta:</b> </h4>
 			<input type="text" placeholder="Naziv incidenta" ng-model="incident.title" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
 
              <h4><b>Opis incidenta:</b> </h4>
 			<input type="text" placeholder="Opis poduzetih incidenta" ng-model="incident.description" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
 
     
 
@@ -96,12 +96,15 @@
 			              <select id="incident_influence" class="form-control" ng-model="incident.incident"  ng-options="x.title for x in mainIncidents" data-toggle="tooltip" title="{{x.description}}" ng-change="vratiOdgovore()">
 
 			              </select>
+
+			               <b><a href="" ng-click="vratiOdgovore()" ng-show="prikazi==0" style="text-decoration: underline;">Prikaži odgovore</a></b>
+			              <b><a href="" ng-click="vratiOdgovore()" ng-show="prikazi==1" style="text-decoration: underline;">Sakrij odgovore</a></b>
 			 </div>
 
-        <h4 ng-show="imaOdgovora && connection==1 && incident.incident!=null"><b>Ponudjeni odgovori:</b></h4>
+        <h4 ng-show="imaOdgovora && connection==1 && incident.incident!=null && prikazi==1"><b>Ponudjeni odgovori:</b></h4>
 
 
-        <table class="col-12" ng-show="imaOdgovora && connection==1 && incident.incident!=null">
+        <table class="col-12" ng-show="imaOdgovora && connection==1 && incident.incident!=null && prikazi==1">
         <thead>
         	<tr>
         		<th>Autor</th>
