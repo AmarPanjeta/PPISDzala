@@ -43,28 +43,25 @@
 				</label>
 
 
-			<h4 ><b>Naziv zahtjeva:</b> </h4>
+			<h4 ><b>Naslov zahtjeva:</b> </h4>
 			<input type="text" placeholder="Opis incidenta" ng-model="request.title" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
 
-             <h4><b>Opis incidenta:</b> </h4>
+             <h4><b>Opis zahtjeva:</b> </h4>
 			<input type="text" placeholder="Opis poduzetih incidenta" ng-model="request.description" name="name" class="username"
-                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
 
-            <h4><b>Hitnost:</b> </h4>
-			<select id="incident_urgency" class="form-control" ng-model="incidentUrgency" ng-options="x for x in urgency">
-		     </select>
+						 <h4><b>Prioritet:</b> </h4>
+						 <div class="ui-select">
+				 								 <select id="incident_influence" class="form-control" ng-model="request.priority" ng-options="x for x in priorities" ng-change="change()">
 
-
-			<h4 ><b>Uticaj:</b></h4>
-			<select id="incident_influence" class="form-control" ng-model="incidentInfluence" ng-options="x for x in influence">
-			</select>
-
+				 								 </select>
+				 	 </div>
 
 
 			<h4><b>Odjel za rješavanje:</b></h4>
 			 <div class="ui-select">
-			              <select id="incident_influence" class="form-control" ng-model="request.department" ng-options="x.name for x in departments" >
+			              <select id="incident_influence" class="form-control" ng-model="request.department" ng-options="x.name for x in departments" ng-change="change()">
 
 			              </select>
 			</div>
@@ -90,7 +87,7 @@
 
 	        <br/>
 
-			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="prijaviIncident()" value="Prijavi zahhtjev"/>
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="sacuvajIzmjene()" value="Sacuvaj izmjene"/>
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="pretvoriUIncident()" value="Prebaci u incidente"/>
 			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odbijZahtjev()" value="Odbij zahtjev"/>
 			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Odustani"/>
