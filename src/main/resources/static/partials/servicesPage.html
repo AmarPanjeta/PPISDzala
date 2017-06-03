@@ -40,7 +40,45 @@
 
 <table ng-controller="servicesCtrl" ng-init="onInit()" class="tabela table">
 
+  <thead>
+    <tr>
+      <th colspan="1">Naziv usluge</th>
+      <th colspan="2">Opis usluge</th>
+      <th colspan="1">Cijena usluge</th>
+      <th colspan="1">Opcije</th>
+    </tr>
+  </thead>
+  <tr  ng-repeat="service in services">
+    <td>
 
+      <label>{{service.name}}</label>
+    </td>
+    <td colspan="2">
+
+      <label>{{service.description}}</label>
+    </td>
+    <td>
+
+      <label>{{service.price}}</label>
+    </td>
+    <td>
+      <div ng-if="user.type==1">
+          <input ng-if="!service.available" class="btn btn-default" type="submit"
+                 value="Usluga nije dostupna"
+                 disabled/>
+          <input ng-if="service.available" class="btn btn-info" type="submit" value="Prijavi uslugu"
+                 ng-click="prijaviUslugu(service)"/>
+      </div>
+      <div ng-if="user.type==2">
+          <input ng-if="service.available" type="submit" class="btn btn-info"
+                 value="Promijeni dostupnost usluge"
+                 ng-click="uslugaNedostupna(service)"/>
+          <input ng-if="!service.available" type="submit" class="btn btn-info"
+                 value="Promijeni dostupnost usluge"
+                 ng-click="uslugaDostupna(service)"/>
+      </div>
+    </td>
+  </tr>
     <tr>
         <td>
             <h4>Usluge telekoma:</h4>
