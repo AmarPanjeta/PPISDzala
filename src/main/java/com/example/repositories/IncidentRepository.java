@@ -22,6 +22,9 @@ public interface IncidentRepository extends CrudRepository<Incident, Long>{
 	@Query("select i from Incident i where i.status.status<>'Zatvoren'")
 	List<Incident> getActiveIncidents();
 	
+	@Query("select i from Incident i where i.status.status<>'Zatvoren' and i.user.id=:userid")
+	List<Incident> getActiveIncidentsByUser(@Param("userid") long userid);
+	
 	@Query("select count(i) from Incident i where i.status.status<>'Zatvoren'")
 	int countActiveIncidents();
 	

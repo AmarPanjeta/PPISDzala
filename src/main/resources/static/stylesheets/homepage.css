@@ -94,8 +94,8 @@ body{
 }
 
 h4{
-	background-color: mintcream;
-}
+	/*background-color: mintcream;
+*/}
 
  .tabela {
 
@@ -248,4 +248,9 @@ th[colspan="8"]{
 .row{
   margin-left: 0;
   margin-right: 0;
+}
+
+input{
+  background-color:  mintcream;
+  border-radius: 7px;
 }

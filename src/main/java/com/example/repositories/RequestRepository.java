@@ -18,6 +18,9 @@ Request findById(@Param("id") long id);
 	@Query("select i from Request i where i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
 	List<Request> getActiveRequests();
 	
+	@Query("select i from Request i where i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen' and i.user.id=:userid")
+	List<Request> getActiveRequestsByUser(@Param("userid") long userid);
+	
 	@Query("select count(i) from Request i where i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
 	int countActiveRequests();
 	

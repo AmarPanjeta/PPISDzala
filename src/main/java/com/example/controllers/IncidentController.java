@@ -282,6 +282,12 @@ public class IncidentController {
 		return (List<Incident>) ir.getActiveIncidents();
 	}
 	
+	@RequestMapping("/usersactive")
+	public List<Incident> getActiveIncidentsByUser(@RequestParam("userid") long userid)
+	{
+		return (List<Incident>) ir.getActiveIncidentsByUser(userid);
+	}
+	
 	@RequestMapping("/dodaj")
 	public void dodaj(@RequestBody Incident i ){
 		Incident inc=new Incident();
