@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.example.models.Request;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RequestRepository extends CrudRepository<Request, Long>{
@@ -28,4 +29,13 @@ Request findById(@Param("id") long id);
 	
 	@Query("select count(i) from Request i")
 	int countRequests();
+	
+	@Query("select count(i) from Request i where i.created between :d1 and :d2")
+	int countRequestsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
+	
+	@Query("select count(i) from Request i where i.created between :d1 and :d2 and (i.status.status='Zatvoren' or i.status.status='Odbijen' or i.status.status='Pogresno prijavljen')")
+	int countClosedRequestsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
+	
+	@Query("select count(i) from Request i where i.created between :d1 and :d2 and i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
+	int countActiveRequestsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
 }

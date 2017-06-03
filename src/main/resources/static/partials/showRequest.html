@@ -86,6 +86,36 @@
 			</label>
 
 	        <br/>
+					<br>
+					<h4  ng-show="imaOdgovora">Komentari:</h4>
+					<table class="col-12 tabela" ng-show="imaOdgovora">
+						<thead>
+							<tr>
+								<th colspan="1">Autor</th>
+								<th colspan="2">Odgovor</th>
+								<th colspan="1">Datum</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="a in answers">
+							<td colspan="1">{{a.autor.username}}</td>
+							<td colspan="2">{{a.text}}</td>
+							<td>{{a.datumPrijave.day}}.{{a.datumPrijave.month}}.{{a.datumPrijave.year}}.godine <br/>
+						{{a.datumPrijave.hours}}:{{a.datumPrijave.minutes}}:{{a.datumPrijave.seconds}} sati
+						</td>
+
+							</tr>
+						</tbody>
+						</table>
+
+						<h4 ><b>Novi odgovor:</b> </h4>
+						<input type="text" style="margin-bottom:10px;"placeholder="Tekst odgovora" ng-model="answerText" name="name" class="username"
+				                           ng-minlength="1" required/>
+						<input type="submit" ng-show="answerText.length" class="btn" style="margin-bottom: 10px;" ng-click="dodajOdgovor()" value="Dodaj odgovor"/>
+
+
+						<br>
 
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="sacuvajIzmjene()" value="Sacuvaj izmjene"/>
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="pretvoriUIncident()" value="Prebaci u incidente"/>

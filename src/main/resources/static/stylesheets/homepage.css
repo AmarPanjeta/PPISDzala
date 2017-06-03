@@ -180,8 +180,9 @@ h4{
       background-color: white;
     }
 
-    .priority-class[value="-1"]{
-      background-color: gray;
+    .priority-class[value="0"]{
+      background-color: black;
+      color: white;
     }
 
 

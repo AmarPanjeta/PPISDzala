@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+
+
 import com.example.models.*;
 import com.example.repositories.IncidentRepository;
 import com.example.repositories.RequestRepository;
@@ -142,6 +144,146 @@ public class RequestController {
     	reqr.save(request);
     	
     }
+
+	@RequestMapping("/yearlystatistics")
+	public StatisticsResponse yearlyStatistics(@RequestParam("year") int year){
+		StatisticsResponse body=new StatisticsResponse();
+		body.all=this.yearly(year);
+		body.active=this.yearlyActive(year);
+		body.closed=this.yearlyClosed(year);
+		
+		return body;
+	}
+	
+	@RequestMapping("/monthlystatistics")
+	public StatisticsResponse yearlyStatistics(@RequestParam("year") int year,@RequestParam("month") int month){
+		StatisticsResponse body=new StatisticsResponse();
+		body.all=this.monthly(year, month);
+		body.active=this.monthlyactive(year, month);
+		body.closed=this.monthlyclosed(year, month);
+		
+		return body;
+	}
+	
+	@RequestMapping("/yearlyall")
+	public int yearly(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return reqr.countRequestsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyall")
+	public int monthly(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return reqr.countRequestsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/yearlyclosed")
+	public int yearlyClosed(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return reqr.countClosedRequestsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyclosed")
+	public int monthlyclosed(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return reqr.countClosedRequestsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/yearlyactive")
+	public int yearlyActive(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return reqr.countActiveRequestsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyactive")
+	public int monthlyactive(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return reqr.countActiveRequestsByDate(d1, d2);
+		
+	}
     
     @RequestMapping("/all")
     public List<Request> all(){
@@ -154,5 +296,12 @@ public class RequestController {
         public int contactMethod;
         public String title;
     }
+    
+	@SuppressWarnings("unused")
+	public static class StatisticsResponse{
+		public int active;
+		public int closed;
+		public int all;
+	}
 }
 
