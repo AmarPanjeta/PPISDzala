@@ -35,6 +35,8 @@ public class IncidentController {
 	@Autowired
 	private AnswerRepository ar;
 	
+	private RequestRepository rr;
+	
 	//bolje bi bilo da je u kontroleru za service pa bi bilo "/services/id/addIncident" na konkretnu uslugu
 	@RequestMapping("/service/{idservice}/{iduser}/addIncident")
 	public Incident addIncident(@PathVariable("idservice") long idservice, @PathVariable("iduser") long iduser, @RequestBody IncidentBody inc) throws Exception
@@ -318,6 +320,11 @@ public class IncidentController {
 		return (List<Answer>) ar.getAnswerByIncidentId(id);
 	}
 	
+	@RequestMapping("getworkeranswerbyincident")
+	public List<Answer> getWorkerAnswerByIncidentId(@RequestParam("id") long id){
+		return (List<Answer>)ar.getWorkerAnswerByIncidentId(id);
+	}
+	
 	@RequestMapping("/take")
 	public void takeIncident(@RequestParam("id") long id,@RequestParam("idUser") long idUser){
 		Incident i=ir.findById(id);
@@ -342,6 +349,167 @@ public class IncidentController {
 		return sr;
 	}
 	
+	@RequestMapping("/yearlystatistics")
+	public StatisticsResponse yearlyStatistics(@RequestParam("year") int year){
+		StatisticsResponse body=new StatisticsResponse();
+		body.all=this.yearly(year);
+		body.active=this.yearlyActive(year);
+		body.closed=this.yearlyClosed(year);
+		
+		return body;
+	}
+	
+	@RequestMapping("/monthlystatistics")
+	public StatisticsResponse yearlyStatistics(@RequestParam("year") int year,@RequestParam("month") int month){
+		StatisticsResponse body=new StatisticsResponse();
+		body.all=this.monthly(year, month);
+		body.active=this.monthlyactive(year, month);
+		body.closed=this.monthlyclosed(year, month);
+		
+		return body;
+	}
+	
+	@RequestMapping("/yearlyall")
+	public int yearly(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return ir.countIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyall")
+	public int monthly(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return ir.countIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/yearlyclosed")
+	public int yearlyClosed(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return ir.countClosedIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyclosed")
+	public int monthlyclosed(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return ir.countClosedIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/yearlyactive")
+	public int yearlyActive(@RequestParam("year") int year){
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		System.out.println(d2);
+		
+		return ir.countActiveIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/monthlyactive")
+	public int monthlyactive(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return ir.countActiveIncidentsByDate(d1, d2);
+		
+	}
+	
+	@RequestMapping("/convert/{id}")
+	public void convert(@PathVariable("id") long id){
+		
+		Incident i=ir.findById(id);
+		Request r=new Request();
+		
+		r.setTitle(i.getTitle());
+		r.setDescription(i.getDescription());
+		r.setCreated(i.getCreated());
+		r.setContactMethod(i.getContactMethod());
+		r.setReportMethod(i.getReportMethod());
+		r.setUser(i.getUser());
+		r.setDepartment(i.getDepartment());
+		r.setPriority(i.getPriority());
+		r.setUrgency(i.getUrgency());
+		r.setStatus(statusr.findByStatus("Poslan"));
+		i.setStatus(statusr.findByStatus("Pogresno prijavljen"));
+		ir.save(i);
+		rr.save(r);
+		
+	}
 	
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
@@ -368,4 +536,11 @@ public class IncidentController {
 		public int open;
 		public int falseIncidents;
 	}	
+	
+	@SuppressWarnings("unused")
+	public static class StatisticsResponse{
+		public int active;
+		public int closed;
+		public int all;
+	}
 }

@@ -1,5 +1,5 @@
 <div class="row" id="userView">
-	<div class="col-xs-3 col-xs-offset-0" id="miniMeni">
+	<div class="col-xs-3" id="miniMeni">
 
 		<!--meni-->
 		<nav class="navbar navbar-fixed-left navbar-minimal" role="navigation">
@@ -36,7 +36,7 @@
 						</a>
 					</li>
 				</ul>
-				
+
 				<li ng-click="prikaziIncidente()">
 					<a href="#!/useraccount">
 						<span class="desc"> Incidenti </span>
@@ -76,13 +76,13 @@
 
 
 	<!--viewi-->
-	<div class="col-xs-9 col-xs-offset-3" id="userInfo">
+	<div class="col-xs-9" id="userInfo">
 		<div ng-show="prikaz=='nista'">
 			<h3>Dobrodosli {{username}}! Hvala Vam sto koristite usluge Dzala telekoma.</h3>
 		</div>
 
 		<div ng-show="prikaz=='info'">
-			<div class="col-md-9 col-lg-9 "> 
+			<div class="col-md-9 col-lg-9 ">
 				<table class="userTab" id="prikazInfoa">
 					<tbody>
 						<tr>
@@ -136,7 +136,7 @@
 					<tr ng-switch-when="true" style="border:none">
 						<td style="font-size: 12px;" colspan="3">Cijena usluge: {{usluga.price}}</td>
 					</tr>
-					
+
 				</tbody>
 			</table>
 		</div>

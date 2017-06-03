@@ -20,12 +20,12 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 
 
 
-	 $scope.labelsBAR = ['2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+	 $scope.labelsBAR = ['2015', '2016', '2017'];
   $scope.series = ['Rijeseni', 'Nerijeseni'];
 
   $scope.dataBAR = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
+    [56, 55, 40],
+    [86, 27, 90]
   ];
 
 	$scope.loggedIn = function() {
@@ -141,6 +141,9 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 		$location.path("/showincident/"+id);
 	}
 
+	$scope.izvjestaji=function(){
+		$location.path("/reports");
+	}
 	$scope.zauzmiIncident=function(id){
 
 		$http.get("http://localhost:8080/incidents/take?id="+id+"&idUser="+$scope.user.id).then(function(response){

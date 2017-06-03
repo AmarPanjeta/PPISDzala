@@ -133,6 +133,16 @@ public class RequestController {
     	reqr.save(request);
     }
     
+    @RequestMapping("/partialupdate/{id}")
+    public void partialUpdate(@PathVariable("id") long id,@RequestBody Request r){
+    	Request request=reqr.findById(id);
+    	request.setPriority(r.getPriority());
+    	request.setStatus(statusr.findByStatus("U obradi"));
+    	request.setDepartment(r.getDepartment());
+    	reqr.save(request);
+    	
+    }
+    
     @RequestMapping("/all")
     public List<Request> all(){
     	return (List<Request>)reqr.findAll();

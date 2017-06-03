@@ -52,19 +52,13 @@
                            ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
 
 						 <h4><b>Prioritet:</b> </h4>
-						 <div class="ui-select">
-				 								 <select id="incident_influence" class="form-control" ng-model="request.priority" ng-options="x for x in priorities" ng-change="change()">
 
-				 								 </select>
-				 	 </div>
-
+     <input type="text" placeholder="Opis poduzetih incidenta" ng-model="request.priority" name="name" class="username"
+                          ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
 
 			<h4><b>Odjel za rješavanje:</b></h4>
-			 <div class="ui-select">
-			              <select id="incident_influence" class="form-control" ng-model="request.department" ng-options="x.name for x in departments" ng-change="change()">
-
-			              </select>
-			</div>
+      <input type="text"  ng-model="request.department.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
 
 
 
@@ -87,10 +81,8 @@
 
 	        <br/>
 
-			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="sacuvajIzmjene()" value="Sacuvaj izmjene"/>
-			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="pretvoriUIncident()" value="Prebaci u incidente"/>
-			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odbijZahtjev()" value="Odbij zahtjev"/>
-			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Odustani"/>
+
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="povratakNaZahtjeve()" value="Povratak na zahtjeve"/>
 
 		</div>
 

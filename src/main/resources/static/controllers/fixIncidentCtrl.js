@@ -120,7 +120,7 @@ $scope.findInMainIncidents=function(){
 
 $scope.vratiOdgovore=function(){
 	$log.log("petraaa",$scope.incident.incident.id);
-	$http.get("http://localhost:8080/incidents/getanswerbyincident?id="+$scope.incident.incident.id).then(function(response){
+	$http.get("http://localhost:8080/incidents/getworkeranswerbyincident?id="+$scope.incident.incident.id).then(function(response){
 		$scope.answers=response.data;
 		$log.log("odgovori",$scope.answers);
 		if($scope.prikazi==0){
