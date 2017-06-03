@@ -67,14 +67,14 @@
       <label>{{service.price}}</label>
     </td>
     <td>
-      <div ng-if="user.type==1">
+      <div ng-if="user.type==2">
           <input ng-if="!service.available" class="btn btn-default" type="submit"
                  value="Usluga nije dostupna"
                  disabled/>
           <input ng-if="service.available" class="btn btn-info" type="submit" value="Prijavi uslugu"
                  ng-click="prijaviUslugu(service)"/>
       </div>
-      <div ng-if="user.type==2">
+      <div ng-if="user.type==1">
           <input ng-if="service.available" type="submit" class="btn btn-info"
                  value="Promijeni dostupnost usluge"
                  ng-click="uslugaNedostupna(service)"/>

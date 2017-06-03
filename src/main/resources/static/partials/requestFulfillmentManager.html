@@ -25,7 +25,7 @@
 		<table class="col-12 tabela">
 		<thead>
 			<tr>
-				<th colspan="8">Aktuelni incidenti
+				<th colspan="8">Aktuelni zahtjevi
 					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info " style="float:right;" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
 					<button ng-if="aktuelniKlik" type="button" class="btn btn-info " style="float:right;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
 				</th>
@@ -33,7 +33,7 @@
 			<tr ng-show="aktuelniKlik">
 				<th>#</th>
 				<th>Redoslijed rješavanja</th>
-				<th>Naziv incidenta</th>
+				<th>Naziv zahtjeva</th>
 				<th>Prioritet</th>
 				<th>Odjel</th>
 				<th>Status</th>
@@ -68,7 +68,7 @@
 		<table class="col-12 tabela">
 		<thead>
 			<tr>
-				<th colspan="8">Zatvoreni incidenti
+				<th colspan="8">Zatvoreni zahtjevi
 					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
 					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
 				</th>
@@ -76,7 +76,7 @@
 			<tr ng-show="zatvoreniKlik">
 				<th>#</th>
 				<th>Redoslijed rješavanja</th>
-				<th>Naziv incidenta</th>
+				<th>Naziv zahtjeva</th>
 				<th>Prioritet</th>
 				<th>Odjel</th>
 				<th>Status</th>
@@ -112,9 +112,9 @@
 			</tr>
 
 			<tr ng-show="statistikaKlik">
-				<th>Ukupno incienata</th>
-				<th>Zatvoreni incidenti</th>
-				<th>Aktivni incidenti</th>
+				<th>Ukupno zahtjeva</th>
+				<th>Zatvoreni zahtjevi</th>
+				<th>Aktivni zahtjevi</th>
 			</tr>
 		</thead>
 
@@ -142,9 +142,9 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="izvjestaji()" value="Statisticki izvjestaj"/>
+					<input type="submit" class="btn btn-danger" style="margin-bottom: 10px;margin-top: 10px;width:60%;" ng-click="izvjestaji()" value="Statisticki izvjestaj"/>
 
-					<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="generisiIzvjestaj()" value="Generisi izvjestaj"/>
+					<input type="submit" class="btn btn-danger" style="margin-bottom: 10px;margin-top: 10px;width:60%;" ng-click="generisiIzvjestaj()" value="Generisi izvjestaj"/>
 
 				</td>
 			</tr>
@@ -162,8 +162,10 @@
 		<div class="col-md-12">
 			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="evidentirajZahtjev()" value="Evidentiraj zahtjev"/>
 			<br>
-				<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;margin-top: 10px;" ng-click="generisiIzvjestaj()" value="Generisi izvjestaj"/>
 		</div>
+
+	</div>
+	<div style="height:25px;">
 
 	</div>
 

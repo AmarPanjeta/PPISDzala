@@ -95,7 +95,7 @@ public class IncidentController {
 		i.setContactMethod(tijelo.contactMethod);
 		i.setCreated(new Date());
 		i.setDescription(tijelo.description);
-		i.setPriority(-1);
+		i.setPriority(0);
 		i.setRepetition(0);
 		i.setReportMethod(3);
 		i.setTitle(tijelo.title);

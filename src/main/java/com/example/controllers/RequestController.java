@@ -3,16 +3,21 @@ package com.example.controllers;
 
 
 import com.example.models.*;
+import com.example.repositories.DepartmentRepository;
 import com.example.repositories.IncidentRepository;
 import com.example.repositories.RequestRepository;
 import com.example.repositories.StatusRepository;
 import com.example.repositories.UserRepository;
+
+import org.mockito.exceptions.verification.NeverWantedButInvoked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 /**
  * Created by Admira on 08-May-17.
@@ -29,6 +34,8 @@ public class RequestController {
     private StatusRepository statusr;
     @Autowired
     private IncidentRepository incidentr;
+    @Autowired
+    private DepartmentRepository departmentr;
 
     @RequestMapping("/{iduser}/addRequest")
     public void	 add( @PathVariable("iduser") long iduser, @RequestBody ReqBody req) throws Exception
@@ -284,6 +291,34 @@ public class RequestController {
 		return reqr.countActiveRequestsByDate(d1, d2);
 		
 	}
+	
+	@RequestMapping("/reportrequest")
+	public void reportRequest(@RequestBody UserRequestBody rb) throws ServletException{
+		RegisteredUser user=userr.findById(rb.userId);
+		Status status=statusr.findByStatus("Nerijesen");
+		Department d=departmentr.findByName("Odjel za podrsku korisnicima");
+		
+		if(rb.description==null || rb.description.equals("")){
+			throw new ServletException("Nedostaje opis zahtjeva");
+		}
+		
+		if(rb.title==null || rb.title.equals("")){
+			throw new ServletException("Nedostaje naziv zahtjeva");
+		}
+		
+		Request r = new Request();
+		r.setTitle(rb.title);
+		r.setDescription(rb.description);
+		r.setUser(user);
+		r.setStatus(status);
+		r.setContactMethod(rb.contactMethod);
+		r.setPriority(0);
+		r.setReportMethod(3);
+		r.setDepartment(d);
+		r.setUrgency(0);
+		
+		reqr.save(r);
+	}
     
     @RequestMapping("/all")
     public List<Request> all(){
@@ -302,6 +337,14 @@ public class RequestController {
 		public int active;
 		public int closed;
 		public int all;
+	}
+	
+	@SuppressWarnings("unused")
+	private static class UserRequestBody{
+		public long userId;
+		public String title;
+		public String description;
+		public int contactMethod;
 	}
 }
 
