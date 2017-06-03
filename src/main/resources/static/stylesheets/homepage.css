@@ -97,19 +97,19 @@ h4{
 	background-color: mintcream;
 }
 
- table {
+ .tabela {
 
         border-collapse: separate;
         border-spacing: 3px;
         width: 100%
     }
 
-    table tr {
+    .tabela tr {
         background-color: gainsboro;
 
     }
 
-    table tr td {
+    .tabela tr td {
         background-color: lightgray;
         border-radius: 10px;
       /*  padding: 30px 20px;*/
@@ -242,4 +242,9 @@ th{
 
 th[colspan="8"]{
   padding: 0px;
+}
+
+.row{
+  margin-left: 0;
+  margin-right: 0;
 }

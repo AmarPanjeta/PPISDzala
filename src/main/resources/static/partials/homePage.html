@@ -1,7 +1,7 @@
 
 
 <div class="container-fluid copy" >
-  <div class="row">
+  <div class="">
     <div id="myCarousel-copy" class="carousel slide col-md-12 col-sm-12" data-ride="carousel">
 
       <ol class="carousel-indicators" >
@@ -16,7 +16,7 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
 
-    
+
 
         <div class="item active">
           <img src="http://www.kars4kids.org/blog/wp-content/uploads/2016/03/happy-students.jpg" alt="Chania">
@@ -42,7 +42,7 @@
           </div>
         </div>
 
- 
+
       </div>
 
     <a class="left carousel-control"  role="button" >
@@ -63,14 +63,14 @@
 
 
 <script>
-  
+
   $(document).ready(function(){
     $("#myCarousel-copy").carousel({interval: 3000});
     $("#myCarousel-copy").carousel({pause:'hover'});
   });
   $(".left").click(function(){
     $("#myCarousel-copy").carousel("prev");
-}); 
+});
     $(".right").click(function(){
     $("#myCarousel-copy").carousel("next");
 });

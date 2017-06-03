@@ -9,6 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.models.Incident;
 
+import java.util.Date;
 import java.util.List;
 
 @RepositoryRestResource(path="incidents",collectionResourceRel="incidents")
@@ -38,5 +39,14 @@ public interface IncidentRepository extends CrudRepository<Incident, Long>{
 	
 	@Query("select i from Incident i where i.incident=null")
 	List<Incident> getMainIncidents();
+	
+	@Query("select count(i) from Incident i where i.created between :d1 and :d2")
+	int countIncidentsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
+	
+	@Query("select count(i) from Incident i where i.created between :d1 and :d2 and i.status.status='Zatvoren'")
+	int countClosedIncidentsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
+	
+	@Query("select count(i) from Incident i where i.created between :d1 and :d2 and i.status.status<>'Zatvoren'")
+	int countActiveIncidentsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
 	
 }
