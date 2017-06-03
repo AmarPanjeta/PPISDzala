@@ -200,7 +200,7 @@ h4{
       background-color: violet;
       padding-right:20%;
     }
-
+/*
 
     .status-class[value="Nerijesen"]{
       background-color: #f44336;
@@ -228,7 +228,7 @@ h4{
 
     .status-class[value="Otkazan"]{
       background-color: black;
-    }
+    }*/
 
 .chart{
   width: 250px;
