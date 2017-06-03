@@ -6,6 +6,8 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 	$scope.prikaz='nista'; 
 	$scope.prijavaIncidentaZaUsluguId;
 	$scope.selIdx= -1;
+	$scope.answerIncident='nema';
+
 
 	//prikaz za tabele redove
 	$scope.selectIncident=function(inc,idx){
@@ -23,11 +25,47 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		return $scope.selectedIncident===inc;
 	}
 
+	$scope.prikazi=function(nesto){
+		$scope.prikaz=nesto;
+
+		if($scope.prikaz=='info')
+		{
+			$http.get('http://localhost:8080/user/find?username='+$rootScope.username).then(function(response){
+				if(response.data!=null) $scope.usercic=response.data;
+			});
+		}
+
+		else if($scope.prikaz=='usluge')
+		{
+			$http.get("http://localhost:8080/services/getuserservices?id="+$rootScope.id).then(function(response){
+				$scope.usluge=response.data;
+				$log.log(response.data);
+			});
+		}
+
+		else if($scope.prikaz=='incidenti')
+		{
+			$http.get("http://localhost:8080/incidents/userIncident?userid="+$rootScope.id).then(function(response){
+				$scope.incidenti=response.data;	
+			});
+		}
+
+		else if($scope.prikaz=='zahtjevi')
+		{
+			$http.get('http://localhost:8080/requests/userRequest?userid='+$rootScope.id).then(function(res)
+			{
+				$scope.zahtjevi=res.data;
+			});
+		}
+
+
+	}
+
 	/////////////////////////////////////
-
-
 	//prikazi razl viewa
-	$scope.prikaziInfo=function(){
+	
+
+	/*$scope.prikaziInfo=function(){
 		$http.get('http://localhost:8080/user/find?username='+$rootScope.username).then(function(response){
 			if(response.data!=null) $scope.usercic=response.data;
 		});
@@ -52,12 +90,11 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		});
 
 		if($scope.prikaz!='incidenti') $scope.prikaz='incidenti';
-	}
+	}*/
 	
 	$scope.prikaziPrijavuIncidenta=function(uslugaId)
 	{
-		if($scope.prikaz!='prijavaIncidenta') $scope.prikaz='prijavaIncidenta';
-
+		$scope.prikazi('prijavaIncidenta');
 		$scope.prijavaIncidentaZaUsluguId=uslugaId;
 	}
 
@@ -66,37 +103,6 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		if($scope.prikaz!='prijavaUsluge') $scope.prikaz='prijavaUsluge';
 
 	}
-
-	$scope.prikaziStatusUsluga=function()
-	{
-		$http.get('http://localhost:8080/requests/userRequest?userid='+$rootScope.id).then(function(res)
-			{
-				$scope.zahtjevi=res.data;
-			});
-
-		if($scope.prikaz!='statusiUsluga') $scope.prikaz='statusiUsluga';
-	}
-
-	$scope.prikaziStatusIncidenata=function()
-	{
-		$http.get("http://localhost:8080/incidents/userIncident?userid="+$rootScope.id).then(function(response){
-			$scope.statusIncs=response.data;
-			$log.log(response.data);
-		});
-
-		if($scope.prikaz!='statusiIncidenata') $scope.prikaz='statusiIncidenata';
-	}
-
-	$scope.prikaziMojeUsluge=function()
-	{
-		$http.get("http://localhost:8080/services/getuserservices?id="+$rootScope.id).then(function(response){
-			$scope.usluge=response.data;
-			$log.log(response.data);
-		});
-
-		if($scope.prikaz!='usluge') $scope.prikaz='usluge';
-	}
-
 
 	/////////////////////////////////////////////
 
@@ -107,7 +113,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		$scope.incident.serviceId=$scope.prijavaIncidentaZaUsluguId;
 
 		$http.post('http://localhost:8080/incidents/reportincident', $scope.incident).then(function(response){
-			$scope.prikaziMojeIncidente();
+			$scope.prikazi('incidenti');
 		});
 
 	}
@@ -118,27 +124,31 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 
 		$http.post('http://localhost:8080/requests/'+$rootScope.id+'/addRequest',$scope.request).then(function(response)
 		{
-			$scope.prikaziStatusUsluga();
+			$scope.prikazi('zahtjevi');
 		});
 
 	}
 
 	$scope.odjaviUslugu=function(uslugaid)
 	{
-		$log.log(uslugaid);
-
 		$http.get('http://localhost:8080/userservice/'+$rootScope.id+'/odjaviuslugu/'+uslugaid).then(function(response){
-			$scope.prikaziMojeUsluge();
+			$scope.prikazi('usluge');
 		});
 	}
 
 	$scope.prikaziOdgovorIncidenta=function()
 	{
-		$scope.answerIncident='nesto';
-
 		$http.get('http://localhost:8080/incidents/getanswerbyincident?id='+$scope.selectedIncident.id).then(function(response)
+		{	
+			if(response.data[0].text!='')
 			{
-				$log.log(response);
-			});
+				$scope.incident.odgovor=response.data[0].text;
+				$scope.imaOdgovor=true;
+				$log.log($scope.incident.odgovor);
+			}	
+
+		});
+
+		$log.log($scope.incident.odgovor);
 	}
 });

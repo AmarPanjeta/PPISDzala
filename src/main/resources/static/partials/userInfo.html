@@ -4,18 +4,19 @@
 		<!--meni-->
 		<nav class="navbar navbar-fixed-left navbar-minimal" role="navigation">
 			<ul class="navbar-menu">
-				<li ng-click="prikaziInfo()">
+				<li ng-click="prikazi('info')">
 					<a href="#!/useraccount" >
 						<span class="desc"> Moj profil</span>
 						<span class="glyphicon glyphicon-user"></span>
 					</a>
 				</li>
-				<li ng-click="prikaziUsluge()">
+				<li ng-click="prikazi('usluge')">
 					<a href="#!/useraccount" >
 						<span class="desc"> Usluge</span>
 						<span class="glyphicon glyphicon-info-sign"></span>
 					</a>
 				</li>
+				<!--
 				<ul  ng-show="prikaz=='uslugeMeni'" class="miniMiniMeni">
 					<li ng-click="prikaziMojeUsluge()">
 						<a href="#!/useraccount" >
@@ -36,34 +37,40 @@
 						</a>
 					</li>
 				</ul>
+				-->
 
-				<li ng-click="prikaziIncidente()">
+				<li ng-click="prikazi('incidenti')">
 					<a href="#!/useraccount">
 						<span class="desc"> Incidenti </span>
 						<span class="glyphicon glyphicon-comment"></span>
 					</a>
 				</li>
 
-				<ul  ng-show="prikaz=='incidentiMeni'" class="miniMiniMeni">
-					<li ng-click="prikaziMojeIncidente()">
-						<a href="#!/useraccount" >
-							<span class="desc">Prikazi moje incidente</span>
-							<span class="glyphicon glyphicon-plus-sign"></span>
-						</a>
-					</li>
-					<li ng-click="prikaziPrijavuIncidenta()">
-						<a href="#!/useraccount" >
-							<span class="desc">Prijavi novi incident</span>
-							<span class="glyphicon glyphicon-plus-sign"></span>
-						</a>
-					</li>
-					<li ng-click="prikaziStatusIncidenata()">
+				<ul  ng-show="prikaz=='incidenti'" class="miniMiniMeni">
+					<li ng-click="prikazi('statusiIncidenata')">
 						<a href="#!/useraccount" >
 							<span class="desc">Pogledaj nerijesene</span>
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					</li>
 				</ul>
+
+				<li ng-click="prikazi('zahtjevi')">
+					<a href="#!/useraccount" >
+						<span class="desc">Zahtjevi za uslugom</span>
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+				</li>
+
+				<ul  ng-show="prikaz=='zahtjevi'" class="miniMiniMeni">
+					<li ng-click="prikazi('statusiUsluga')">
+						<a href="#!/useraccount" >
+							<span class="desc">Pogledaj nerijesene</span>
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+
 			</ul>
 		</nav>
 	</div>
@@ -82,59 +89,63 @@
 		</div>
 
 		<div ng-show="prikaz=='info'">
-			<div class="col-md-9 col-lg-9 ">
+		<h3>Informacije</h3>
 				<table class="userTab" id="prikazInfoa">
 					<tbody>
 						<tr>
 							<td style="text-align: right;">Ime:</td>
-							<td style="font-weight: bold; padding-left: 10px;">{{usercic.name}}</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.name}}</td>
 						</tr>
 						<tr>
 							<td style="text-align: right;">Prezime:</td>
-							<td style="font-weight: bold; padding-left: 10px;">{{usercic.surname}}</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.surname}}</td>
 						</tr>
 						<tr>
 							<td style="text-align: right;">Adresa:</td>
-							<td style="font-weight: bold; padding-left: 10px;">{{usercic.address}}</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.address}}</td>
 						</tr>
-						<tr style="border: none;">
+						<tr>
 							<td style="text-align: right;">Telefon:</td>
-							<td style="font-weight: bold; padding-left: 10px;">{{usercic.telephone}}</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.telephone}}</td>
 						</tr>
 						<tr>
 							<td style="text-align: right;">Email:</td>
-							<td style="font-weight: bold; padding-left: 10px;">{{usercic.email}}</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.email}}</td>
+						</tr>
+						<tr>
+							<td style="text-align: right;">Username:</td>
+							<td style="font-weight: bold; padding-left: 20px; text-align: left;">{{usercic.username}}</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
 		</div>
 
 		<div ng-show="prikaz=='usluge'">
+		<h3>Usluge</h3>
 			<table class="userTab">
 				<thead>
 					<tr>
-						<td style="text-align: center; font-weight: bold;">Naziv usluge</td>
-						<td style="text-align: right; font-weight: bold;">Odjavi uslugu</td>
-						<td style="text-align: right; font-weight: bold;">Prijavi incident na uslugu</td>
+						<td style="text-align: center; font-weight: bold; border:none">Naziv usluge</td>
+						<td style="text-align: right; font-weight: bold; border:none">Odjavi uslugu</td>
+						<td style="text-align: right; font-weight: bold; border:none">Prijavi incident na uslugu</td>
 					</tr>
 				</thead>
 				<tbody ng-repeat="usluga in usluge" ng-switch on="isSelInc(usluga)" ng-click="selectIncident(usluga,$index)">
-					<tr ng-class="{sel:selIdx==$index}" style="border:none">
+					<tr ng-class="{sel:selIdx==$index}">
 						<td style="text-align: center;">{{usluga.name}}</td>
-						<td><button style="float: left; margin-left: 45%;" ng-click="odjaviUslugu(usluga.id)" class="glyphicon glyphicon-minus-sign"></button></td>
-						<td><button style="float: left; margin-left: 50%;" ng-click="prikaziPrijavuIncidenta(usluga.id)" class="glyphicon glyphicon-flash"></button></td>
+						<td><button style="float: left; margin-left: 55%;" ng-click="odjaviUslugu(usluga.id)" class="glyphicon glyphicon-minus-sign"></button></td>
+						<td><button style="float: left; margin-left: 60%;" ng-click="prikaziPrijavuIncidenta(usluga.id)" class="glyphicon glyphicon-flash"></button></td>
 					</tr>
 
 
-					<tr ng-switch-when="true" style="border:none">
-						<td style="font-size: 12px;" colspan="3">Naziv usluge: {{usluga.name}}</td>
+					<tr ng-switch-when="true">
+						<td style="font-size: 12px; text-align: left;" colspan="3">Naziv usluge: {{usluga.name}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border:none">
-						<td style="font-size: 12px;" colspan="3">Opis usluge: {{usluga.description}}</td>
+					<tr ng-switch-when="true">
+						<td style="font-size: 12px; text-align: left;" colspan="3">Opis usluge: {{usluga.description}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border:none">
-						<td style="font-size: 12px;" colspan="3">Cijena usluge: {{usluga.price}}</td>
+					<tr ng-switch-when="true">
+						<td style="font-size: 12px; text-align: left;" colspan="3">Cijena usluge: {{usluga.price}}</td>
 					</tr>
 
 				</tbody>
@@ -142,37 +153,39 @@
 		</div>
 
 		<div ng-show="prikaz=='incidenti'">
+		<h3>Incidenti</h3>
 			<table class="userTab">
 				<thead>
 					<tr>
-						<th>Naziv incidenta</th>
-						<th></th>
-						<th></th>
+						<th colspan="2">Naziv incidenta</th>
+						<th colspan="2">Status</th>
 					</tr>
 				</thead>
 				<tbody ng-repeat="incident in incidenti" ng-switch on="isSelInc(incident)" ng-click="selectIncident(incident,$index)">
 					<tr ng-class="{sel:selIdx==$index}">
-						<td colspan="3">{{incident.title}}</td>
+						<td colspan="2">{{incident.title}}</td>
+						<td colspan="2">{{incident.status.status}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border: none">
-						<td style="font-size: 12px;" colspan="3">Opis incidenta: {{incident.description}}</td>
+
+					<tr ng-switch-when="true" style="background-color: white">
+						<td style="font-size: 15px; text-align: left;" colspan="4">Opis incidenta: {{incident.description}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border: none">
+					<!--
+					<tr ng-switch-when="true">
 						<td style="font-size: 12px;" colspan="3">Datum prijave incidenta: {{incident.created.day}}.{{incident.created.month}}.{{incident.created.year}}.godine <br/>
 							{{incident.created.hours}}:{{incident.created.minutes}}:{{incident.created.seconds}} sati</td>
 					</tr>
-					<tr ng-switch-when="true" style="border: none">
-						<td style="font-size: 12px;" colspan="3">Datum zatvaranja incidenta: {{incident.fixed_time_date.day}}.{{incident.fixed_time_date.month}}.{{incident.fixed_time_date.year}}.godine <br/>
-							{{incident.fixed_time_date.hours}}:{{incident.fixed_time_date.minutes}}:{{incident.fixed_time_date.seconds}} sati</td>
+					-->
+					<tr ng-switch-when="true" style="background-color: white">
+						<td style="font-size: 15px; text-align: left;" colspan="4">Incident na uslugu: {{incident.service.name}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border: none">
-						<td style="font-size: 12px;" colspan="3">Datum rjesavanja incidenta: {{incident.closed_time_date.day}}.{{incident.created.month}}.{{incident.created.year}}.godine <br/>
-							{{incident.created.hours}}:{{incident.created.minutes}}:{{incident.created.seconds}} sati</td>
+					<tr ng-switch-when="true" style="background-color: white">
+						<td style="font-size: 15px; text-align: left;" colspan="4">Odgovor incident menadzera: {{incident.odgovor}}</td>
 					</tr>
-					<tr ng-switch-when="true" style="border: none">
-						<td style="font-size: 12px;">Odgovor incident menadzera: {{answerIncident}}</td>
-						<td><button>Prihvati</button></td>
-						<td><button>Odbij</button></td>
+					<tr ng-switch-when="true" ng-show="imaOdgovor" style="background-color: white">
+						<td colspan="2"></td>
+						<td colspan="1" style="font-size: 15px; text-align: left;">Prihvati odgovor</td>
+						<td colspan="1" style="font-size: 15px; text-align: left;">Odgovori</td>
 					</tr>
 					</tbody>
 
@@ -195,7 +208,6 @@
 					</div>
 					<div class="form-group" style="margin-left: 10%; margin-right: 10%;">
 						<label>O statusu zahtjeva obavijestiti putem: </label>
-						<br>
 						<label style="width: 20%; padding:0px; margin: 0px; font-weight: normal;">Emaila <input type="radio" ng-model="request.contact_method"
 							value="email" style="width: 20%; padding:0px; margin: 0px;"/>
 						</label>
@@ -235,7 +247,8 @@
 			</div>
 
 
-			<div ng-show="prikaz=='statusiUsluga'">
+			<div ng-show="prikaz=='zahtjevi'">
+			<h3>Zahtjevi za uslugom</h3>
 				<table class="userTab">
 					<thead>
 						<tr>
@@ -250,9 +263,11 @@
 						</tr>
 					</tbody>
 				</table>
+				<input class="btn btn-info" type="submit" value="Predaj novi zahtjev" ng-click="prikazi('prijavaUsluge')" style="width: 30%; height:40px; margin-left:30%; margin-top:3%;" />
 			</div>
 
 			<div ng-show="prikaz=='statusiIncidenata'" id="prikazStatusaIncidenata">
+			<h3>Nerijeseni incidenti</h3>
 				<table class="userTab">
 					<thead>
 						<tr>
