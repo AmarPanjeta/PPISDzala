@@ -85,6 +85,12 @@ public class RequestController {
     	return reqr.getActiveRequests();
     }
     
+    @RequestMapping("/usersactive")
+    public List<Request> getActiveRequestsByUser(@RequestParam("userid") long userid)
+    {
+    	return (List<Request>) reqr.getActiveRequestsByUser(userid);
+    }
+    
     @RequestMapping("/closed")
     public List<Request> getClosedRequests(){
     	return reqr.getClosedRequests();

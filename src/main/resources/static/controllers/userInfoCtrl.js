@@ -6,7 +6,12 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 	$scope.prikaz='nista'; 
 	$scope.prijavaIncidentaZaUsluguId;
 	$scope.selIdx= -1;
-	$scope.answerIncident='nema';
+	$scope.selIdxZ= -1;
+	$scope.selIdxU= -1;
+
+	$scope.answers1=[];
+	$scope.answers2=[];
+	$scope.answerIncident={};
 
 
 	//prikaz za tabele redove
@@ -17,13 +22,54 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 
 		else{
 			$scope.selectedIncident=inc;
+			$scope.selectedIncident.odgovor='';
+			$scope.dajOdgovoreIncident();
 			$scope.selIdx=idx;
 		}	
 	}
 
-	$scope.isSelInc=function(inc){
-		return $scope.selectedIncident===inc;
+	$scope.isSelInc=function(zah){
+		return $scope.selectedIncident===zah;
 	}
+
+
+
+
+
+
+	$scope.selectRequest=function(zah,idx){
+		if($scope.selectedRequest!=null){
+			$scope.selectedRequest=null;
+		}
+
+		else{
+			$scope.selectedRequest=zah;
+			$scope.selectedRequest.odgovor='';
+			$scope.dajOdgovoreZahtjev();
+			$scope.selIdxZ=idx;
+		}	
+	}
+
+	$scope.isSelReq=function(zah){
+		return $scope.selectedRequest===zah;
+	}
+
+	$scope.selectUsluga=function(usl,idx){
+		if($scope.selectedUsluga!=null){
+			$scope.selectedUsluga=null;
+		}
+
+		else{
+			$scope.selectedUsluga=usl;
+			$scope.selIdxU=idx;
+		}	
+	}
+
+	$scope.isSelUsl=function(usl){
+		return $scope.selectedUsluga===usl;
+	}
+
+
 
 	$scope.prikazi=function(nesto){
 		$scope.prikaz=nesto;
@@ -45,12 +91,29 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 
 		else if($scope.prikaz=='incidenti')
 		{
+			$http.get("http://localhost:8080/incidents/usersactive?userid="+$rootScope.id).then(function(response){
+				$scope.incidenti=response.data;	
+
+			});
+		}
+
+		else if($scope.prikaz=='sviincidenti')
+		{
 			$http.get("http://localhost:8080/incidents/userIncident?userid="+$rootScope.id).then(function(response){
 				$scope.incidenti=response.data;	
+
 			});
 		}
 
 		else if($scope.prikaz=='zahtjevi')
+		{
+			$http.get('http://localhost:8080/requests/usersactive?userid='+$rootScope.id).then(function(res)
+			{
+				$scope.zahtjevi=res.data;
+			});
+		}
+
+		else if($scope.prikaz=='svizahtjevi')
 		{
 			$http.get('http://localhost:8080/requests/userRequest?userid='+$rootScope.id).then(function(res)
 			{
@@ -58,39 +121,69 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 			});
 		}
 
-
 	}
 
-	/////////////////////////////////////
-	//prikazi razl viewa
-	
+	$scope.dajOdgovoreIncident=function(){
 
-	/*$scope.prikaziInfo=function(){
-		$http.get('http://localhost:8080/user/find?username='+$rootScope.username).then(function(response){
-			if(response.data!=null) $scope.usercic=response.data;
-		});
+		$http.get("http://localhost:8080/incidents/getanswerbyincident?id="+$scope.selectedIncident.id).then(function(response){
+			$scope.answers1=response.data;
 
-		if($scope.prikaz!='info') $scope.prikaz='info';
+			if($scope.answers1.length>0){
+				$scope.imaOdgovor=true;
+
+				for(i=0;i<$scope.answers1.length;i++){
+
+					timestamp=$scope.answers1[i].created;
+					var date = new Date(timestamp);
+
+					var year = date.getUTCFullYear();
+					var month = date.getUTCMonth() + 1;
+					var day = date.getUTCDate();
+					var hours = date.getUTCHours();
+					var minutes = date.getUTCMinutes();
+					var seconds = date.getUTCSeconds();
+					$scope.answers1[i].datumPrijave={year,month,day,hours,minutes,seconds};
+
+
+				}
+			}
+
+			else {
+				$scope.imaOdgovor=false;
+			}
+		})
 	}
 
-	$scope.prikaziUsluge=function(){
-		if($scope.prikaz!='uslugeMeni') $scope.prikaz='uslugeMeni';
+	$scope.dajOdgovoreZahtjev=function(){
+
+		$http.get("http://localhost:8080/requestanswer/getanswersbyrequest/"+$scope.selectedRequest.id).then(function(response){
+			$scope.answers2=response.data;
+
+			if($scope.answers2.length>0){
+				$scope.imaOdgovorZ=true;
+
+				for(i=0;i<$scope.answers2.length;i++){
+
+					timestamp=$scope.answers2[i].created;
+					var date = new Date(timestamp);
+
+					var year = date.getUTCFullYear();
+					var month = date.getUTCMonth() + 1;
+					var day = date.getUTCDate();
+					var hours = date.getUTCHours();
+					var minutes = date.getUTCMinutes();
+					var seconds = date.getUTCSeconds();
+					$scope.answers2[i].datumPrijave={year,month,day,hours,minutes,seconds};
+
+
+				}
+			}
+
+			else {
+				$scope.imaOdgovorZ=false;
+			}
+		})
 	}
-
-	$scope.prikaziIncidente=function()
-	{
-		if($scope.prikaz!='incidentiMeni') $scope.prikaz='incidentiMeni';
-	}
-
-	$scope.prikaziMojeIncidente=function()
-	{
-		$http.get("http://localhost:8080/incidents/userIncident?userid="+$rootScope.id).then(function(response){
-			$scope.incidenti=response.data;
-			$log.log(response.data);
-		});
-
-		if($scope.prikaz!='incidenti') $scope.prikaz='incidenti';
-	}*/
 	
 	$scope.prikaziPrijavuIncidenta=function(uslugaId)
 	{
@@ -103,8 +196,6 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		if($scope.prikaz!='prijavaUsluge') $scope.prikaz='prijavaUsluge';
 
 	}
-
-	/////////////////////////////////////////////
 
 	$scope.prijaviIncidentUnos=function()
 	{
@@ -136,19 +227,30 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		});
 	}
 
-	$scope.prikaziOdgovorIncidenta=function()
+	$scope.dodajOdgovorNaIncident=function(noviOdgovorText)
 	{
-		$http.get('http://localhost:8080/incidents/getanswerbyincident?id='+$scope.selectedIncident.id).then(function(response)
-		{	
-			if(response.data[0].text!='')
-			{
-				$scope.incident.odgovor=response.data[0].text;
-				$scope.imaOdgovor=true;
-				$log.log($scope.incident.odgovor);
-			}	
+		$scope.answerIncident.text=noviOdgovorText;
+		$scope.answerIncident.autorId=$rootScope.id;
+		$scope.answerIncident.incId=$scope.selectedIncident.id;
 
+		$log.log($scope.answerIncident);
+		$http.post('http://localhost:8080/incidentanswers/add',$scope.answerIncident).then(function(response)
+		{
+			$log.log(response);
+			$scope.prikazi('incidenti');
 		});
+	}
 
-		$log.log($scope.incident.odgovor);
+	$scope.dodajOdgovorNaZahtjev=function(noviOdgovorText)
+	{
+		$scope.answerIncident.text=noviOdgovorText;
+		$scope.answerIncident.autorId=$rootScope.id;
+		$scope.answerIncident.requestId=$scope.selectedRequest.id;
+
+		$log.log($scope.answerIncident);
+		$http.post('http://localhost:8080/requestanswer/add',$scope.answerIncident).then(function(response)
+		{
+			$scope.prikazi('zahtjevi');
+		});
 	}
 });
