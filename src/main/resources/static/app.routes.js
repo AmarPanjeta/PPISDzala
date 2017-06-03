@@ -39,6 +39,9 @@ app.config(function($routeProvider){
 }).when("/manageraddrequest",{
     templateUrl:"partials/managerAddRequest.html",
     controller:"managerAddRequestCtrl"
+  }).when("/closedrequests/:id",{
+    templateUrl:"partials/closedRequestView.html",
+    controller:"closedRequestViewCtrl"
   }).when("/showincident/:id",{
     templateUrl:"partials/showClosedIncident.html",
     controller:"showClosedIncidentCtrl"

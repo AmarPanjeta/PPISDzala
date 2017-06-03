@@ -1,0 +1,96 @@
+<div class="container">
+	<div class="row info">
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;"><b>Prikaz incidenta:</b></h2>
+
+
+
+			<h4><b>Prijavio:</b></h4>
+			<input type="text" placeholder="Korisnicko ime" ng-model="request.user.username" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4><b>Ime korisnika:</b></h4>
+			<input type="text" placeholder="Ime" ng-model="request.user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4 ><b>Prezime korisnika:</b></h4>
+			<input type="text" placeholder="Prezime" ng-model="request.user.surname" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+            <h4><b>Adresa korisnika:</b> </h4>
+			<input type="text" placeholder="Adresa korisnika" ng-model="request.user.address" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4><b>Email korisnika:</b> </h4>
+			<input type="text" placeholder="Email" ng-model="request.user.email" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+			<h4><b>Kontakt telefon:</b></h4>
+			<input type="text" placeholder="Kontakt telefon" ng-model="request.user.telephone" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+
+<!--sta ako nije pogledao mail na vrijeme?
+			<h4 ng-model="request.created"><b>Datum prijave:</b> </h4>
+			<input type="text" placeholder="Datum prijave" ng-model="user.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+-->
+
+
+			<h4 ><b>Način prijave:</b> </h4>
+			  <label class="radio-inline" for="reportMethod-1">
+			      {{dajNacinPrijave(request.reportMethod)}}
+				</label>
+
+
+			<h4 ><b>Naslov zahtjeva:</b> </h4>
+			<input type="text" placeholder="Opis incidenta" ng-model="request.title" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly required/>
+
+             <h4><b>Opis zahtjeva:</b> </h4>
+			<input type="text" placeholder="Opis poduzetih incidenta" ng-model="request.description" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
+
+						 <h4><b>Prioritet:</b> </h4>
+
+     <input type="text" placeholder="Opis poduzetih incidenta" ng-model="request.priority" name="name" class="username"
+                          ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
+
+			<h4><b>Odjel za rješavanje:</b></h4>
+      <input type="text"  ng-model="request.department.name" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" readonly  required/>
+
+
+
+
+
+		<!--	<h4 ng-model="request.incident"><b>Povezani incident:</b> </h4>
+			<input type="text" placeholder="Povezani incidenti" ng-model="incidentId" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\s]*$/" required/>
+        -->
+        <!--
+			<h4><b>Broj ponavljanja incidenta:</b> </h4>
+			<input type="text" placeholder="Broj ponavljanja incidenta" ng-model="request.repetition" name="name" class="username"
+                           ng-minlength="3" ng-pattern="/^[0-9\s]*$/" required/>
+        -->
+
+			<h4 ng-model="request.contactMethod"><b>Način odgovaranja:</b> </h4>
+			  <label class="radio-inline" for="contactMethod-1">
+          {{dajNacinPrijave(request.contactMethod)}}
+			</label>
+
+	        <br/>
+
+
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="povratakNaZahtjeve()" value="Povratak na zahtjeve"/>
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+</div>

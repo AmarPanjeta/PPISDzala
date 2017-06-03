@@ -39,6 +39,10 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
     $location.path("/requests/"+id);
   }
 
+  $scope.zatvoreniZahtjev=function(id){
+    $location.path("/closedrequests/"+id);
+  }
+
   $scope.generisiIzvjestaj=function(){
     stats={};
 
@@ -102,10 +106,6 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
         var seconds = date.getUTCSeconds();
         $scope.requests[i].datumPrijave={year,month,day,hours,minutes,seconds};
       }
-
-      $http.get("http://localhost:8080/requests/closed").then(function(response2){
-        $scope.closedRequests=response2.data;
-      });
     });
   }
 
@@ -114,9 +114,9 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
       $scope.aktuelniKlik=0;
       $scope.statistikaKlik=0;
       $scope.zatvoreniKlik=1;
-      $scope.requests=response.data;
-      for(i=0;i<$scope.requests.length;i++){
-        timestamp=$scope.requests[i].created;
+      $scope.closedRequests=response.data;
+      for(i=0;i<$scope.closedRequests.length;i++){
+        timestamp=$scope.closedRequests[i].created;
         var date = new Date(timestamp);
 
         var year = date.getUTCFullYear();
@@ -125,7 +125,7 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
         var hours = date.getUTCHours();
         var minutes = date.getUTCMinutes();
         var seconds = date.getUTCSeconds();
-        $scope.requests[i].datumPrijave={year,month,day,hours,minutes,seconds};
+        $scope.closedRequests[i].datumPrijave={year,month,day,hours,minutes,seconds};
       }
 
     })
@@ -147,4 +147,6 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
     $log.log("to je to!");
     $location.path("/manageraddrequest");
   }
+
+
 })
