@@ -61,7 +61,7 @@ public class UserController {
     public void findServiceByUserAndService(@RequestParam("userid") Long userid, @RequestParam("serviceid") Long serviceid) {
         RegisteredUser user = ur.findById(userid);
         Service service = sr.findById(serviceid);
-        List<UserService> lista = usr.getByUserAndService(user, service);
+        List<UserService> lista = usr.getByUserAndService(userid, serviceid);
         for (UserService us : lista) {
             usr.delete(us);
 

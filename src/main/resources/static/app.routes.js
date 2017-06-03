@@ -17,7 +17,6 @@ app.config(function($routeProvider){
   }).when('/useraccount',{
       templateUrl:"partials/userInfo.html",
       controller:"userInfoCtrl",
-      css:"stylesheets/userInfoStyle.css"
   }).when('/incidentmanager',{
     templateUrl:"partials/incidentManager.html",
     controller:"incidentMngCtrl"
