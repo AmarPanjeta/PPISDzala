@@ -1,0 +1,159 @@
+#miniMeni{
+	padding: 0px;
+}
+
+.miniMiniMeni{
+	height: 30%;
+	border-radius: 0px;
+	background-color: white;
+	padding: 0px;
+	border:1px solid white;
+}
+
+.navbar-fixed-left {
+	position: fixed;
+	border-radius: 0px;
+	background-color: transparent;
+	padding: 0px;
+}
+
+.navbar-minimal {
+	width: 20%;		
+	border-width: 0px;
+	z-index: 1000;
+	height: 50%;
+}
+
+.navbar-minimal > .navbar-menu {
+	padding: 0px;
+	height: 100%;
+	width:100%;
+}
+
+.navbar-minimal > .navbar-menu > li{
+	margin: 0px;
+	padding:0px;
+	background-color: transparent;
+	width: 100%;
+	height: 20%;
+	border:1px solid white;
+}
+
+.miniMiniMeni > li{
+	margin: 0px;
+	padding:0px;
+	background-color: transparent;
+	width: 100%;
+	height: 33%;
+	border:1px solid white;
+}
+
+.navbar-minimal > .navbar-menu > li:hover, .miniMiniMeni > li:hover{
+	background-color: #3f869b;
+}
+
+.navbar-minimal > .navbar-menu > li > a{
+	display: inline-block;
+	color: black;
+	padding: 10%;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	margin: 0px;
+}
+
+.miniMiniMeni > li > a {
+	display: inline-block;
+	color: black;
+	padding: 5px;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	margin: 0px;
+}
+
+
+.navbar-minimal > .navbar-menu > li > a > .glyphicon, .miniMiniMeni > li > a > .glyphicon{
+	float: right;
+}
+
+
+.userTab{
+	background:transparent;
+	width:60%;
+	padding:5%;
+	border:2px solid #3f869b;
+}
+
+
+.userTab tbody, thead, th,tr{
+	background-color: transparent;
+	border:2px solid #3f869b;
+	font-size: 20px;
+}
+
+.userTab button{
+	width:50px;
+	height: 20px;
+	float: right;
+	padding: 5px;
+	font-size: 10px;
+}
+
+.taskDetails{
+	opacity: 0.75;
+	border:2px solid lightgray;
+}
+
+.taskDetails button{
+	padding:0px;
+	margin: 0px;
+	background-color: gray;
+	float: left;
+}
+
+#incidentForm{
+	margin-left: 5%;
+}
+
+#userView{
+	margin-top: 5%;
+}
+
+#userInfo{
+	padding: 0px;
+	width: 100%;
+	background-color: transparent;
+}
+
+#prikazInfoa{
+	border:2px solid #3f869b;
+	font-size: 20px;
+}
+
+#prikazInfoa tbody,td,th{
+	border-style: none;
+}
+
+.forma{
+	background:transparent;
+	width:60%;
+	padding:5%;
+	border:2px solid #3f869b;
+}
+
+.forma label{
+	width: 100%;
+	padding:0px;
+	margin: 0px;
+}
+
+.forma input{
+	width: 100%;
+	padding:0px;
+	margin: 0px;
+}

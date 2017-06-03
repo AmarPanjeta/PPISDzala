@@ -26,7 +26,7 @@ public class UserController {
     private ServiceRepository sr;
 
     @RequestMapping("/login")
-    public LoginData login(@RequestBody LoginData data) throws ServletException {
+    public RegisteredUser login(@RequestBody LoginData data) throws ServletException {
 
         if (data.username == null || data.username.isEmpty() || data.password == null || data.password.isEmpty()) {
 
@@ -36,7 +36,7 @@ public class UserController {
 
         RegisteredUser user = ur.findFirstByUsernameAndPassword(data.username, data.password);
         if (user != null) {
-            return data;
+            return user;
         } else {
             throw new ServletException("Pogresna kombinacija username-password");
         }
@@ -61,7 +61,7 @@ public class UserController {
     public void findServiceByUserAndService(@RequestParam("userid") Long userid, @RequestParam("serviceid") Long serviceid) {
         RegisteredUser user = ur.findById(userid);
         Service service = sr.findById(serviceid);
-        List<UserService> lista = usr.getByUserAndService(user, service);
+        List<UserService> lista = usr.getByUserAndService(userid, serviceid);
         for (UserService us : lista) {
             usr.delete(us);
 
@@ -91,7 +91,6 @@ public class UserController {
         ur.save(user);
         return data;
     }
-
 
     @SuppressWarnings("unused")
     private static class UserData {

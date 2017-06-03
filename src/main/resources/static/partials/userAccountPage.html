@@ -1,43 +1,4 @@
-<style>
-    table {
-
-        border-collapse: separate;
-        border-spacing: 3px;
-        width: 100%
-    }
-
-    table tr {
-        background-color: gainsboro;
-
-    }
-
-    table tr td {
-        background-color: lightgray;
-        border-radius: 10px;
-        padding: 30px 20px;
-
-    }
-
-    h4 {
-        padding-bottom: 5px;
-        border-bottom: 1px solid gray;
-    }
-
-    .scrolling {
-        height: 180px;
-        overflow-y: hidden;
-    }
-
-    .scrolling:hover {
-        overflow-y: scroll;
-    }
-
-    .fl {
-        margin-left: 85%
-    }
-</style>
-
-<table ng-controller="userAccountCtrl" ng-init="onInit()" class="col-12">
+<table ng-controller="userAccountCtrl" ng-init="onInit()" class="col-12 tabela">
     <tr>
         <td ng-if="izmijeniPodatke" colspan="2">
             <h4> Promjena podataka </h4>
