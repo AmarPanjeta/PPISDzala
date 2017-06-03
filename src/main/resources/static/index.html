@@ -42,8 +42,9 @@
         </form>
 
         <ul class="nav navbar-nav navbar-right menu-list">
-
           <li ng-show="logged()" ng-class="{active:nav.tab('servicesController')}"><a href="#!/services"><span class="glyphicon glyphicon-book"></span> Usluge</a></li>
+          <li ng-show="isAdmin()" ng-class="{active:nav.tab('servicesController')}"><a href="#!/incidentmanager"><span class="glyphicon glyphicon-list-alt"></span> Incident panel</a></li>
+          <li ng-show="isAdmin()" ng-class="{active:nav.tab('userAccountController')}"><a href="#!/reqm"><span class=" glyphicon glyphicon-list-alt"></span> Zahtjevi panel</a></li>
           <li ng-show="logged()" ng-class="{active:nav.tab('userAccountController')}"><a href="#!/useraccount"><span class=" glyphicon glyphicon-list-alt"></span> Profil</a></li>
           <li ng-show="!logged()" ng-class="{active:nav.tab('loginController')}"><a href="#!/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
           <li ng-show="!logged()" ng-class="{active:nav.tab('registrationController')}"><a href="#!/registration"><span class="glyphicon glyphicon-log-in"></span> Registracija</a></li>
@@ -115,6 +116,7 @@
     <script src="controllers/showRequestCtrl.js" charset="utf-8"></script>
     <script src="controllers/closedRequestViewCtrl.js" charset="utf-8"></script>
     <script src="controllers/userInfoCtrl.js" charset="utf-8"></script>
+    <script src="controllers/requestReportCtrl.js" charset="utf-8"></script>
 
 
 
