@@ -19,7 +19,7 @@
 				<ul  ng-show="prikaz=='uslugeMeni'" class="miniMiniMeni">
 					<li ng-click="prikaziMojeUsluge()">
 						<a href="#!/useraccount" >
-							<span class="desc">Prikazi moje usluge</span>
+							<span class="desc">Prijavljene usluge</span>
 							<span class="glyphicon glyphicon-plus-sign"></span>
 						</a>
 					</li>
@@ -31,7 +31,7 @@
 					</li>
 					<li ng-click="prikaziStatusUsluga()">
 						<a href="#!/useraccount" >
-							<span class="desc">Pogledaj status nerijesenih</span>
+							<span class="desc">Pogledaj nerijesene</span>
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					</li>
@@ -59,7 +59,7 @@
 					</li>
 					<li ng-click="prikaziStatusIncidenata()">
 						<a href="#!/useraccount" >
-							<span class="desc">Pogledaj status nerijesenih</span>
+							<span class="desc">Pogledaj nerijesene</span>
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					</li>
@@ -120,21 +120,21 @@
 					</tr>
 				</thead>
 				<tbody ng-repeat="usluga in usluge" ng-switch on="isSelInc(usluga)" ng-click="selectIncident(usluga,$index)">
-					<tr ng-class="{sel:selIdx==$index}">
+					<tr ng-class="{sel:selIdx==$index}" style="border:none">
 						<td style="text-align: center;">{{usluga.name}}</td>
 						<td><button style="float: left; margin-left: 45%;" ng-click="odjaviUslugu(usluga.id)" class="glyphicon glyphicon-minus-sign"></button></td>
 						<td><button style="float: left; margin-left: 50%;" ng-click="prikaziPrijavuIncidenta(usluga.id)" class="glyphicon glyphicon-flash"></button></td>
 					</tr>
 
 
-					<tr ng-switch-when="true" >
-						<td style="font-size: 12px;">Naziv usluge: {{usluga.name}}</td>
+					<tr ng-switch-when="true" style="border:none">
+						<td style="font-size: 12px;" colspan="3">Naziv usluge: {{usluga.name}}</td>
 					</tr>
-					<tr ng-switch-when="true">
-						<td style="font-size: 12px;">Opis usluge: {{usluga.description}}</td>
+					<tr ng-switch-when="true" style="border:none">
+						<td style="font-size: 12px;" colspan="3">Opis usluge: {{usluga.description}}</td>
 					</tr>
-					<tr ng-switch-when="true">
-						<td style="font-size: 12px;">Cijena usluge: {{usluga.price}}</td>
+					<tr ng-switch-when="true" style="border:none">
+						<td style="font-size: 12px;" colspan="3">Cijena usluge: {{usluga.price}}</td>
 					</tr>
 					
 				</tbody>
@@ -146,19 +146,34 @@
 				<thead>
 					<tr>
 						<th>Naziv incidenta</th>
+						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody ng-repeat="incident in incidenti" ng-switch on="isSelInc(incident)" ng-click="selectIncident(incident,$index)">
 					<tr ng-class="{sel:selIdx==$index}">
-						<td>{{incident.title}}</td>
+						<td colspan="3">{{incident.title}}</td>
 					</tr>
-					<tr ng-switch-when="true">
-						<td style="font-size: 12px;">{{incident.description}}</td>
+					<tr ng-switch-when="true" style="border: none">
+						<td style="font-size: 12px;" colspan="3">Opis incidenta: {{incident.description}}</td>
 					</tr>
-					<!--<tr ng-switch-when="true">
-						<td style="font-size: 12px;">{{incident.datumPrijave.day}}.{{incident.datumPrijave.month}}.{{incident.datumPrijave.year}}.godine <br/>
-							{{incident.datumPrijave.hours}}:{{incident.datumPrijave.minutes}}:{{incident.datumPrijave.seconds}} sati</td>
-						</tr>-->
+					<tr ng-switch-when="true" style="border: none">
+						<td style="font-size: 12px;" colspan="3">Datum prijave incidenta: {{incident.created.day}}.{{incident.created.month}}.{{incident.created.year}}.godine <br/>
+							{{incident.created.hours}}:{{incident.created.minutes}}:{{incident.created.seconds}} sati</td>
+					</tr>
+					<tr ng-switch-when="true" style="border: none">
+						<td style="font-size: 12px;" colspan="3">Datum zatvaranja incidenta: {{incident.fixed_time_date.day}}.{{incident.fixed_time_date.month}}.{{incident.fixed_time_date.year}}.godine <br/>
+							{{incident.fixed_time_date.hours}}:{{incident.fixed_time_date.minutes}}:{{incident.fixed_time_date.seconds}} sati</td>
+					</tr>
+					<tr ng-switch-when="true" style="border: none">
+						<td style="font-size: 12px;" colspan="3">Datum rjesavanja incidenta: {{incident.closed_time_date.day}}.{{incident.created.month}}.{{incident.created.year}}.godine <br/>
+							{{incident.created.hours}}:{{incident.created.minutes}}:{{incident.created.seconds}} sati</td>
+					</tr>
+					<tr ng-switch-when="true" style="border: none">
+						<td style="font-size: 12px;">Odgovor incident menadzera: {{answerIncident}}</td>
+						<td><button>Prihvati</button></td>
+						<td><button>Odbij</button></td>
+					</tr>
 					</tbody>
 
 				</table>

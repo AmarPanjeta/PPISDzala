@@ -126,6 +126,19 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 	$scope.odjaviUslugu=function(uslugaid)
 	{
 		$log.log(uslugaid);
+
+		$http.get('http://localhost:8080/userservice/'+$rootScope.id+'/odjaviuslugu/'+uslugaid).then(function(response){
+			$scope.prikaziMojeUsluge();
+		});
 	}
 
+	$scope.prikaziOdgovorIncidenta=function()
+	{
+		$scope.answerIncident='nesto';
+
+		$http.get('http://localhost:8080/incidents/getanswerbyincident?id='+$scope.selectedIncident.id).then(function(response)
+			{
+				$log.log(response);
+			});
+	}
 });
