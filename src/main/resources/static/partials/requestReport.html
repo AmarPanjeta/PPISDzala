@@ -5,7 +5,7 @@
 	<div class="row info">
 
 		<div class="col-md-12">
-		<h2 style="text-decoration: underline;text-align: center;"><b>Generisanje izvjestaja</b></h2>
+		<h2 style="text-decoration: underline;text-align: center;"><b>Generisanje izvjestaja za zahtjeve</b></h2>
 
 
 
@@ -25,11 +25,11 @@
 
 				<br/>
         <div style="text-align:center;">
-          <h4 ng-show="connection!=0">Odaberite parametre:</h4>
+          <h4 ng-show="connection!=0" style="background-color:inherit;">Odaberite parametre:</h4>
 
   				<h5 ng-show="connection==1">Mjesec:</h5>
   				 <div class="ui-select" ng-show="connection==1" style="margin:13px auto 0px;">
-  			              <select id="incident_influence" class="form-control" ng-model="month" style="width: 60px;margin:0px auto;"  ng-options="x for x in mjeseci" data-toggle="tooltip" title="{{x}}">
+  			              <select id="incident_influence" class="form-control" ng-model="month" style="width: 80px;margin:0px auto;"  ng-options="x for x in mjeseci" data-toggle="tooltip" title="{{x}}">
 
   			              </select>
   			      </div>
@@ -37,7 +37,7 @@
 
   			      <h5 ng-show="connection!=0">Godina:</h5>
   				 <div class="ui-select" ng-show="connection!=0" style="margin-top: 13px;margin-bottom:13px;">
-  			              <select id="incident_influence" class="form-control" ng-model="year" style="width: 60px;margin:0px auto;"  ng-options="x for x in godine" data-toggle="tooltip" title="{{x}}">
+  			              <select id="incident_influence" class="form-control" ng-model="year" style="width: 80px;margin:0px auto;"  ng-options="x for x in godine" data-toggle="tooltip" title="{{x}}">
 
   			              </select>
   			      </div>
