@@ -12,7 +12,7 @@
 			<h4 ng-model="user.address"><b>Adresa:</b> {{user.address}}</h4>
 			<h4 ng-model="user.email"><b>Email:</b> {{user.email}}</h4>
 			<h4 ng-model="user.telephone"><b>Kontakt telefon:</b> {{user.telephone}}</h4>
-			<h4 ng-model="user.type"><b>Uloga:</b> {{user.type}}</h4>
+			<h4 ng-model="user.type"><b>Uloga:</b> {{dajUlogu(user.type)}}</h4>
 			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="promjenaPodataka()" value="Promijeni podatke"/>
 		</div>
 
@@ -26,8 +26,8 @@
 		<thead>
 			<tr>
 				<th colspan="8">Aktuelni incidenti
-					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info fl1" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
-					<button ng-if="aktuelniKlik" type="button" class="btn btn-info fl1" style="margin-left: 85.7%;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
+					<button ng-if="!aktuelniKlik" type="button" class="btn btn-info " style="float:right;" data-toggle="collapse" ng-click="prikaziAktuelne()">▼</button>
+					<button ng-if="aktuelniKlik" type="button" class="btn btn-info " style="float:right;" data-toggle="collapse" ng-click="sakrijAktuelne()">∆</button>
 				</th>
 			</tr>
 			<tr ng-show="aktuelniKlik">
@@ -69,8 +69,8 @@
 		<thead>
 			<tr>
 				<th colspan="8">Zatvoreni incidenti
-					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info fl2" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
-					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info fl2" style="margin-left: 84.99%;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
+					<button ng-if="!zatvoreniKlik" type="button" class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="prikaziZatvorene()">▼</button>
+					<button ng-if="zatvoreniKlik" type="button"  class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="sakrijZatvorene()">∆</button>
 				</th>
 			</tr>
 			<tr ng-show="zatvoreniKlik">
@@ -106,8 +106,8 @@
 		<thead>
 			<tr>
 				<th colspan="8">Statistika
-					<button ng-if="!statistikaKlik" type="button" class="btn btn-info fl3" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
-					<button ng-if="statistikaKlik" type="button"  class="btn btn-info fl3" style="margin-left:90.8%;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
+					<button ng-if="!statistikaKlik" type="button" class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="prikaziStatistiku()">▼</button>
+					<button ng-if="statistikaKlik" type="button"  class="btn btn-info" style="float:right;" data-toggle="collapse" ng-click="sakrijStatistiku()">∆</button>
 				</th>
 			</tr>
 

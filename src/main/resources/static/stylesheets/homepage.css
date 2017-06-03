@@ -7,6 +7,7 @@ max-height: 100%;
 width: 100%;
     }
 
+
 #myCarousel-copy{
   height: 80%;
 margin-bottom: 49px;
@@ -111,8 +112,11 @@ h4{
     table tr td {
         background-color: lightgray;
         border-radius: 10px;
-        padding: 30px 20px;
+      /*  padding: 30px 20px;*/
 
+    }
+    td{
+      text-align: center;
     }
 
      .fl1 {
@@ -127,12 +131,16 @@ h4{
     }
 
     .priority-class{
+      /*
       padding-left: 58px;
       border-radius: 11px;
       padding-right: 54px;
       padding-top: 5px;
-      padding-bottom: 5px;
+      padding-bottom: 5px;*/
+      padding: 5px 15px;
+      border-radius: 7px;
     }
+
 
     .department-class{
       padding-left: 0%;
@@ -141,12 +149,15 @@ h4{
       padding-top: 5px;
       padding-bottom: 5px;
     }
-    .status-class{
+    .status-class{/*
       padding-left: 58px;
       border-radius: 11px;
       padding-right: 54px;
       padding-top: 5px;
-      padding-bottom: 5px;
+      padding-bottom: 5px;*/
+    /*  padding: 10px 15px;*/
+      display: block;
+
     }
 
     .priority-class[value="5"]{
@@ -205,7 +216,7 @@ h4{
     .status-class[value="U obradi"]{
       background-color: orange;
     }
-   
+
     .status-class[value="Odbijen"]{
       background-color: gray;
     }
@@ -213,7 +224,7 @@ h4{
     .status-class[value="Odobren"]{
       background-color: yellow;
     }
-    
+
     .status-class[value="Otkazan"]{
       background-color: black;
     }
@@ -221,4 +232,14 @@ h4{
 .chart{
   width: 250px;
   height: 250px;
+}
+
+th{
+  text-align: center;
+  padding: 0px 5px;
+  border-radius: 7px;
+}
+
+th[colspan="8"]{
+  padding: 0px;
 }

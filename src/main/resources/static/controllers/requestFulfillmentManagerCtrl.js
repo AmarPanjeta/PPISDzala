@@ -131,6 +131,12 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
     })
   }
 
+  $scope.dajUlogu=function(uloga){
+    if(uloga==1) return "Administrator";
+    else if (uloga==2) return "Incident manager";
+    else return "Request Fulfillment manager"
+  }
+
   $scope.sakrijAktuelne=function(){
     $scope.aktuelniKlik=0;
   }
