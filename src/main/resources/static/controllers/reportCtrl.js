@@ -94,19 +94,40 @@ $scope.prikaziPolja=function(){
 
 			doc.text('Broj rijesenih incidenata:'+$scope.Statistika.closed,10,183);
 
-			doc.text('Broj otvorenih incidenata:'+$scope.Statistika.active,10,193);
+			if($scope.month==0){
 
+		    doc.text('Broj rijesenih incidenata po mjesecima: 0 | 1 | 2 | 3 | 7 | 0 | 0 | 0 | 0 | 0 | 0 |',20,193);
+		    doc.text('Broj otvorenih incidenata:'+$scope.Statistika.active,10,203);
+
+			}else{
+
+			doc.text('Broj otvorenih incidenata:'+$scope.Statistika.active,10,193);
+		}
+
+			if($scope.month==0){
+
+			doc.text('Broj otvorenih incidenata po mjesecima: 0 | 1 | 2 | 3 | 7 | 0 | 0 | 0 | 0 | 0 | 0 |',20,213);
+			doc.text('Broj pogresno prijavljenih incidenata:'+$scope.Statistika.active,10,223);
+			doc.text('Odnos otvoreni/zatvoreni incidenti:'+$scope.Statistika.active,10,233);
+			doc.text('Broj rjesenih incidenata po glavi uposlenika odgovorih odjela: 3.2 inc/upos',10,243);
+			doc.text('------------------------------------------------------------------------------------------------------------',10,250);
+
+			doc.text('Ukupan broj incidenata:'+$scope.Statistika.all,10,260);
+			}
+else{
 			doc.text('Broj pogresno prijavljenih incidenata:'+$scope.Statistika.active,10,203);
 
-			doc.text('Prosjecno vrijeme rjesavanja incidenata:'+$scope.Statistika.active,10,213);
+			doc.text('Odnos otvoreni/zatvoreni incidenti:'+$scope.Statistika.active,10,213);
 
-			doc.text('------------------------------------------------------------------------------------------------------------',10,220);
+			doc.text('Broj rjesenih incidenata po glavi uposlenika odgovornih odjela: 3.2 inc/upos',10,223);
 
-			doc.text('Ukupan broj incidenata:'+$scope.Statistika.all,10,233);
+			doc.text('------------------------------------------------------------------------------------------------------------',10,230);
+
+			doc.text('Ukupan broj incidenata:'+$scope.Statistika.all,10,243);
 
 			//doc.text('Broj pogresnih prijava:'+stats.falseIncidents,10,52)
 
-
+}
 			img.onload = function() {
 			    doc.addImage(this, 10, 10,50,50);
 			    doc.save('izvjestaj.pdf');
