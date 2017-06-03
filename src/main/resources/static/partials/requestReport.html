@@ -1,0 +1,97 @@
+<div class="container">
+
+
+
+	<div class="row info">
+
+		<div class="col-md-12">
+		<h2 style="text-decoration: underline;text-align: center;"><b>Generisanje izvjestaja</b></h2>
+
+
+
+
+		<h3 style="text-align:center;"><b>Vrsta izvjestaja:</b></h2>
+          <div style="text-align:center;">
+            <label class="radio-inline" for="Povezan-1">
+            <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="1" ng-change="prikaziPolja()" >
+              Mjesecni
+            </label>
+            <label class="radio-inline" for="Povezan-2" >
+              <input type="radio" ng-model="connection" name="report_method" id="Povezan-1" value="2" ng-change="prikaziPolja()" >
+              Godisnji
+          </label>
+
+          </div>
+
+				<br/>
+        <div style="text-align:center;">
+          <h4 ng-show="connection!=0">Odaberite parametre:</h4>
+
+  				<h5 ng-show="connection==1">Mjesec:</h5>
+  				 <div class="ui-select" ng-show="connection==1" style="margin:13px auto 0px;">
+  			              <select id="incident_influence" class="form-control" ng-model="month" style="width: 60px;margin:0px auto;"  ng-options="x for x in mjeseci" data-toggle="tooltip" title="{{x}}">
+
+  			              </select>
+  			      </div>
+
+
+  			      <h5 ng-show="connection!=0">Godina:</h5>
+  				 <div class="ui-select" ng-show="connection!=0" style="margin-top: 13px;margin-bottom:13px;">
+  			              <select id="incident_influence" class="form-control" ng-model="year" style="width: 60px;margin:0px auto;"  ng-options="x for x in godine" data-toggle="tooltip" title="{{x}}">
+
+  			              </select>
+  			      </div>
+        </div>
+
+
+
+           	</table>
+
+		<table class="col-12" ng-show="prikazi==1" style="width:100%">
+		<thead>
+			<tr>
+				<th colspan="8" style="text-align: center;">Statistika
+				</th>
+			</tr>
+
+			<tr >
+				<th>Ukupno incienata</th>
+				<th>Zatvoreni incidenti</th>
+				<th>Aktivni incidenti</th>
+			</tr>
+		</thead>
+
+		<tbody >
+			<tr >
+				<td>{{Statistika.all}}</td>
+				<td>{{Statistika.closed}}</td>
+				<td>{{Statistika.active}}</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="height: 10px;">
+
+
+					<input type="submit" class="btn btn-info" style="margin-bottom: 10px;margin-top: 10px;width:60%" ng-click="generisiIzvjestaj()" value="Isprintaj izvjestaj"/>
+
+				</td>
+			</tr>
+
+		</tbody>
+
+		</table>
+
+
+
+
+			<input type="submit" class="btn btn-info dugme-prijava" style="margin-bottom: 10px;" ng-click="kreirajIzvjestaj()" value="Prikazi statistiku"/>
+			<input type="submit" class="btn btn-danger dugme-prijava" style="margin-bottom: 10px;" ng-click="odustani()" value="Nazad"/>
+		</div>
+
+	</div>
+
+
+
+
+
+
+</div>

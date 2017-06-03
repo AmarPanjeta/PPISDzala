@@ -47,6 +47,9 @@ app.config(function($routeProvider){
   }).when("/reports",{
     templateUrl:"partials/report.html",
     controller:"reportCtrl"
+  }).when("/requestreports",{
+    templateUrl:"partials/requestReport.html",
+    controller:"requestReportCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

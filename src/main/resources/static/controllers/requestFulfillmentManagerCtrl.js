@@ -154,5 +154,8 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
     $location.path("/manageraddrequest");
   }
 
+  $scope.izvjestaji=function(){
+    $location.path("/requestreports");
+  }
 
 })
