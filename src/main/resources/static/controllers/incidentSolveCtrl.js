@@ -187,5 +187,11 @@ $scope.rijesenIncident=function(){
 
 }
 
+$scope.removeFromIncidents=function(){
+	  $http.get('http://localhost:8080/incidents/convert/'+$routeParams.id).then(function(response){
+      $location.path("/incidentmanager");
+    })
+}
+
 
 })

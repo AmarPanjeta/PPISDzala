@@ -41,6 +41,9 @@ app.config(function($routeProvider){
   }).when("/showincident/:id",{
     templateUrl:"partials/showClosedIncident.html",
     controller:"showClosedIncidentCtrl"
+  }).when("/reports",{
+    templateUrl:"partials/report.html",
+    controller:"reportCtrl"
   }).when("/",{
     templateUrl:"partials/homePage.html"
   }).otherwise("/")

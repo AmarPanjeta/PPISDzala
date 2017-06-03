@@ -15,4 +15,7 @@ public interface AnswerRepository extends CrudRepository<Answer, Long>{
 
 	@Query("select a from Answer a,IncidentAnswer ia where ia.incident.id=:id and ia.answer=a order by a.created asc")
 	public List<Answer> getAnswerByIncidentId(@Param("id") long id);
+	
+	@Query("select a from Answer a,IncidentAnswer ia where ia.incident.id=:id and ia.answer=a and a.autor.type!=0 order by a.created asc")
+	public List<Answer> getWorkerAnswerByIncidentId(@Param("id") long id);
 }
