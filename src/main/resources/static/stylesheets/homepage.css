@@ -94,8 +94,8 @@ body{
 }
 
 h4{
-	background-color: mintcream;
-}
+	/*background-color: mintcream;
+*/}
 
  .tabela {
 
@@ -200,7 +200,7 @@ h4{
       background-color: violet;
       padding-right:20%;
     }
-
+/*
 
     .status-class[value="Nerijesen"]{
       background-color: #f44336;
@@ -228,7 +228,7 @@ h4{
 
     .status-class[value="Otkazan"]{
       background-color: black;
-    }
+    }*/
 
 .chart{
   width: 250px;
@@ -248,4 +248,9 @@ th[colspan="8"]{
 .row{
   margin-left: 0;
   margin-right: 0;
+}
+
+input{
+  background-color:  mintcream;
+  border-radius: 7px;
 }

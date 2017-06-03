@@ -14,6 +14,12 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
   else{
   $rootScope.id=null;
   }
+  if(localStorage.hasOwnProperty("type")){
+    $rootScope.type=localStorage.getItem("type");
+  }
+  else{
+  $rootScope.type=null;
+  }
 
   $log.log("username je "+$rootScope.username);
 
@@ -36,13 +42,19 @@ app.controller('navigationCtrl',function($rootScope,$log,$location,$scope,$http,
     localStorage.removeItem("username");
     $rootScope.id=null;
     localStorage.removeItem("id");
+    $rootScope.type=null;
+    localStorage.removeItem("type");
     $location.path("/");
   };
 
  /* $scope.profile=function(){
     $location.path("/useraccount");
   }*/
-
+$scope.isAdmin=function(){
+  if($rootScope.type==null) return false;
+  else if ($rootScope.type!=1) return false;
+  return true;
+}
 
 $scope.imaZahtjeva=function(){
 return $rootScope.numberOfRequests!=0;
