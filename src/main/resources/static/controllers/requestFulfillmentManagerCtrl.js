@@ -15,12 +15,12 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
             maintainAspectRatio: true}
 
 
-  $scope.labelsBAR = ['2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+ $scope.labelsBAR = ['2015', '2016', '2017'];
   $scope.series = ['Rijeseni', 'Nerijeseni'];
 
   $scope.dataBAR = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
+    [56, 55, 40],
+    [86, 27, 90]
   ];
 
   $scope.loggedIn = function() {
@@ -83,6 +83,10 @@ app.controller('requestFulfillmentManagerCtrl',function($scope,$http,$location,$
         $scope.closedInc=response2.data;
         niz.push($scope.closedInc);
         $scope.data=niz;
+        $scope.dataBAR = [
+          [0, 0, $scope.closedInc],
+          [0, 0, $scope.activeInc]
+        ];
 
       })
     })

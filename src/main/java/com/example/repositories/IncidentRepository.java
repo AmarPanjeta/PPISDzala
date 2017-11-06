@@ -52,4 +52,6 @@ public interface IncidentRepository extends CrudRepository<Incident, Long>{
 	@Query("select count(i) from Incident i where i.created between :d1 and :d2 and i.status.status<>'Zatvoren'")
 	int countActiveIncidentsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
 	
+	@Query("select count(i) from Incident i where i.created between :d1 and :d2 and i.status.status='Pogresno prijavljen'")
+	int falsePositive(@Param("d1") Date d1,@Param("d2") Date d2);
 }

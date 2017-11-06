@@ -41,4 +41,7 @@ Request findById(@Param("id") long id);
 	
 	@Query("select count(i) from Request i where i.created between :d1 and :d2 and i.status.status<>'Zatvoren' and i.status.status<>'Pogresno prijavljen' and i.status.status<>'Odbijen'")
 	int countActiveRequestsByDate(@Param("d1") Date d1,@Param("d2") Date d2);
+	
+	@Query("select count(i) from Request i where i.created between :d1 and :d2 and i.status.status='Pogresno prijavljen'")
+	int falsePositive(@Param("d1") Date d1,@Param("d2") Date d2);
 }

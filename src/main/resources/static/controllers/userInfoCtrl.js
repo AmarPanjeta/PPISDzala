@@ -3,7 +3,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 	$scope.zahtjevi=[];
 	$scope.statusIncs=[];
 	$scope.incidenti=[];
-	$scope.prikaz='nista'; 
+	$scope.prikaz='nista';
 	$scope.prijavaIncidentaZaUsluguId;
 	$scope.selIdx= -1;
 	$scope.selIdxZ= -1;
@@ -25,7 +25,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 			$scope.selectedIncident.odgovor='';
 			$scope.dajOdgovoreIncident();
 			$scope.selIdx=idx;
-		}	
+		}
 	}
 
 	$scope.isSelInc=function(zah){
@@ -47,7 +47,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 			$scope.selectedRequest.odgovor='';
 			$scope.dajOdgovoreZahtjev();
 			$scope.selIdxZ=idx;
-		}	
+		}
 	}
 
 	$scope.isSelReq=function(zah){
@@ -62,7 +62,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		else{
 			$scope.selectedUsluga=usl;
 			$scope.selIdxU=idx;
-		}	
+		}
 	}
 
 	$scope.isSelUsl=function(usl){
@@ -92,7 +92,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		else if($scope.prikaz=='incidenti')
 		{
 			$http.get("http://localhost:8080/incidents/usersactive?userid="+$rootScope.id).then(function(response){
-				$scope.incidenti=response.data;	
+				$scope.incidenti=response.data;
 
 			});
 		}
@@ -100,7 +100,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		else if($scope.prikaz=='sviincidenti')
 		{
 			$http.get("http://localhost:8080/incidents/userIncident?userid="+$rootScope.id).then(function(response){
-				$scope.incidenti=response.data;	
+				$scope.incidenti=response.data;
 
 			});
 		}
@@ -154,6 +154,23 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		})
 	}
 
+	$scope.zatvoriIncident=function(){
+		$http.get("http://localhost:8080/incidents/close/"+$scope.selectedIncident.id).then(function(response){
+			$http.get("http://localhost:8080/incidents/usersactive?userid="+$rootScope.id).then(function(response){
+				$scope.incidenti=response.data;
+			});
+		})
+	}
+
+	$scope.zatvoriZahtjev=function(){
+		$http.get("http://localhost:8080/requests/close/"+$scope.selectedRequest.id).then(function(response){
+			$http.get('http://localhost:8080/requests/usersactive?userid='+$rootScope.id).then(function(res)
+			{
+				$scope.zahtjevi=res.data;
+			});
+		})
+	}
+
 	$scope.dajOdgovoreZahtjev=function(){
 
 		$http.get("http://localhost:8080/requestanswer/getanswersbyrequest/"+$scope.selectedRequest.id).then(function(response){
@@ -184,7 +201,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 			}
 		})
 	}
-	
+
 	$scope.prikaziPrijavuIncidenta=function(uslugaId)
 	{
 		$scope.prikazi('prijavaIncidenta');
@@ -213,7 +230,7 @@ app.controller('userInfoCtrl', function($scope, $http, $rootScope, $log){
 		$scope.request.contactMethod = ($scope.request.contact_method=="email"? 1:2);
 		$scope.request.reportMethod = 1;
 
-		$http.post('http://localhost:8080/requests/'+$rootScope.id+'/addRequest',$scope.request).then(function(response)
+		$http.post('http://localhost:8080/requests/reportrequest',{userId:$rootScope.id,title:$scope.request.title,description:$scope.request.description,contactMethod:$scope.request.contactMethod}).then(function(response)
 		{
 			$scope.prikazi('zahtjevi');
 		});

@@ -55,6 +55,11 @@ $scope.isAdmin=function(){
   else if ($rootScope.type!=1) return false;
   return true;
 }
+$scope.isType=function(id){
+  if($rootScope.type==null) return false;
+  else if ($rootScope.type!=id) return false;
+  return true;
+}
 
 $scope.imaZahtjeva=function(){
 return $rootScope.numberOfRequests!=0;

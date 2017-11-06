@@ -109,6 +109,10 @@ app.controller('incidentMngCtrl',function($http,$log,$rootScope,$scope,$route,$l
 				$scope.closedInc=response2.data;
 				niz.push($scope.closedInc);
 				$scope.data=niz;
+				$scope.dataBAR = [
+					[0, 0, $scope.closedInc],
+					[0, 0, $scope.activeInc]
+				];
 			})
 		})
 

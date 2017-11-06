@@ -48,7 +48,7 @@ $scope.prikaziPolja=function(){
 
 			doc.text('Izvjestaj', 10, 10)
 
-			doc.text('Broj incidenata:'+$scope.Statistika.all,10,22);
+			doc.text('Broj zahtjeva:'+$scope.Statistika.all,10,22);
 
 			doc.text('Broj rijesenih:'+$scope.Statistika.closed,10,32);
 
@@ -86,7 +86,7 @@ $scope.prikaziPolja=function(){
 			doc.setFontSize(22);
 			doc.setFont("times");
 			doc.setFontType("bolditalic");
-			doc.text(80,83,"Izvještaj o zahtjevima za uslugom");
+			doc.text(80,83,"Izvještaj o zahtjevima");
 
 			doc.setFontSize(14);
 			doc.setFont("times");
@@ -113,21 +113,42 @@ $scope.prikaziPolja=function(){
 			doc.setFont("times");
 			doc.setFontType("normal");
 
-			doc.text('Broj rijesenih zahtjeva za uslugom:'+$scope.Statistika.closed,10,183);
+			doc.text('Broj rijesenih zahtjeva:'+$scope.Statistika.closed,10,183);
 
-			doc.text('Broj otvorenih zahtjeva za uslugom:'+$scope.Statistika.active,10,193);
+			if($scope.month==0){
 
-			doc.text('Broj pogresno prijavljenih zahtjeva za uslugom:'+$scope.Statistika.active,10,203);
+				doc.text('Broj rijesenih zahtjeva po mjesecima: '+$scope.Statistika.closedMonthly.join(' | '),20,193);
+				doc.text('Broj aktivnih zahtjeva:'+$scope.Statistika.active,10,203);
 
-			doc.text('Prosjecno vrijeme rjesavanja incidenata:'+$scope.Statistika.active,10,213);
+			}else{
 
-			doc.text('------------------------------------------------------------------------------------------------------------',10,220);
+			doc.text('Broj aktivnih zahtjeva:'+$scope.Statistika.active,10,193);
+		}
 
-			doc.text('Ukupan broj zahtjeva za uslugom:'+$scope.Statistika.all,10,233);
+			if($scope.month==0){
+
+			doc.text('Broj otvorenih zahtjeva po mjesecima: '+$scope.Statistika.allMonthly.join(' | '),20,213);
+			doc.text('Broj pogresno prijavljenih zahtjeva: '+$scope.Statistika.falsePositive,10,223);
+			doc.text('Odnos zatvoreni/otvoreni zahtjevi: '+(Math.round($scope.Statistika.closed/$scope.Statistika.all*100)/100),10,233);
+			doc.text('Broj rjesenih zahtjeva po glavi uposlenika odgovorih odjela: '+ (Math.round($scope.Statistika.perWorker * 100) / 100)+' z/upos',10,243);
+			doc.text('------------------------------------------------------------------------------------------------------------',10,250);
+
+			doc.text('Ukupan broj zahtjeva:'+$scope.Statistika.all,10,260);
+			}
+else{
+			doc.text('Broj pogresno prijavljenih zahtjeva:	'+$scope.Statistika.falsePositive,10,203);
+
+			doc.text('Odnos zatvoreni/otvoreni zahtjevi:	'+(Math.round($scope.Statistika.closed/$scope.Statistika.all*100)/100),10,213);
+
+			doc.text('Broj rjesenih zahtjeva po glavi uposlenika odgovornih odjela: '+ (Math.round($scope.Statistika.perWorker * 100) / 100)+' z/upos',10,223);
+
+			doc.text('------------------------------------------------------------------------------------------------------------',10,230);
+
+			doc.text('Ukupan broj zahtjeva:'+$scope.Statistika.all,10,243);
 
 			//doc.text('Broj pogresnih prijava:'+stats.falseIncidents,10,52)
 
-
+}
 			img.onload = function() {
 					doc.addImage(this, 10, 10,50,50);
 					doc.save('izvjestaj.pdf');
@@ -135,6 +156,7 @@ $scope.prikaziPolja=function(){
 			};
 			img.crossOrigin = "";
 			img.src = '/picture/logoone.png';
+
 
 
 			/*
@@ -149,13 +171,37 @@ $scope.prikaziPolja=function(){
 
 
 
-			doc.text('Broj rijesenih incidenata:'+$scope.Statistika.closed,10,52);
+			doc.text('Broj rijesenih zahtjeva:'+$scope.Statistika.closed,10,52);
 
-			doc.text('Broj otvorenih incidenata:'+$scope.Statistika.active,10,62);
+			doc.text('Broj otvorenih zahtjeva:'+$scope.Statistika.active,10,62);
 
 			doc.text('-------------------------------------------------------------',10,72);
 
-			doc.text('Ukupan broj incidenata:'+$scope.Statistika.all,10,82);
+			doc.text('Ukupan broj zahtjeva:'+$scope.Statistika.all,10,82);
+
+			//doc.text('Broj pogresnih prijava:'+stats.falseIncidents,10,52);*/
+
+
+
+			/*
+
+				if($scope.month!=0){
+				doc.text('Izvjestaj za period: '+$scope.month+'/'+$scope.year+'.godine',10,32);
+			}else{
+				doc.text('Izvjestaj za godinu: '+$scope.year+'.',10,32);
+			}
+
+			doc.text('',10,42);
+
+
+
+			doc.text('Broj rijesenih zahtjeva:'+$scope.Statistika.closed,10,52);
+
+			doc.text('Broj otvorenih zahtjeva:'+$scope.Statistika.active,10,62);
+
+			doc.text('-------------------------------------------------------------',10,72);
+
+			doc.text('Ukupan broj zahtjeva:'+$scope.Statistika.all,10,82);
 
 			//doc.text('Broj pogresnih prijava:'+stats.falseIncidents,10,52);*/
 

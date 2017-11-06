@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import com.example.controllers.RequestController.StatisticsResponse;
 import com.example.models.*;
 import com.example.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -361,7 +362,18 @@ public class IncidentController {
 		body.all=this.yearly(year);
 		body.active=this.yearlyActive(year);
 		body.closed=this.yearlyClosed(year);
-		
+		body.openedMonthly=new int[12];
+		body.closedMonthly=new int[12];
+		body.allMonthly=new int[12];
+		body.falsePositive=this.falseStats(year);
+		for(int i=1;i<=12;i++){
+			StatisticsResponse monthly=yearlyStatistics(year, i);
+			body.openedMonthly[i-1]=monthly.active;
+			body.closedMonthly[i-1]=monthly.closed;
+			body.allMonthly[i-1]=monthly.all;
+		}
+		int numberOfWorkers=userr.numberByType(1)+userr.numberByType(4);
+		body.perWorker=(double)body.closed/numberOfWorkers;
 		return body;
 	}
 	
@@ -371,8 +383,61 @@ public class IncidentController {
 		body.all=this.monthly(year, month);
 		body.active=this.monthlyactive(year, month);
 		body.closed=this.monthlyclosed(year, month);
-		
+		body.falsePositive=this.falseStats(year, month);
+		int numberOfWorkers=userr.numberByType(1)+userr.numberByType(4);
+		body.perWorker=(double)body.closed/numberOfWorkers;
 		return body;
+	}
+	
+	@RequestMapping("/falsestatsyear")
+	public int falseStats(@RequestParam("year") int year){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
+		System.out.println(d2);
+		
+		
+		return ir.falsePositive(d1, d2);
+	}
+	
+	@RequestMapping("/falsestatsmonth")
+	public int falseStats(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return ir.falsePositive(d1, d2);
 	}
 	
 	@RequestMapping("/yearlyall")
@@ -381,6 +446,9 @@ public class IncidentController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -388,6 +456,9 @@ public class IncidentController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return ir.countIncidentsByDate(d1, d2);
@@ -401,12 +472,18 @@ public class IncidentController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
@@ -415,12 +492,16 @@ public class IncidentController {
 		
 	}
 	
+	
 	@RequestMapping("/yearlyclosed")
 	public int yearlyClosed(@RequestParam("year") int year){
 		Date d1=new Date();
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -428,6 +509,9 @@ public class IncidentController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return ir.countClosedIncidentsByDate(d1, d2);
@@ -441,13 +525,18 @@ public class IncidentController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
-		
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
 		
@@ -461,6 +550,9 @@ public class IncidentController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -468,6 +560,9 @@ public class IncidentController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return ir.countActiveIncidentsByDate(d1, d2);
@@ -481,13 +576,18 @@ public class IncidentController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
-		
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
 		
@@ -517,6 +617,13 @@ public class IncidentController {
 		
 	}
 	
+    @RequestMapping("/close/{id}")
+    public void close(@PathVariable("id") long id){
+    	Incident i = ir.findById(id);
+    	i.setStatus(statusr.findByStatus("Zatvoren"));
+    	ir.save(i);    	
+    }
+    
 	@SuppressWarnings("unused")
 	private static class IncidentBody{
 		public String description;
@@ -541,6 +648,7 @@ public class IncidentController {
 		public int fixed;
 		public int open;
 		public int falseIncidents;
+		
 	}	
 	
 	@SuppressWarnings("unused")
@@ -548,5 +656,10 @@ public class IncidentController {
 		public int active;
 		public int closed;
 		public int all;
+		public int openedMonthly[];
+		public int closedMonthly[];
+		public int allMonthly[];
+		public int falsePositive;
+		public double perWorker;
 	}
 }

@@ -108,15 +108,15 @@ app.controller('userAccountCtrl', function ($rootScope, $log, $location, $scope,
         $scope.prijaviZahtjevZaUslugom = function () {
 
             $scope.request.contactMethod = ($scope.request.contact_method=="email"? 1:2);
-            $scope.request.reportMethod = 1;
+            $scope.request.reportMethod = 3;
 
             $http({
                     method: 'POST',
-                    url: '/requests/' + $scope.user.id + "/addRequest",
+                    url: '/reportrequest',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: angular.toJson($scope.request)
+                    data: angular.toJson({userId:$scope.user.id,title:$scope.incident.title,description:$scope.incident.description,contactMethod:$scope.request.contactMethod})
                 }
             ).then(function (response) {
                 $http.get('/requests/userRequest?userid=' + $scope.user.id).then(function (response3) {

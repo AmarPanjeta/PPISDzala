@@ -20,4 +20,7 @@ public interface UserRepository extends CrudRepository<RegisteredUser, Long> {
 
 	@Query("select ru.id from RegisteredUser ru where ru.username=:username")
 	long getIdbyUsername(@Param("username") String username);
+	
+	@Query("select count(u) from RegisteredUser u where u.type=:type")
+	int numberByType(@Param("type")int type);
 }

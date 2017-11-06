@@ -164,7 +164,18 @@ public class RequestController {
 		body.all=this.yearly(year);
 		body.active=this.yearlyActive(year);
 		body.closed=this.yearlyClosed(year);
-		
+		body.openedMonthly=new int[12];
+		body.closedMonthly=new int[12];
+		body.allMonthly=new int[12];
+		body.falsePositive=this.falseStats(year);
+		for(int i=1;i<=12;i++){
+			StatisticsResponse monthly=yearlyStatistics(year, i);
+			body.openedMonthly[i-1]=monthly.active;
+			body.closedMonthly[i-1]=monthly.closed;
+			body.allMonthly[i-1]=monthly.all;
+		}
+		int numberOfWorkers=userr.numberByType(1)+userr.numberByType(3);
+		body.perWorker=(double)body.closed/numberOfWorkers;
 		return body;
 	}
 	
@@ -174,7 +185,9 @@ public class RequestController {
 		body.all=this.monthly(year, month);
 		body.active=this.monthlyactive(year, month);
 		body.closed=this.monthlyclosed(year, month);
-		
+		body.falsePositive=this.falseStats(year, month);
+		int numberOfWorkers=userr.numberByType(1)+userr.numberByType(3);
+		body.perWorker=(double)body.closed/numberOfWorkers;
 		return body;
 	}
 	
@@ -184,6 +197,9 @@ public class RequestController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -191,11 +207,65 @@ public class RequestController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return reqr.countRequestsByDate(d1, d2);
 		
 	}
+	@RequestMapping("/falsestatsyear")
+	public int falseStats(@RequestParam("year") int year){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(11);
+		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
+		System.out.println(d2);
+		
+		
+		return reqr.falsePositive(d1, d2);
+	}
+	
+	@RequestMapping("/falsestatsmonth")
+	public int falseStats(@RequestParam("year") int year,@RequestParam("month") int month){
+		int niz[]={31,28,31,30,31,30,31,31,30,31,30,31};
+		Date d1=new Date();
+		d1.setYear(year-1900);
+		d1.setDate(1);
+		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
+		System.out.println(d1);
+		
+		Date d2=new Date();
+		d2.setYear(year-1900);
+		d2.setDate(5);
+		d2.setMonth(month-1);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
+		d2.setDate(niz[month-1]);
+		System.out.println(d2);
+		
+		return reqr.falsePositive(d1, d2);
+	}
+	
 	
 	@RequestMapping("/monthlyall")
 	public int monthly(@RequestParam("year") int year,@RequestParam("month") int month){
@@ -204,13 +274,18 @@ public class RequestController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
-		
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
 		
@@ -218,12 +293,16 @@ public class RequestController {
 		
 	}
 	
+	
 	@RequestMapping("/yearlyclosed")
 	public int yearlyClosed(@RequestParam("year") int year){
 		Date d1=new Date();
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -231,6 +310,9 @@ public class RequestController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return reqr.countClosedRequestsByDate(d1, d2);
@@ -244,13 +326,18 @@ public class RequestController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
-		
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
 		
@@ -264,6 +351,9 @@ public class RequestController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(0);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
@@ -271,6 +361,9 @@ public class RequestController {
 		d2.setDate(5);
 		d2.setMonth(11);
 		d2.setDate(31);
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		System.out.println(d2);
 		
 		return reqr.countActiveRequestsByDate(d1, d2);
@@ -284,13 +377,18 @@ public class RequestController {
 		d1.setYear(year-1900);
 		d1.setDate(1);
 		d1.setMonth(month-1);
+		d1.setHours(0);
+		d1.setMinutes(2);
+		d1.setSeconds(1);
 		System.out.println(d1);
 		
 		Date d2=new Date();
 		d2.setYear(year-1900);
 		d2.setDate(5);
 		d2.setMonth(month-1);
-		
+		d2.setHours(23);
+		d2.setMinutes(58);
+		d2.setSeconds(55);
 		d2.setDate(niz[month-1]);
 		System.out.println(d2);
 		
@@ -338,11 +436,23 @@ public class RequestController {
         public String title;
     }
     
+    @RequestMapping("/close/{id}")
+    public void close(@PathVariable("id") long id){
+    	Request r = reqr.findById(id);
+    	r.setStatus(statusr.findByStatus("Zatvoren"));
+    	reqr.save(r);    	
+    }
+    
 	@SuppressWarnings("unused")
 	public static class StatisticsResponse{
 		public int active;
 		public int closed;
 		public int all;
+		public int openedMonthly[];
+		public int closedMonthly[];
+		public int allMonthly[];
+		public int falsePositive;
+		public double perWorker;
 	}
 	
 	@SuppressWarnings("unused")
